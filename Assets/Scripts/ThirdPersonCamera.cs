@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-    float rotationSpeed = 1;
+    float rotationSpeed = 0.5f;
     public Transform Target, Player;
     float mouseX, mouseY;
 
@@ -31,17 +31,14 @@ public class ThirdPersonCamera : MonoBehaviour
         mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
-        transform.LookAt(Target);
+        //transform.LookAt(Target);
 
-        //if (Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-        //}
-        //else
-        //{
-            Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-            Player.rotation = Quaternion.Euler(0, (Input.GetAxis("Horizontal") * 25) + mouseX, 0);
-        //}
+        var targetRotation = Quaternion.LookRotation(Target.position - transform.position);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        //Player.rotation = Quaternion.Euler(0, (Input.GetAxis("Horizontal") * 25) + mouseX, 0);
     }
 
 

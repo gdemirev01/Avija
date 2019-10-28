@@ -27,17 +27,8 @@ public class DealDamage : MonoBehaviour
         {
             isAttacking = true;
 
-            DisableMovement(attacker);
-            
             //animation
             animator.SetTrigger("attack");
-        }
-    }
-
-    private void DisableMovement(GameObject attacker) {
-        if (attacker.tag.Equals("Player"))
-        {
-            transform.root.gameObject.GetComponent<CharacterController>().canMove = false;
         }
     }
 }
