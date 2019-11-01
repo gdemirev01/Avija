@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
     public float range = 5;
     public bool playerInRange = false;
-    public bool attacking = false;
+    public bool playerInAttackRange = false;
     public float speed = 1f;
     private Animator animator;
     // Start is called before the first frame update
@@ -31,35 +31,41 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("running", false);
         }
 
-        if(attacking && playerInRange)
+        if(playerInRange && playerInAttackRange)
         {
-            StartCoroutine(AttackDelay());
+            if(!GameObject.Find("LeftHand").GetComponent<DealDamage>().isAttacking)
+            {
+                Attack();
+            }
         }
     }
 
     private void AdvanceToPlayer()
     {
-        
-
-        if (Vector3.Distance(transform.position, player.transform.position) < 1f)
+        if (Vector3.Distance(transform.position, player.transform.position) < 2f)
         {
             animator.SetBool("running", false);
-            attacking = true;
+            playerInAttackRange = true;
             return;
         }
         else
         {
             animator.SetBool("running", true);
-            attacking = false;
         }
 
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         transform.LookAt(player.transform);
     }
 
+    private void Attack()
+    {
+        GameObject.Find("LeftHand").GetComponent<DealDamage>().Attack();
+        Invoke("EndAttack", 5f);
+    }
+
     private void Detection()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < 15f)
+        if (Vector3.Distance(transform.position, player.transform.position) < range)
         {
             playerInRange = true;
         }
@@ -69,19 +75,18 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    IEnumerator AttackDelay()
+    public void EndAttack()
     {
-        attacking = false;
-
-        yield return new WaitForSeconds(3f);
-
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().Attack(gameObject);
-
-        attacking = true;
+        GameObject.Find("LeftHand").GetComponent<DealDamage>().EndAttack();
     }
 
-    public void EnableAttacking()
+    public void EnableAttack()
     {
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().isAttacking = false;
+        GameObject.Find("LeftHand").GetComponent<DealDamage>().disableAttacks = false;
+    }
+
+    public void DisableAttack()
+    {
+        GameObject.Find("LeftHand").GetComponent<DealDamage>().disableAttacks = true;
     }
 }

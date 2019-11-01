@@ -18,7 +18,8 @@ public class CharacterController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && GetComponent<PlayerMovement>().inBattle)
         {
-            GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().Attack(gameObject);
+            Debug.Log("attack");
+            GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().Attack();
         }
     }
 

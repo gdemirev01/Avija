@@ -11,8 +11,18 @@ public class ReceiveHit : MonoBehaviour
         animator = this.gameObject.GetComponent<Animator>();
     }
 
-    public void receiveHit(DealDamage other)
+    public void receiveHit()
     {
+        if (gameObject.GetComponent<CharacterController>())
+        {
+            gameObject.GetComponent<CharacterController>().EndAttack();
+            gameObject.GetComponent<CharacterController>().EnableAttack();
+        }
+        else if(gameObject.GetComponent<EnemyController>())
+        {
+            gameObject.GetComponent<EnemyController>().EnableAttack();
+        }
+
         //lower health
         animator.SetTrigger("getHitted");
     }
