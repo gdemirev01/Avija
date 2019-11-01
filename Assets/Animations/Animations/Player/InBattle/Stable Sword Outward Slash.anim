@@ -46914,8 +46914,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.93333334
-    functionName: StopAnimation
+  - time: 0.7
+    functionName: EnableAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.1333333
+    functionName: DisableAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -46923,6 +46930,13 @@ AnimationClip:
     messageOptions: 0
   - time: 2.0333333
     functionName: EnableMoving
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.0333333
+    functionName: EndAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

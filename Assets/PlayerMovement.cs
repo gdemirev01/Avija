@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 moveDirection;
     public bool blockRotationOnPlayer = false;
     public float allowPlayerRotation;
+    public bool inBattle = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,68 +24,69 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GetComponent<CharacterController>().inBattle)
-        {
-            BattleMovement();
-        } 
-        else
-        {
-            InputMagnitude();
-        }
+        InputMagnitude();
 
-
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("DrawSword"))
         {
-            animator.SetTrigger("dancing");
+            ChangeStance();
         }
     }
 
     public void EnableMoving()
     {
+        blockRotationOnPlayer = false;
         canMove = true;
     }
 
     public void DisableMoving()
     {
+        blockRotationOnPlayer = true;
         canMove = false;
     }
 
     void BattleMovement()
     {
-        float hor = Input.GetAxis("Horizontal");
-        float ver = Input.GetAxis("Vertical");
 
         if (!canMove) { return; }
 
-        if (hor != 0)
+        float InputX = Input.GetAxis("Horizontal");
+        float InputZ = Input.GetAxis("Vertical");
+
+        var camera = Camera.main;
+        var forward = camera.transform.forward;
+        var right = camera.transform.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        if (InputZ != 0 && InputX != 0)
         {
-            animator.SetFloat("direction", Mathf.Ceil(1 * hor));
-            animator.SetBool("strifing", true);
+            moveDirection = forward + (right / 2) * InputX;
         }
-        else
+        else 
         {
-            animator.SetBool("strifing", false);
+            moveDirection = forward;
         }
 
-        if (ver != 0)
+        if (!blockRotationOnPlayer)
         {
-            animator.SetFloat("direction", Mathf.Ceil(1 * ver));
-            animator.SetBool("walking", true);
-        }
-        else
-        {
-
-            animator.SetBool("walking", false);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed / 2);
         }
 
-        if (ver < 0) { hor *= -1; }
+        if(InputZ < 0) { InputX *= -1; }
 
-        Vector3 playerMovement = new Vector3(hor, 0f, ver) * speed * Time.deltaTime;
+        Vector3 playerMovement = new Vector3(InputX, 0f, InputZ) * (speed / 2) * Time.deltaTime;
         transform.Translate(playerMovement, Space.Self);
     }
 
     private void NormalMovement()
     {
+
+        if (!canMove) { return; }
+
         float InputX = Input.GetAxis("Horizontal");
         float InputZ = Input.GetAxis("Vertical");
 
@@ -105,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
         }
 
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * (speed + (Input.GetAxis("Running") * 2.5f)) * Time.deltaTime);
     }
 
     private void InputMagnitude()
@@ -122,11 +124,35 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetFloat("InputMagnitude", Speed, 0.0f, Time.deltaTime);
             animator.SetFloat("running", Input.GetAxis("Running"), 0.0f, Time.deltaTime);
-            NormalMovement();
+
+            if (inBattle)
+            {
+                BattleMovement();
+            }
+            else
+            {
+                NormalMovement();
+            }
         } 
         else
         {
             animator.SetFloat("InputMagnitude", Speed, 0.0f, Time.deltaTime);
+        }
+    }
+
+    public void ChangeStance()
+    {
+        canMove = false;
+        inBattle = !inBattle;
+        if (inBattle)
+        {
+            GameObject.Find("PlayerWeapon").GetComponent<MeshRenderer>().enabled = true;
+            animator.SetBool("drawSword", true);
+        }
+        else
+        {
+            GameObject.Find("PlayerWeapon").GetComponent<MeshRenderer>().enabled = false;
+            animator.SetBool("drawSword", false);
         }
     }
 }

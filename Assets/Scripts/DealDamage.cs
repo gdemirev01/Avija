@@ -6,6 +6,7 @@ public class DealDamage : MonoBehaviour
 {
     public bool isAttacking = false;
     private Animator animator;
+    public bool disableAttacks = false;
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class DealDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.tag.Equals("Enemy") || other.gameObject.Equals("Player")) && isAttacking)
+        if ((other.gameObject.tag.Equals("Enemy") || other.gameObject.Equals("Player")) && isAttacking && !disableAttacks)
         {
             Debug.Log("hit");
             other.GetComponent<ReceiveHit>().receiveHit(this);
@@ -27,8 +28,12 @@ public class DealDamage : MonoBehaviour
         {
             isAttacking = true;
 
-            //animation
             animator.SetTrigger("attack");
         }
+    }
+
+    public void EndAttack()
+    {
+        isAttacking = false;
     }
 }
