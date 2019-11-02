@@ -20,12 +20,12 @@ public class DealDamage : MonoBehaviour
             if ((gameObject.tag.Equals("PlayerWeapon") && other.gameObject.tag.Equals("Enemy")))
             {
                 animator.ResetTrigger("getHitted");
-                other.GetComponent<ReceiveHit>().receiveHit();
+                other.GetComponent<ReceiveHit>().receiveHit(gameObject);
             }
             else if ((gameObject.tag.Equals("EnemyWeapon") && other.gameObject.tag.Equals("Player")))
             {
                 animator.ResetTrigger("getHitted");
-                other.GetComponent<ReceiveHit>().receiveHit();
+                other.GetComponent<ReceiveHit>().receiveHit(gameObject);
             }
         }
     }

@@ -146,13 +146,18 @@ public class PlayerMovement : MonoBehaviour
         inBattle = !inBattle;
         if (inBattle)
         {
-            GameObject.Find("PlayerWeapon").GetComponent<MeshRenderer>().enabled = true;
-            animator.SetBool("drawSword", true);
+            animator.SetTrigger("drawSword");
         }
         else
         {
-            GameObject.Find("PlayerWeapon").GetComponent<MeshRenderer>().enabled = false;
-            animator.SetBool("drawSword", false);
+            animator.SetTrigger("sheathSword");
         }
+    }
+
+    public void ToggleWeapon(string parameters)
+    {
+        string[] p = parameters.Split(' ');
+        var state = p[1] == "true";
+        GameObject.Find(p[0]).GetComponent<MeshRenderer>().enabled =  state;
     }
 }

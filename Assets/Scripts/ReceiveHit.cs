@@ -11,7 +11,7 @@ public class ReceiveHit : MonoBehaviour
         animator = this.gameObject.GetComponent<Animator>();
     }
 
-    public void receiveHit()
+    public void receiveHit(GameObject attacker)
     {
         if (gameObject.GetComponent<CharacterController>())
         {
@@ -23,7 +23,26 @@ public class ReceiveHit : MonoBehaviour
             gameObject.GetComponent<EnemyController>().EnableAttack();
         }
 
-        //lower health
+        var damage = attacker.GetComponent<WeaponStats>().damage;
+        GetComponent<CharacterProps>().health -= damage;
+        var health = GetComponent<CharacterProps>().health;
+        Debug.Log("health of " + this.tag + " " + health);
+        if(health <= 0)
+        {
+            animator.SetTrigger("die");
+            if(this.tag.Equals("Player"))
+            {
+                GetComponent<CharacterController>().enabled = false;
+                this.enabled = false;
+            }
+            else if(tag.Equals("Enemy"))
+            {
+                GetComponent<EnemyController>().enabled = false;
+                this.enabled = false;
+                GetComponent<BoxCollider>().enabled = false;
+            }
+        }
+
         animator.SetTrigger("getHitted");
     }
 }
