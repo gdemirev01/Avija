@@ -42,7 +42,7 @@ public class EnemyController : MonoBehaviour
 
     private void AdvanceToPlayer()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < 2f)
+        if (Vector3.Distance(transform.position, player.transform.position) < 1.5f)
         {
             animator.SetBool("running", false);
             playerInAttackRange = true;
@@ -82,11 +82,11 @@ public class EnemyController : MonoBehaviour
 
     public void EnableAttack()
     {
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().disableAttacks = false;
+        GameObject.Find("LeftHand").GetComponent<DealDamage>().enableAttackTriggers = true;
     }
 
     public void DisableAttack()
     {
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().disableAttacks = true;
+        GameObject.Find("LeftHand").GetComponent<DealDamage>().enableAttackTriggers = false;
     }
 }

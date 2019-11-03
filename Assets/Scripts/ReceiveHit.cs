@@ -16,7 +16,8 @@ public class ReceiveHit : MonoBehaviour
         if (gameObject.GetComponent<CharacterController>())
         {
             gameObject.GetComponent<CharacterController>().EndAttack();
-            gameObject.GetComponent<CharacterController>().EnableAttack();
+            gameObject.GetComponent<CharacterController>().DisableAttackTriggers();
+            gameObject.GetComponent<CharacterController>().ResetAttackTriggger();
         }
         else if(gameObject.GetComponent<EnemyController>())
         {

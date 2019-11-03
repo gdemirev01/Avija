@@ -18,8 +18,8 @@ public class CharacterController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && GetComponent<PlayerMovement>().inBattle)
         {
-            Debug.Log("attack");
             GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().Attack();
+            GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().RestartTimer();
         }
     }
 
@@ -28,13 +28,23 @@ public class CharacterController : MonoBehaviour
         GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().EndAttack();
     }
 
-    public void EnableAttack()
+    public void DisableAttackTriggers()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().disableAttacks = false;
+        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().enableAttackTriggers = false;
     }
 
-    public void DisableAttack()
+    public void EnableAttackTriggers()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().disableAttacks = true;
+        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().enableAttackTriggers = true;
+    }
+
+    public void ResetComboStreak()
+    {
+        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().ResetCombo();
+    }
+
+    public void ResetAttackTriggger()
+    {
+        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().ResetAttackTrigger();
     }
 }
