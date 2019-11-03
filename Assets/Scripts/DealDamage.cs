@@ -10,6 +10,7 @@ public class DealDamage : MonoBehaviour
     private int comboStreak = 1;
     public float timeLeft;
     private bool timerRunning = false;
+    public GameObject Blood;
 
 
     void Start()
@@ -23,6 +24,11 @@ public class DealDamage : MonoBehaviour
         {
             UpdateTimer();
         }
+    }
+
+    public void DestroyParticle(GameObject particle, float delay)
+    {
+        Destroy(particle, delay);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,7 +52,6 @@ public class DealDamage : MonoBehaviour
     {
         if (!isAttacking)
         {
-            Debug.Log("attack");
             isAttacking = true;
 
             if (tag.Equals("PlayerWeapon"))
@@ -69,14 +74,9 @@ public class DealDamage : MonoBehaviour
         isAttacking = false;
     }
 
-    public void EnableTriggers()
+    public void ToggleTriggers(bool state)
     {
-        enableAttackTriggers = true;
-    }
-
-    public void DisableTriggers()
-    {
-        enableAttackTriggers = false;
+        enableAttackTriggers = state;
     }
 
     private void UpdateTimer()

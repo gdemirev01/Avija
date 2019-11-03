@@ -7,13 +7,12 @@ public class CharacterController : MonoBehaviour
 {
 
     private Animator animator;
-    // Start is called before the first frame update
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetMouseButtonDown(0) && GetComponent<PlayerMovement>().inBattle)
@@ -28,14 +27,14 @@ public class CharacterController : MonoBehaviour
         GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().EndAttack();
     }
 
-    public void DisableAttackTriggers()
-    {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().enableAttackTriggers = false;
-    }
-
     public void EnableAttackTriggers()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().enableAttackTriggers = true;
+        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().ToggleTriggers(true);
+    }
+
+    public void DisableAttackTriggers()
+    {
+        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().ToggleTriggers(false);
     }
 
     public void ResetComboStreak()

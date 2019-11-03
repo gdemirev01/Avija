@@ -38,7 +38,6 @@ public class ThirdPersonCamera : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-        //Player.rotation = Quaternion.Euler(0, (Input.GetAxis("Horizontal") * 25) + mouseX, 0);
     }
 
 
