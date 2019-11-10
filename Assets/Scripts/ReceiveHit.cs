@@ -5,19 +5,21 @@ using UnityEngine;
 public class ReceiveHit : MonoBehaviour
 {
     private Animator animator;
+    private CharacterProps characterProps;
 
     void Start()
     {
-        animator = this.gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        characterProps = GetComponent<CharacterProps>();
     }
 
     public void receiveHit(GameObject attacker)
     {
         if (gameObject.GetComponent<CharacterController>())
         {
-            gameObject.GetComponent<CharacterController>().EndAttack();
-            gameObject.GetComponent<CharacterController>().DisableAttackTriggers();
-            gameObject.GetComponent<CharacterController>().ResetAttackTriggger();
+            gameObject.GetComponent<AnimationEvents>().EndAttack();
+            gameObject.GetComponent<AnimationEvents>().DisableAttackTriggers();
+            gameObject.GetComponent<AnimationEvents>().ResetAttackTriggger();
         }
         else if(gameObject.GetComponent<EnemyController>())
         {
@@ -25,12 +27,11 @@ public class ReceiveHit : MonoBehaviour
         }
 
         var damage = attacker.GetComponent<WeaponStats>().damage;
-        GetComponent<CharacterProps>().health -= damage;
-        var health = GetComponent<CharacterProps>().health;
-        Debug.Log("health of " + this.tag + " " + health);
-        if(health <= 0)
+        characterProps.health -= damage;
+        if(characterProps.health <= 0)
         {
             animator.SetTrigger("die");
+
             if(this.tag.Equals("Player"))
             {
                 GetComponent<CharacterController>().enabled = false;
@@ -39,8 +40,8 @@ public class ReceiveHit : MonoBehaviour
             else if(tag.Equals("Enemy"))
             {
                 GetComponent<EnemyController>().enabled = false;
-                this.enabled = false;
                 GetComponent<BoxCollider>().enabled = false;
+                this.enabled = false;
             }
         }
 

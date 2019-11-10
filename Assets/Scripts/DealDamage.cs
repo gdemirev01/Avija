@@ -6,29 +6,17 @@ public class DealDamage : MonoBehaviour
 {
     public bool isAttacking = false;
     public bool enableAttackTriggers = false;
+
     private Animator animator;
-    private int comboStreak = 1;
-    public float timeLeft;
-    private bool timerRunning = false;
-    public GameObject Blood;
+    public ComboSystem comboSystem;
+    public PlayerMovement playerMovement;
 
 
     void Start()
     {
         animator = this.gameObject.transform.root.GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        if(timerRunning)
-        {
-            UpdateTimer();
-        }
-    }
-
-    public void DestroyParticle(GameObject particle, float delay)
-    {
-        Destroy(particle, delay);
+        playerMovement = this.gameObject.transform.root.GetComponent<PlayerMovement>();
+        comboSystem = GetComponent<ComboSystem>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,20 +40,14 @@ public class DealDamage : MonoBehaviour
     {
         if (!isAttacking)
         {
-            isAttacking = true;
-
-            if (tag.Equals("PlayerWeapon"))
+            playerMovement.canMove = false;
+            if (GetComponent<ComboSystem>())
             {
-                animator.SetInteger("comboStreak", comboStreak);
-                comboStreak++;
-
-                if (comboStreak > 3)
-                {
-                    comboStreak = 3;
-                }
-
+                GetComponent<ComboSystem>().IncreaseStreak();
             }
             animator.SetTrigger("attack");
+
+            isAttacking = true;
         }
     }
 
@@ -79,36 +61,9 @@ public class DealDamage : MonoBehaviour
         enableAttackTriggers = state;
     }
 
-    private void UpdateTimer()
-    {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft < 0)
-        {
-            comboStreak = 1;
-
-            animator.SetInteger("comboStreak", comboStreak);
-            animator.ResetTrigger("attack");
-            isAttacking = false;
-            timerRunning = false;
-            timeLeft = 1.5f;
-        }
-    }
-
-    public void ResetCombo()
-    {
-        comboStreak = 1;
-        animator.SetInteger("comboStreak", comboStreak);
-    }
-
     public void ResetAttackTrigger()
     {
         animator.ResetTrigger("attack");
-        isAttacking = false;
     }
 
-    public void RestartTimer()
-    {
-        timeLeft = 1.5f;
-        timerRunning = true;
-    }
 }

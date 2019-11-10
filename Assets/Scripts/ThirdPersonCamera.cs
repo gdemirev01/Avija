@@ -31,8 +31,6 @@ public class ThirdPersonCamera : MonoBehaviour
         mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
-        //transform.LookAt(Target);
-
         var targetRotation = Quaternion.LookRotation(Target.position - transform.position);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
