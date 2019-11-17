@@ -9,14 +9,15 @@ public class DealDamage : MonoBehaviour
 
     private Animator animator;
     public ComboSystem comboSystem;
-    public PlayerMovement playerMovement;
 
 
     void Start()
     {
         animator = this.gameObject.transform.root.GetComponent<Animator>();
-        playerMovement = this.gameObject.transform.root.GetComponent<PlayerMovement>();
-        comboSystem = GetComponent<ComboSystem>();
+        if (GetComponent<ComboSystem>())
+        {
+            comboSystem = GetComponent<ComboSystem>();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,7 +41,7 @@ public class DealDamage : MonoBehaviour
     {
         if (!isAttacking)
         {
-            playerMovement.canMove = false;
+            Debug.Log("attack");
             if (GetComponent<ComboSystem>())
             {
                 GetComponent<ComboSystem>().IncreaseStreak();

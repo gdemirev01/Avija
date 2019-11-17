@@ -14,8 +14,6 @@ public class ThirdPersonCamera : MonoBehaviour
     void Start()
     {
         Obstruction = Target;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void LateUpdate()
@@ -27,6 +25,9 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void CamControl()
     {
+
+        if(Cursor.visible && Cursor.lockState != CursorLockMode.Locked) { return; }
+
         mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
         mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);

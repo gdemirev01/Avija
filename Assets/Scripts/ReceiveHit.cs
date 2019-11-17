@@ -15,11 +15,13 @@ public class ReceiveHit : MonoBehaviour
 
     public void receiveHit(GameObject attacker)
     {
-        if (gameObject.GetComponent<CharacterController>())
+        if (tag.Equals("Player"))
         {
+            Debug.Log(tag);
             gameObject.GetComponent<AnimationEvents>().EndAttack();
             gameObject.GetComponent<AnimationEvents>().DisableAttackTriggers();
             gameObject.GetComponent<AnimationEvents>().ResetAttackTriggger();
+            GameObject.Find("PlayerWeapon").GetComponent<ComboSystem>().ResetStreak();
         }
         else if(gameObject.GetComponent<EnemyController>())
         {

@@ -9,12 +9,14 @@ public class InputController : MonoBehaviour
     private ComboSystem comboSystem;
     private PlayerMovement playerMovement;
     private Animator animator;
+    private UIController uiController;
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         comboSystem = GameObject.Find("PlayerWeapon").GetComponent<ComboSystem>();
         animator = GetComponent<Animator>();
+        uiController = GameObject.Find("Canvas").GetComponent<UIController>();
     }
 
     void Update()
@@ -28,6 +30,11 @@ public class InputController : MonoBehaviour
         if (Input.GetButtonDown("DrawSword"))
         {
             playerMovement.ChangeStance();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            uiController.ToggleCanvas(false);
         }
     }
 

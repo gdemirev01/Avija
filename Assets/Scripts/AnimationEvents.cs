@@ -6,6 +6,7 @@ public class AnimationEvents : MonoBehaviour
 {
     public void EndAttack()
     {
+        Debug.Log("end attack");
         GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().EndAttack();
     }
 

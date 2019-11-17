@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 moveDirection;
     public bool blockRotationOnPlayer = false;
     public float allowPlayerRotation;
+    public Transform raycaster;
     public bool inBattle
     {
         get; set;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         animator = this.gameObject.GetComponent<Animator>();
+        raycaster = GameObject.Find("Raycaster").transform;
     }
 
     // Update is called once per frame
@@ -103,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         if(!blockRotationOnPlayer)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
+            raycaster.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), 1000);
         }
 
         transform.Translate(Vector3.forward * (speed + (Input.GetAxis("Running") * 2.5f)) * Time.deltaTime);
@@ -135,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetFloat("InputMagnitude", Speed, 0.0f, Time.deltaTime);
+            animator.SetFloat("running", Input.GetAxis("Running"), 0.0f, Time.deltaTime);
         }
     }
 

@@ -33,7 +33,7 @@ public class ComboSystem : MonoBehaviour
     public void IncreaseStreak()
     {
         comboCounter++;
-
+        Debug.Log("streak");
         if(comboCounter > 3)
         {
             comboCounter = 3;

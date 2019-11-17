@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public bool playerInAttackRange = false;
     public float speed = 1f;
     private Animator animator;
+    public bool canMove = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,7 +61,7 @@ public class EnemyController : MonoBehaviour
     private void Attack()
     {
         GameObject.Find("LeftHand").GetComponent<DealDamage>().Attack();
-        Invoke("EndAttack", 5f);
+        Invoke("EndAttack", 3f);
     }
 
     private void Detection()
