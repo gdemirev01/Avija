@@ -14,11 +14,16 @@ public class InteractionSystem : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.tag.Equals("NPC"))
         {
             interactionObject = other.gameObject;
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        interactionObject = null;
     }
 }

@@ -1,0 +1,18 @@
+{
+	"Name" : "Quest2",
+	"QuestGiver" : "Go6o",
+	"QuestText" : "Pardon me, hero. I'm glad you're here.
+
+	As you can see, my village has come under heavy attack, so we need you to stop those wicked lowlives. I'm in no state to fight, but I know you'll manage without me.
+	I doubt you'll have problems with the lowlives. Try to kill all those who stand in your way, we don't need their filth in our lands.
+	
+	I wish I had something better to reward you with, but what I have ain't too bad either. Blessed journey champion, may you return swiftly and in one piece.",
+	"QuestProps" : {
+		"type" : "kill",
+		"quantity" : "3",
+		"target" : "zombie"
+	},
+	"QuestReward" : {
+		"exp" : "100"
+	}
+}

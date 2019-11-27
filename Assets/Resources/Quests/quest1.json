@@ -1,0 +1,18 @@
+{
+	"Name" : "Quest1",
+	"QuestGiver" : "Go6o",
+	"QuestText" : "'Scuse me, adventurer. I'm glad you're here.
+
+	We did it, we won the battle! Unfortunately not every enemy is so keen on giving in just yet. Make sure they do, get rid of those abominable goblins. If you think you'll need any help, I'm willing to come along.
+	Be strong and swift when fighting the goblins. I'm not asking you to kill all of them, just make sure you do what I ask of you.
+	
+	Fortunately I have enough left to reward you greatly for the efforts you have to go through. Good luck hero, we're counting on you.",
+	"QuestProps" : {
+		"type" : "kill",
+		"quantity" : "3",
+		"target" : "zombie"
+	},
+	"QuestReward" : {
+		"exp" : "100"
+	}
+}

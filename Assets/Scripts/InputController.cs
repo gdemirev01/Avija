@@ -34,7 +34,7 @@ public class InputController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            uiController.ToggleCanvas(false);
+            uiController.TogglePanel(uiController.GetLastPanel(), false);
         }
     }
 
