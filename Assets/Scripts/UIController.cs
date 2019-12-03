@@ -10,18 +10,17 @@ public class UIController : MonoBehaviour
     public List<GameObject> openedPanels;
     private GameObject description;
     private Button acceptButton;
-    private QuestSystem questSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
         missionPanel = GameObject.Find("MissionPanel");
         description = missionPanel.transform.GetChild(0).gameObject;
         openedPanels = new List<GameObject>();
         acceptButton = GameObject.Find("AcceptQuestButton").GetComponent<Button>();
-        questSystem = transform.GetChild(1).GetComponent<QuestSystem>();
     }
 
     // Update is called once per frame
@@ -32,8 +31,8 @@ public class UIController : MonoBehaviour
 
     public void LoadQuest(Quest quest)
     {
-        description.GetComponent<TextMeshProUGUI>().text = quest.questText;
-        acceptButton.onClick.AddListener(() => questSystem.AddQuest(quest));
+        description.GetComponent<TextMeshProUGUI>().text = quest.text;
+        //acceptButton.onClick.AddListener(() => questSystem.AddQuest(quest));
     }
 
     public void TogglePanel(GameObject panel, bool state)

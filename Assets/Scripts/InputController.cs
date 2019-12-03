@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
     private PlayerMovement playerMovement;
     private Animator animator;
     private UIController uiController;
+    private bool togglePointer = false;
 
     void Start()
     {
@@ -36,6 +37,18 @@ public class InputController : MonoBehaviour
         {
             uiController.TogglePanel(uiController.GetLastPanel(), false);
         }
+
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            togglePointer = !togglePointer;
+            TogglePointer(togglePointer);
+        }
+    }
+
+    public void TogglePointer(bool state)
+    {
+        Cursor.visible = state;
+        Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     public void ToggleWeapon(string parameters)

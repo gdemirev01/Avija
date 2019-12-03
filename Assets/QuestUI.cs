@@ -15,7 +15,6 @@ public class QuestUI : MonoBehaviour
     void Start()
     {
         uiController = this.transform.root.GetComponent<UIController>();
-        quests = GetComponent<QuestSystem>().GetQuests();
         questDescriptionGUI = GameObject.Find("QuestDescription").GetComponent<TextMeshProUGUI>();
     }
 
@@ -27,23 +26,29 @@ public class QuestUI : MonoBehaviour
 
     public void UpdateQuestUI()
     {
-        quests = GetComponent<QuestSystem>().GetQuests();
+        quests = GetComponent<QuestController>().GetQuests();
     }
 
     public void ToggleQuestPanel()
     {
         UpdatePanel();
-        uiController.TogglePanel(this.gameObject, !panelOpened);
+        panelOpened = !panelOpened;
+        uiController.TogglePanel(this.gameObject, panelOpened);
     }
 
     public void UpdatePanel()
     {
 
+        foreach(Transform quest in this.transform.GetChild(1))
+        {
+            GameObject.Destroy(quest.gameObject);
+        }
+
         int index = 0;
         foreach(Quest quest in quests)
         {
             var button = Instantiate(buttonPrefab, new Vector3(300, 600 + (-100 * index), 0), Quaternion.identity);
-            button.transform.SetParent(this.transform);
+            button.transform.SetParent(this.transform.GetChild(1));
             button.transform.GetChild(0).GetComponent<Text>().text = quest.name;
             var cpyIndex = index;
             button.GetComponent<Button>().onClick.AddListener(() => LoadQuestInfoInPanel(cpyIndex));
@@ -54,6 +59,6 @@ public class QuestUI : MonoBehaviour
     public void LoadQuestInfoInPanel(int index)
     {
         Debug.Log(index);
-        uiController.LoadText(questDescriptionGUI, quests[index].questText);
+        uiController.LoadText(questDescriptionGUI, quests[index].text);
     }
 }
