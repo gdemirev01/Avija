@@ -40,8 +40,6 @@ public class QuestUI : MonoBehaviour
 
     public void UpdatePanel()
     {
-        Debug.Log(quests.Count);
-
         if(this.transform.childCount >= 2) { 
             foreach(Transform quest in this.transform.GetChild(1))
             {

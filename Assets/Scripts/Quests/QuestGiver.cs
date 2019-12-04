@@ -7,17 +7,17 @@ using System.Collections.Generic;
 public class QuestGiver : MonoBehaviour
 {
 
-    public List<Quest> quests;
+    private Quest quest;
+    private InteractionUI interactionUI;
 
     private void Awake()
     {
-        quests = new List<Quest>();
+        interactionUI = GameObject.Find("InteractionPanel").GetComponent<InteractionUI>();
     }
 
-    public void AddQuest(Quest quest)
+    public void LoadQuest(Quest quest)
     {
-        quests.Add(quest);
+        this.quest = quest;
+        interactionUI.LoadQuestDetails(quest);
     }
-
-
 }

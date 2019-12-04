@@ -46,7 +46,7 @@ public class QuestController : MonoBehaviour
         {
             var pathToFile = f.ToString();
             Quest quest = QuestParser.Deserialize(pathToFile);
-            GameObject.Find(quest.giver).GetComponent<QuestGiver>().AddQuest(quest);
+            GameObject.Find(quest.giver).GetComponent<QuestGiver>().LoadQuest(quest);
         }
     }
 }

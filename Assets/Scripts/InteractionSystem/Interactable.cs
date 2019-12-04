@@ -19,10 +19,7 @@ public class Interactable : MonoBehaviour
     {
         if(type == InteractionTypes.Quest)
         {
-            var quests = GetComponent<QuestGiver>().quests;
-
-            interactionUI.ToggleQuestGiverPanel(true);
-            interactionUI.LoadQuestsList(quests);
+            interactionUI.ToggleQuestDetails(true);
         }
     }
 }
