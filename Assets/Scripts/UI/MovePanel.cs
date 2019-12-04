@@ -22,14 +22,6 @@ public class MovePanel : MonoBehaviour, IDragHandler, IPointerDownHandler
         dragRectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         dragRectTransform.SetAsLastSibling();

@@ -6,33 +6,13 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    private GameObject missionPanel;
     public List<GameObject> openedPanels;
-    private GameObject description;
-    private Button acceptButton;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-        missionPanel = GameObject.Find("MissionPanel");
-        description = missionPanel.transform.GetChild(0).gameObject;
-        openedPanels = new List<GameObject>();
-        acceptButton = GameObject.Find("AcceptQuestButton").GetComponent<Button>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void LoadQuest(Quest quest)
-    {
-        description.GetComponent<TextMeshProUGUI>().text = quest.text;
-        //acceptButton.onClick.AddListener(() => questSystem.AddQuest(quest));
     }
 
     public void TogglePanel(GameObject panel, bool state)

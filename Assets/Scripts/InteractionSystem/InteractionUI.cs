@@ -5,23 +5,39 @@ using TMPro;
 using UnityEngine.UI;
 
 public class InteractionUI : MonoBehaviour
-{
-    private TextMeshProUGUI interactionAlert;
-    private GameObject questGiverPanel;
-
+{ 
     private UIController uiController;
-
-    private TextMeshProUGUI questDescription;
+    private QuestController questController;
 
     public GameObject questFieldPrefab;
 
+    private TextMeshProUGUI interactionAlert;
     public Interactable.InteractionTypes typeOfAlert;
+
+    private GameObject questGiverPanel;
+
+    private GameObject questsList;
+
+    private GameObject questDetails;
+    private GameObject questDescription;
+    private Button acceptQuestButton;
+
 
     void Start()
     {
-        interactionAlert = GameObject.Find("InteractionAlert").GetComponent<TextMeshProUGUI>();
-        questGiverPanel = GameObject.Find("QuestGiverPanel");
         uiController = GameObject.Find("Canvas").GetComponent<UIController>();
+        questController = GameObject.Find("EventSystem").GetComponent<QuestController>();
+
+        interactionAlert = GameObject.Find("InteractionAlert").GetComponent<TextMeshProUGUI>();
+
+        questGiverPanel = GameObject.Find("QuestGiverPanel");
+
+        questsList = GameObject.Find("QuestsList");
+
+        questDetails = GameObject.Find("QuestDetails");
+        questDescription = questDetails.transform.GetChild(0).gameObject;
+        acceptQuestButton = GameObject.Find("QuestDetails").transform.GetComponentInChildren<Button>();
+
     }
 
     public void ToggleAlert(bool state)
@@ -33,12 +49,21 @@ public class InteractionUI : MonoBehaviour
     public void ToggleQuestGiverPanel(bool state)
     {
         uiController.TogglePanel(questGiverPanel, state);
+        uiController.TogglePanel(questsList, state);
     }
 
     private void LoadQuestDetails(Quest quest)
     {
-        description.GetComponent<TextMeshProUGUI>().text = quest.text;
-        //acceptButton.onClick.AddListener(() => questSystem.AddQuest(quest));
+        uiController.TogglePanel(questsList, false);
+        uiController.TogglePanel(questDetails, true);
+
+        questDescription.GetComponent<TextMeshProUGUI>().text = quest.text;
+        Debug.Log(questDescription.GetComponent<TextMeshProUGUI>().text);
+        acceptQuestButton.onClick.AddListener(() => {
+            questController.AddQuest(quest);
+            uiController.TogglePanel(questDetails, false);
+            uiController.TogglePanel(questsList, true);
+        });
     }
 
     public void LoadQuestsList(List<Quest> quests)
@@ -57,7 +82,7 @@ public class InteractionUI : MonoBehaviour
             button.transform.GetChild(0).GetComponent<Text>().text = quest.name;
 
             var cpyIndex = index;
-            button.GetComponent<Button>().onClick.AddListener(() => LoadQuestDetails(quests[cpyIndex]));
+            button.GetComponent<Button>().onClick.AddListener(() => LoadQuestDetails(quest));
             index++;
         }
     }

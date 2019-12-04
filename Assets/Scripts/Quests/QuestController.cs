@@ -9,12 +9,15 @@ public class QuestController : MonoBehaviour
     private List<Quest> quests;
     private List<Quest> activeQuests;
 
-    void Start()
+    private void Awake()
     {
-        Debug.Log(Application.dataPath);
-        LoadQuestsFromDirectory(Application.dataPath + "/Resources/Quests/");
         quests = new List<Quest>();
         activeQuests = new List<Quest>();
+    }
+
+    void Start()
+    {
+        LoadQuestsFromDirectory(Application.dataPath + "/Resources/Quests/");
     }
 
     public void AddQuest(Quest quest)
@@ -31,7 +34,7 @@ public class QuestController : MonoBehaviour
 
     public List<Quest> GetQuests()
     {
-        return quests;
+        return activeQuests;
     }
 
     private void LoadQuestsFromDirectory(string path)
