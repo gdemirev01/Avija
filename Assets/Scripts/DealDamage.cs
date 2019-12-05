@@ -41,7 +41,6 @@ public class DealDamage : MonoBehaviour
     {
         if (!isAttacking)
         {
-            Debug.Log("attack");
             if (GetComponent<ComboSystem>())
             {
                 GetComponent<ComboSystem>().IncreaseStreak();

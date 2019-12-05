@@ -29,6 +29,7 @@ public class UIController : MonoBehaviour
 
     public GameObject GetLastPanel()
     {
+        if(openedPanels.Count == 0) { return null; }
         return openedPanels[openedPanels.Count - 1];
     }
 

@@ -35,7 +35,11 @@ public class InputController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            uiController.TogglePanel(uiController.GetLastPanel(), false);
+            var lastPanel = uiController.GetLastPanel();
+            if (lastPanel != null)
+            {
+                uiController.TogglePanel(lastPanel, false);
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.LeftAlt))

@@ -6,11 +6,13 @@ public class ReceiveHit : MonoBehaviour
 {
     private Animator animator;
     private CharacterProps characterProps;
+    private QuestController questController;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         characterProps = GetComponent<CharacterProps>();
+        questController = GameObject.Find("EventSystem").GetComponent<QuestController>();
     }
 
     public void receiveHit(GameObject attacker)
@@ -44,6 +46,7 @@ public class ReceiveHit : MonoBehaviour
                 GetComponent<EnemyController>().enabled = false;
                 GetComponent<BoxCollider>().enabled = false;
                 this.enabled = false;
+                questController.SendProgressForKillQuest(GetComponent<CharacterProps>().name);
             }
         }
 

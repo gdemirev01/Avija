@@ -16,6 +16,7 @@ public class QuestParser
             (string)jsonObj["name"],
             (string)jsonObj["giver"],
             (string)jsonObj["text"],
+            (int)jsonObj["partsNumber"],
             parts
         );
     }
@@ -31,7 +32,8 @@ public class QuestParser
             part.Add("type", (string)jsonObj["part" + i]["type"]);
             part.Add("target", (string)jsonObj["part" + i]["target"]);
             part.Add("quantity", (string)jsonObj["part" + i]["quantity"]);
-
+            part.Add("progress", "0");
+            part.Add("status", "open");
             parts.Add(part);
         }
 

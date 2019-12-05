@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class CharacterProps : MonoBehaviour
 {
+    public string name;
     public float health;
 }

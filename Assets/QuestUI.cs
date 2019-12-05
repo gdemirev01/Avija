@@ -13,6 +13,7 @@ public class QuestUI : MonoBehaviour
     private QuestController questController;
 
     private TextMeshProUGUI questDescriptionGUI;
+    private TextMeshProUGUI questProgress;
     public GameObject buttonPrefab;
 
     void Start()
@@ -23,6 +24,7 @@ public class QuestUI : MonoBehaviour
         questController = GameObject.Find("EventSystem").GetComponent<QuestController>();
 
         questDescriptionGUI = GameObject.Find("QuestDescription").GetComponent<TextMeshProUGUI>();
+        questProgress = GameObject.Find("QuestProgress").GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateQuestUI()
@@ -62,5 +64,9 @@ public class QuestUI : MonoBehaviour
     public void LoadQuestInfoInPanel(int index)
     {
         uiController.LoadText(questDescriptionGUI, quests[index].text);
+
+        var part = quests[index].parts[quests[index].currentPart];
+
+        uiController.LoadText(questProgress, part["type"] + " " + part["target"] + part["progress"] + "/" + part["quantity"]);
     }
 }

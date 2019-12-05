@@ -20,6 +20,27 @@ public class QuestController : MonoBehaviour
         LoadQuestsFromDirectory(Application.dataPath + "/Resources/Quests/");
     }
 
+    public void SendProgressForKillQuest(string nameOfTarget)
+    {
+        foreach(Quest quest in activeQuests)
+        {
+            var part = quest.parts[quest.currentPart];
+            if (part["type"].Equals("kill") && part["target"].Equals(nameOfTarget))
+            {
+                var progress = int.Parse(quest.parts[quest.currentPart]["progress"]);
+                quest.parts[quest.currentPart]["progress"] = (progress + 1).ToString();
+
+                if(part["progress"].Equals(part["quantity"]))
+                {
+                    quest.parts[quest.currentPart]["status"] = "completed";
+                    quest.currentPart++;
+
+                    if(quest.currentPart >= quest.partsNumber) { Debug.Log("questCompleted");}
+                } 
+            }
+        }
+    }
+
     public void AddQuest(Quest quest)
     {
         if (activeQuests.Contains(quest)) { return; }
