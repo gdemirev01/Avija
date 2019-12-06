@@ -13,18 +13,17 @@ public class UIController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        openedPanels = new List<GameObject>();
     }
 
     public void TogglePanel(GameObject panel, bool state)
     {
-        Cursor.visible = state;
-        Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         panel.GetComponent<CanvasGroup>().alpha = state ? 1 : 0;
         panel.GetComponent<CanvasGroup>().blocksRaycasts = state;
         panel.GetComponent<CanvasGroup>().interactable = state;
 
         if (state) { openedPanels.Add(panel); }
-        else { openedPanels.RemoveAt(openedPanels.IndexOf(panel)); }
+        else { openedPanels.Remove(panel); }
     }
 
     public GameObject GetLastPanel()

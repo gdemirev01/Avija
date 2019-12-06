@@ -44,9 +44,23 @@ public class InteractionUI : MonoBehaviour
     {
         questDescription.GetComponent<TextMeshProUGUI>().text = quest.text;
 
-        acceptQuestButton.onClick.AddListener(() => {
-            questController.AddQuest(quest);
-            uiController.TogglePanel(questDetails, false);
-        });
+
+        if (quest.GetCurrentPartStatus().Equals("completed"))
+        {
+            acceptQuestButton.GetComponentInChildren<Text>().text = "Complete";
+            acceptQuestButton.onClick.AddListener(() =>
+            {
+                questController.CompleteQuest(quest);
+                uiController.TogglePanel(questDetails, false);
+            });
+        }
+        else
+        {
+            acceptQuestButton.onClick.AddListener(() =>
+            {
+                questController.AddQuest(quest);
+                uiController.TogglePanel(questDetails, false);
+            });
+        }
     }
 }

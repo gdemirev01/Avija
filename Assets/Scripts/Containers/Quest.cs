@@ -9,17 +9,36 @@ public class Quest
     public string text;
     public int partsNumber;
     public int currentPart;
+    public float exp;
+    public int coins;
     public List<SortedDictionary<string, string>> parts;
     
 
-    public Quest(string name, string giver, string text, int partsNumber, List<SortedDictionary<string, string>> parts)
+    public Quest(string name, string giver, string text, int partsNumber, float exp, int coins, List<SortedDictionary<string, string>> parts)
     {
         this.name = name;
         this.giver = giver;
         this.text = text;
         this.partsNumber = partsNumber;
-        this.currentPart = 0;
+        this.currentPart = 1;
+        this.exp = exp;
+        this.coins = coins;
         this.parts = parts;
+    }
+
+    public SortedDictionary<string, string> GetCurrentPart()
+    {
+        return this.parts[this.currentPart - 1];
+    }
+
+    public string GetCurrentPartType()
+    {
+        return GetCurrentPart()["type"];
+    }
+
+    public string GetCurrentPartStatus()
+    {
+        return GetCurrentPart()["status"];
     }
 
     public override bool Equals(object obj)

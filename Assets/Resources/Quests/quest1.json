@@ -11,11 +11,8 @@
 	"part1" : {
 		"type" : "kill",
 		"target" : "zombie",
-		"quantity" : "3"
+		"quantity" : "1"
 	},
-	"reward" : {
-		"exp" : "100",
-		"coins" : "1000"
-		//items
-	}
+	"exp" : "10000000",
+	"coins" : "1000"
 }

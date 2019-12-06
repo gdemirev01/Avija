@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 674348608}
   - component: {fileID: 674348607}
   - component: {fileID: 674348611}
+  - component: {fileID: 674348610}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -254,6 +255,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674348610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674348606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4dbb71b7fb5c1b4bb3d6f16f7075061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &674348611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1976,6 +1989,10 @@ PrefabInstance:
     - target: {fileID: 1727752844, guid: 21df2d739e81be143b12fd440620135c, type: 3}
       propertyPath: name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727752844, guid: 21df2d739e81be143b12fd440620135c, type: 3}
+      propertyPath: level
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21df2d739e81be143b12fd440620135c, type: 3}

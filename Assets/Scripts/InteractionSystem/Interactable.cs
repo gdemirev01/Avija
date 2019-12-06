@@ -19,6 +19,7 @@ public class Interactable : MonoBehaviour
     {
         if(type == InteractionTypes.Quest)
         {
+            interactionUI.LoadQuestDetails(GetComponent<QuestGiver>().quest);
             interactionUI.ToggleQuestDetails(true);
         }
     }

@@ -17,6 +17,8 @@ public class QuestParser
             (string)jsonObj["giver"],
             (string)jsonObj["text"],
             (int)jsonObj["partsNumber"],
+            (float)jsonObj["exp"],
+            (int)jsonObj["coins"],
             parts
         );
     }

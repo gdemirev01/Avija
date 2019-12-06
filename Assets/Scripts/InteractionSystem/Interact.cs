@@ -6,6 +6,7 @@ public class Interact : MonoBehaviour
 {
     private GameObject interactionObject;
     private InteractionUI interactionUI;
+    private bool alertOpened = false;
 
     private void Start()
     {
@@ -21,13 +22,18 @@ public class Interact : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if(other.GetComponent<Interactable>())
         {
             interactionUI.typeOfAlert = other.GetComponent<Interactable>().type;
             interactionObject = other.gameObject;
-            interactionUI.ToggleAlert(true);
+
+            if (!alertOpened)
+            {
+                interactionUI.ToggleAlert(true);
+                alertOpened = true;
+            }
         }
     }
 
@@ -35,5 +41,6 @@ public class Interact : MonoBehaviour
     {
         interactionObject = null;
         interactionUI.ToggleAlert(false);
+        alertOpened = false;
     }
 }

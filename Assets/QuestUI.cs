@@ -30,17 +30,10 @@ public class QuestUI : MonoBehaviour
     public void UpdateQuestUI()
     {
         quests = questController.GetQuests();
-    }
-
-    public void ToggleQuestPanel()
-    {
-        UpdateQuestUI();
         UpdatePanel();
-        panelOpened = !panelOpened;
-        uiController.TogglePanel(this.gameObject, panelOpened);
     }
 
-    public void UpdatePanel()
+    private void UpdatePanel()
     {
         if(this.transform.childCount >= 2) { 
             foreach(Transform quest in this.transform.GetChild(1))
@@ -61,12 +54,29 @@ public class QuestUI : MonoBehaviour
         }
     }
 
+    public void ToggleQuestPanel()
+    {
+        quests = questController.GetQuests();
+        if (quests.Count > 0) { LoadQuestInfoInPanel(0); }
+
+        panelOpened = !panelOpened;
+        uiController.TogglePanel(this.gameObject, panelOpened);
+    }
+
     public void LoadQuestInfoInPanel(int index)
     {
-        uiController.LoadText(questDescriptionGUI, quests[index].text);
+        Debug.Log(index);
+        var quest = quests[index];
+        uiController.LoadText(questDescriptionGUI, quest.text);
 
-        var part = quests[index].parts[quests[index].currentPart];
-
-        uiController.LoadText(questProgress, part["type"] + " " + part["target"] + part["progress"] + "/" + part["quantity"]);
+        if (quest.GetCurrentPartStatus().Equals("completed"))
+        {
+            uiController.LoadText(questProgress, "completed");
+        }
+        else
+        {
+            var part = quest.GetCurrentPart();
+            uiController.LoadText(questProgress, part["type"] + " " + part["target"] + part["progress"] + "/" + part["quantity"]);
+        }
     }
 }

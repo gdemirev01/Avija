@@ -6,4 +6,7 @@ public class CharacterProps : MonoBehaviour
 {
     public string name;
     public float health;
+    public float exp;
+    public int level;
+    public int coins;
 }

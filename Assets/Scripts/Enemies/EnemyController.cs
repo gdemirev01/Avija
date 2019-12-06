@@ -23,6 +23,14 @@ public class EnemyController : MonoBehaviour
     {
         Detection();
 
+        if (playerInRange && playerInAttackRange)
+        {
+            if (!GameObject.Find("LeftHand").GetComponent<DealDamage>().isAttacking)
+            {
+                Attack();
+            }
+        }
+
         if (playerInRange)
         {
             AdvanceToPlayer();
@@ -30,14 +38,6 @@ public class EnemyController : MonoBehaviour
         else
         {
             animator.SetBool("running", false);
-        }
-
-        if(playerInRange && playerInAttackRange)
-        {
-            if(!GameObject.Find("LeftHand").GetComponent<DealDamage>().isAttacking)
-            {
-                Attack();
-            }
         }
     }
 

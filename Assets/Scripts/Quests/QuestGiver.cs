@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class QuestGiver : MonoBehaviour
 {
 
-    private Quest quest;
+    public Quest quest;
     private InteractionUI interactionUI;
 
     private void Awake()

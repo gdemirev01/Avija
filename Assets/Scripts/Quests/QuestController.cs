@@ -9,6 +9,11 @@ public class QuestController : MonoBehaviour
     private List<Quest> quests;
     private List<Quest> activeQuests;
 
+    private CharacterProps playerProps;
+    private LevelSystem levelSystem;
+
+    private QuestUI questUI;
+
     private void Awake()
     {
         quests = new List<Quest>();
@@ -17,25 +22,30 @@ public class QuestController : MonoBehaviour
 
     void Start()
     {
+        questUI = GameObject.Find("QuestPanel").GetComponent<QuestUI>();
         LoadQuestsFromDirectory(Application.dataPath + "/Resources/Quests/");
+        playerProps = GameObject.Find("Player").GetComponent<CharacterProps>();
+        levelSystem = GameObject.Find("EventSystem").GetComponent<LevelSystem>();
     }
 
     public void SendProgressForKillQuest(string nameOfTarget)
     {
         foreach(Quest quest in activeQuests)
         {
-            var part = quest.parts[quest.currentPart];
-            if (part["type"].Equals("kill") && part["target"].Equals(nameOfTarget))
+            var part = quest.GetCurrentPart();
+            if (quest.GetCurrentPartType().Equals("kill") && part["target"].Equals(nameOfTarget))
             {
-                var progress = int.Parse(quest.parts[quest.currentPart]["progress"]);
-                quest.parts[quest.currentPart]["progress"] = (progress + 1).ToString();
+                var progress = int.Parse(quest.GetCurrentPart()["progress"]);
+                quest.GetCurrentPart()["progress"] = (progress + 1).ToString();
 
                 if(part["progress"].Equals(part["quantity"]))
                 {
-                    quest.parts[quest.currentPart]["status"] = "completed";
+                    quest.GetCurrentPart()["status"] = "completed";
                     quest.currentPart++;
 
-                    if(quest.currentPart >= quest.partsNumber) { Debug.Log("questCompleted");}
+                    if(quest.currentPart >= quest.partsNumber) {
+                        quest.currentPart = quest.partsNumber;
+                        Debug.Log("questCompleted");}
                 } 
             }
         }
@@ -45,12 +55,20 @@ public class QuestController : MonoBehaviour
     {
         if (activeQuests.Contains(quest)) { return; }
         activeQuests.Add(quest);
+        questUI.UpdateQuestUI();
         Debug.Log("Quest " + quest.text + " accepted");
+    }
+
+    public void CompleteQuest(Quest quest)
+    {
+        levelSystem.AddExp(quest.exp);
+        playerProps.coins += quest.coins;
     }
 
     public void AbortQuest(Quest quest)
     {
         activeQuests.Remove(quest);
+        questUI.UpdateQuestUI();
     }
 
     public List<Quest> GetQuests()
