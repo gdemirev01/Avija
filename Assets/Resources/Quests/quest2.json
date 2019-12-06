@@ -1,6 +1,6 @@
 {
 	"name" : "Quest1",
-	"giver" : "Go6o",
+	"giver" : "Simko",
 	"text" : "'Scuse me, adventurer. I'm glad you're here.
 
 	We did it, we won the battle! Unfortunately not every enemy is so keen on giving in just yet. Make sure they do, get rid of those abominable goblins. If you think you'll need any help, I'm willing to come along.
@@ -13,6 +13,6 @@
 		"target" : "zombie",
 		"quantity" : "1"
 	},
-	"exp" : "100",
+	"exp" : "10000",
 	"coins" : "1000"
 }
