@@ -21,7 +21,6 @@ public class LevelSystem : MonoBehaviour
     void Start()
     {
         playerProps = GameObject.Find("Player").GetComponent<CharacterProps>();
-        Debug.Log(levelSystemUI);
     }
 
     public void AddExp(float value)

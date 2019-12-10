@@ -36,7 +36,7 @@ public class QuestUI : MonoBehaviour
     private void UpdatePanel()
     {
         if(this.transform.childCount >= 2) { 
-            foreach(Transform quest in this.transform.GetChild(1))
+            foreach(Transform quest in this.transform.GetChild(2))
             {
                 GameObject.Destroy(quest.gameObject);
             }
@@ -46,7 +46,7 @@ public class QuestUI : MonoBehaviour
         foreach(Quest quest in quests)
         {
             var button = Instantiate(buttonPrefab, new Vector3(300, 600 + (-100 * index), 0), Quaternion.identity);
-            button.transform.SetParent(this.transform);
+            button.transform.SetParent(this.transform.GetChild(2));
             button.transform.GetChild(0).GetComponent<Text>().text = quest.name;
             var cpyIndex = index;
             button.GetComponent<Button>().onClick.AddListener(() => LoadQuestInfoInPanel(cpyIndex));
@@ -69,14 +69,14 @@ public class QuestUI : MonoBehaviour
         var quest = quests[index];
         uiController.LoadText(questDescriptionGUI, quest.text);
 
-        if (quest.GetCurrentPartStatus().Equals("completed"))
+        if (quest.GetCurrentGoal().done)
         {
             uiController.LoadText(questProgress, "completed");
         }
         else
         {
-            var part = quest.GetCurrentPart();
-            uiController.LoadText(questProgress, part["type"] + " " + part["target"] + part["progress"] + "/" + part["quantity"]);
+            
+            uiController.LoadText(questProgress, quest.GetCurrentGoal().ToString());
         }
     }
 }

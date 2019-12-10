@@ -8,7 +8,7 @@ public class DealDamage : MonoBehaviour
     public bool enableAttackTriggers = false;
 
     private Animator animator;
-    public ComboSystem comboSystem;
+    private ComboSystem comboSystem;
 
 
     void Start()

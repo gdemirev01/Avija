@@ -2,43 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Quest
 {
     public string name;
     public string giver;
     public string text;
-    public int partsNumber;
-    public int currentPart;
-    public float exp;
-    public int coins;
-    public List<SortedDictionary<string, string>> parts;
-    
+    public List<Goal> goals;
+    public int currentGoal;
+    public Reward reward;
 
-    public Quest(string name, string giver, string text, int partsNumber, float exp, int coins, List<SortedDictionary<string, string>> parts)
+    public Goal GetCurrentGoal()
     {
-        this.name = name;
-        this.giver = giver;
-        this.text = text;
-        this.partsNumber = partsNumber;
-        this.currentPart = 1;
-        this.exp = exp;
-        this.coins = coins;
-        this.parts = parts;
+        return this.goals[this.currentGoal];
     }
 
-    public SortedDictionary<string, string> GetCurrentPart()
+    public string GetGoalsList()
     {
-        return this.parts[this.currentPart - 1];
-    }
+        string result = "";
+        foreach(Goal goal in this.goals)
+        {
+            result += goal.ToString() + "\n";
+        }
 
-    public string GetCurrentPartType()
-    {
-        return GetCurrentPart()["type"];
-    }
-
-    public string GetCurrentPartStatus()
-    {
-        return GetCurrentPart()["status"];
+        return result;
     }
 
     public override bool Equals(object obj)
@@ -48,20 +35,20 @@ public class Quest
                name == quest.name &&
                giver == quest.giver &&
                text == quest.text &&
-               partsNumber == quest.partsNumber &&
-               currentPart == quest.currentPart &&
-               EqualityComparer<List<SortedDictionary<string, string>>>.Default.Equals(parts, quest.parts);
+               EqualityComparer<List<Goal>>.Default.Equals(goals, quest.goals) &&
+               currentGoal == quest.currentGoal &&
+               EqualityComparer<Reward>.Default.Equals(reward, quest.reward);
     }
 
     public override int GetHashCode()
     {
-        var hashCode = 1952372838;
+        var hashCode = -889736268;
         hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
         hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(giver);
         hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(text);
-        hashCode = hashCode * -1521134295 + partsNumber.GetHashCode();
-        hashCode = hashCode * -1521134295 + currentPart.GetHashCode();
-        hashCode = hashCode * -1521134295 + EqualityComparer<List<SortedDictionary<string, string>>>.Default.GetHashCode(parts);
+        hashCode = hashCode * -1521134295 + EqualityComparer<List<Goal>>.Default.GetHashCode(goals);
+        hashCode = hashCode * -1521134295 + currentGoal.GetHashCode();
+        hashCode = hashCode * -1521134295 + EqualityComparer<Reward>.Default.GetHashCode(reward);
         return hashCode;
     }
 

@@ -6,28 +6,18 @@ using UnityEngine.UI;
 
 public class InteractionUI : MonoBehaviour
 { 
-    private UIController uiController;
-    private QuestController questController;
+    public UIController uiController;
+    public QuestController questController;
 
-    private TextMeshProUGUI interactionAlert;
+    public TextMeshProUGUI interactionAlert;
     public Interactable.InteractionTypes typeOfAlert;
 
-    private GameObject questDetails;
-    private GameObject questDescription;
-    private Button acceptQuestButton;
-
-
-    void Start()
-    {
-        uiController = GameObject.Find("Canvas").GetComponent<UIController>();
-        questController = GameObject.Find("EventSystem").GetComponent<QuestController>();
-
-        interactionAlert = GameObject.Find("InteractionAlert").GetComponent<TextMeshProUGUI>();
-
-        questDetails = GameObject.Find("QuestDetails");
-        questDescription = questDetails.transform.GetChild(0).gameObject;
-        acceptQuestButton = questDetails.transform.GetComponentInChildren<Button>();
-    }
+    public GameObject questDetails;
+    public GameObject questDescription;
+    public Button acceptQuestButton;
+    public TextMeshProUGUI goals;
+    public TextMeshProUGUI coins;
+    public TextMeshProUGUI exp;
 
     public void ToggleAlert(bool state)
     {
@@ -43,9 +33,11 @@ public class InteractionUI : MonoBehaviour
     public void LoadQuestDetails(Quest quest)
     {
         questDescription.GetComponent<TextMeshProUGUI>().text = quest.text;
+        coins.text = quest.reward.coins.ToString();
+        exp.text = quest.reward.exp.ToString();
+        goals.text = quest.GetGoalsList();
 
-
-        if (quest.GetCurrentPartStatus().Equals("completed"))
+        if (quest.GetCurrentGoal().done)
         {
             acceptQuestButton.GetComponentInChildren<Text>().text = "Complete";
             acceptQuestButton.onClick.AddListener(() =>

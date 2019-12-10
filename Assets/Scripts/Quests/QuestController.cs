@@ -22,31 +22,30 @@ public class QuestController : MonoBehaviour
 
     void Start()
     {
-        questUI = GameObject.Find("QuestPanel").GetComponent<QuestUI>();
-        LoadQuestsFromDirectory(Application.dataPath + "/Resources/Quests/");
         playerProps = GameObject.Find("Player").GetComponent<CharacterProps>();
         levelSystem = GameObject.Find("EventSystem").GetComponent<LevelSystem>();
+        questUI = GameObject.Find("QuestPanel").GetComponent<QuestUI>();
     }
 
-    public void SendProgressForKillQuest(string nameOfTarget)
+    public void SendProgressForQuest(string nameOfTarget)
     {
         foreach(Quest quest in activeQuests)
         {
-            var part = quest.GetCurrentPart();
-            if (quest.GetCurrentPartType().Equals("kill") && part["target"].Equals(nameOfTarget))
+            var goal = quest.GetCurrentGoal();
+            if (goal.target.Equals(nameOfTarget) && !goal.done)
             {
-                var progress = int.Parse(quest.GetCurrentPart()["progress"]);
-                quest.GetCurrentPart()["progress"] = (progress + 1).ToString();
+                goal.progress++;
 
-                if(part["progress"].Equals(part["quantity"]))
+                if (goal.progress == goal.quantity)
                 {
-                    quest.GetCurrentPart()["status"] = "completed";
-                    quest.currentPart++;
+                    goal.done = true;
+                    quest.currentGoal++;
 
-                    if(quest.currentPart >= quest.partsNumber) {
-                        quest.currentPart = quest.partsNumber;
-                        Debug.Log("questCompleted");}
-                } 
+                    if (quest.currentGoal >= quest.goals.Count)
+                    {
+                        quest.currentGoal = quest.goals.Count - 1;
+                    }
+                }
             }
         }
     }
@@ -54,15 +53,20 @@ public class QuestController : MonoBehaviour
     public void AddQuest(Quest quest)
     {
         if (activeQuests.Contains(quest)) { return; }
+
+        quest.GetCurrentGoal().done = false;
+
         activeQuests.Add(quest);
         questUI.UpdateQuestUI();
-        Debug.Log("Quest " + quest.text + " accepted");
     }
 
     public void CompleteQuest(Quest quest)
     {
-        levelSystem.AddExp(quest.exp);
-        playerProps.coins += quest.coins;
+        levelSystem.AddExp(quest.reward.exp);
+        playerProps.coins += quest.reward.coins;
+
+        activeQuests.Remove(quest);
+        questUI.UpdateQuestUI();
     }
 
     public void AbortQuest(Quest quest)
@@ -74,18 +78,5 @@ public class QuestController : MonoBehaviour
     public List<Quest> GetQuests()
     {
         return activeQuests;
-    }
-
-    private void LoadQuestsFromDirectory(string path)
-    {
-        DirectoryInfo dir = new DirectoryInfo(path);
-        FileInfo[] info = dir.GetFiles("*.json");
-        info.Select(f => f.FullName).ToArray();
-        foreach (FileInfo f in info)
-        {
-            var pathToFile = f.ToString();
-            Quest quest = QuestParser.Deserialize(pathToFile);
-            GameObject.Find(quest.giver).GetComponent<QuestGiver>().LoadQuest(quest);
-        }
     }
 }

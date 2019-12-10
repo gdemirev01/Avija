@@ -46,7 +46,7 @@ public class ReceiveHit : MonoBehaviour
                 GetComponent<EnemyController>().enabled = false;
                 GetComponent<BoxCollider>().enabled = false;
                 this.enabled = false;
-                questController.SendProgressForKillQuest(GetComponent<CharacterProps>().name);
+                questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
             }
         }
 
