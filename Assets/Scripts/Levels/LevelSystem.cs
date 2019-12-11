@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelSystem : MonoBehaviour
 {
-    private CharacterProps playerProps;
+    public CharacterProps playerProps;
     private LevelSystemUI levelSystemUI;
 
     private float expRequired;
@@ -15,12 +15,11 @@ public class LevelSystem : MonoBehaviour
     {
         expRequired = 1000f;
         expIncrease = 1.2f;
-        levelSystemUI = GameObject.Find("EventSystem").GetComponent<LevelSystemUI>();
     }
 
     void Start()
     {
-        playerProps = GameObject.Find("Player").GetComponent<CharacterProps>();
+        levelSystemUI = GetComponent<LevelSystemUI>();
     }
 
     public void AddExp(float value)

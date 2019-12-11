@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         animator = this.gameObject.GetComponent<Animator>();
-        raycaster = GameObject.Find("Raycaster").transform;
     }
 
     // Update is called once per frame

@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class AnimationEvents : MonoBehaviour
 {
+    public DealDamage playerWeapon;
+
     public void EndAttack()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().EndAttack();
+        playerWeapon.GetComponent<DealDamage>().EndAttack();
     }
 
     public void EnableAttackTriggers()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().ToggleTriggers(true);
+        playerWeapon.GetComponent<DealDamage>().ToggleTriggers(true);
     }
 
     public void DisableAttackTriggers()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().ToggleTriggers(false);
+        playerWeapon.GetComponent<DealDamage>().ToggleTriggers(false);
     }
 
     public void ResetComboStreak()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<ComboSystem>().ResetStreak();
+        playerWeapon.GetComponent<ComboSystem>().ResetStreak();
     }
 
     public void ResetAttackTriggger()
     {
-        GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().ResetAttackTrigger();
+        playerWeapon.GetComponent<DealDamage>().ResetAttackTrigger();
     }
 }

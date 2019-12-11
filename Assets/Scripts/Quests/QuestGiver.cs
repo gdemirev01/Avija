@@ -8,12 +8,7 @@ public class QuestGiver : MonoBehaviour
 {
 
     public Quest quest;
-    private InteractionUI interactionUI;
-
-    private void Awake()
-    {
-        interactionUI = GameObject.Find("InteractionPanel").GetComponent<InteractionUI>();
-    }
+    public InteractionUI interactionUI;
 
     public void LoadQuest(Quest quest)
     {

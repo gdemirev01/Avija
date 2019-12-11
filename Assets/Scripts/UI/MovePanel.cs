@@ -13,7 +13,7 @@ public class MovePanel : MonoBehaviour, IDragHandler, IPointerDownHandler
     void Start()
     {
         dragRectTransform = this.GetComponent<RectTransform>();
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        canvas = transform.root.gameObject.GetComponent<Canvas>();
     }
 
     public void OnDrag(PointerEventData eventData)

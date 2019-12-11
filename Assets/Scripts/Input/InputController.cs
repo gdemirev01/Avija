@@ -6,25 +6,23 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
 
-    private ComboSystem comboSystem;
+    public ComboSystem comboSystem;
     private PlayerMovement playerMovement;
     private Animator animator;
-    private UIController uiController;
+    public UIController uiController;
     private bool togglePointer = false;
-
+    public DealDamage dealDamage;
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        comboSystem = GameObject.Find("PlayerWeapon").GetComponent<ComboSystem>();
         animator = GetComponent<Animator>();
-        uiController = GameObject.Find("Canvas").GetComponent<UIController>();
     }
 
     void Update()
     {
         if(Input.GetMouseButtonDown(0) && GetComponent<PlayerMovement>().inBattle)
         {
-            GameObject.Find("PlayerWeapon").GetComponent<DealDamage>().Attack();
+            dealDamage.Attack();
             comboSystem.RestartTimer();
         }
 

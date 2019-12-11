@@ -5,13 +5,8 @@ using UnityEngine;
 public class Interact : MonoBehaviour
 {
     private GameObject interactionObject;
-    private InteractionUI interactionUI;
+    public InteractionUI interactionUI;
     private bool alertOpened = false;
-
-    private void Start()
-    {
-        interactionUI = GameObject.Find("InteractionPanel").GetComponent<InteractionUI>();
-    }
 
     private void Update()
     {

@@ -10,10 +10,10 @@ public class QuestUI : MonoBehaviour
     private bool panelOpened = false;
 
     private UIController uiController;
-    private QuestController questController;
+    public QuestController questController;
 
-    private TextMeshProUGUI questDescriptionGUI;
-    private TextMeshProUGUI questProgress;
+    public TextMeshProUGUI questDescriptionGUI;
+    public TextMeshProUGUI questProgress;
     public GameObject buttonPrefab;
 
     void Start()
@@ -21,10 +21,6 @@ public class QuestUI : MonoBehaviour
         quests = new List<Quest>();
 
         uiController = this.transform.root.GetComponent<UIController>();
-        questController = GameObject.Find("EventSystem").GetComponent<QuestController>();
-
-        questDescriptionGUI = GameObject.Find("QuestDescription").GetComponent<TextMeshProUGUI>();
-        questProgress = GameObject.Find("QuestProgress").GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateQuestUI()

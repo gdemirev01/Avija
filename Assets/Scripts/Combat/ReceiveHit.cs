@@ -6,13 +6,13 @@ public class ReceiveHit : MonoBehaviour
 {
     private Animator animator;
     private CharacterProps characterProps;
-    private QuestController questController;
+    public QuestController questController;
+    public ComboSystem comboSystem;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         characterProps = GetComponent<CharacterProps>();
-        questController = GameObject.Find("EventSystem").GetComponent<QuestController>();
     }
 
     public void receiveHit(GameObject attacker)
@@ -23,7 +23,7 @@ public class ReceiveHit : MonoBehaviour
             gameObject.GetComponent<AnimationEvents>().EndAttack();
             gameObject.GetComponent<AnimationEvents>().DisableAttackTriggers();
             gameObject.GetComponent<AnimationEvents>().ResetAttackTriggger();
-            GameObject.Find("PlayerWeapon").GetComponent<ComboSystem>().ResetStreak();
+            comboSystem.ResetStreak();
         }
         else if(gameObject.GetComponent<EnemyController>())
         {

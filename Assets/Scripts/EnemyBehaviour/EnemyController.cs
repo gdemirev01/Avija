@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    private GameObject player;
+    public GameObject player;
     public float range = 5;
     public bool playerInRange = false;
     public bool playerInAttackRange = false;
     public float speed = 1f;
     private Animator animator;
     public bool canMove = true;
+    public DealDamage dealDamage;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
     }
 
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
 
         if (playerInRange && playerInAttackRange)
         {
-            if (!GameObject.Find("LeftHand").GetComponent<DealDamage>().isAttacking)
+            if (!dealDamage.isAttacking)
             {
                 Attack();
             }

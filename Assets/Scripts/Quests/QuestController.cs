@@ -9,10 +9,10 @@ public class QuestController : MonoBehaviour
     private List<Quest> quests;
     private List<Quest> activeQuests;
 
-    private CharacterProps playerProps;
+    public CharacterProps playerProps;
     private LevelSystem levelSystem;
 
-    private QuestUI questUI;
+    public QuestUI questUI;
 
     private void Awake()
     {
@@ -20,12 +20,11 @@ public class QuestController : MonoBehaviour
         activeQuests = new List<Quest>();
     }
 
-    void Start()
+    private void Start()
     {
-        playerProps = GameObject.Find("Player").GetComponent<CharacterProps>();
-        levelSystem = GameObject.Find("EventSystem").GetComponent<LevelSystem>();
-        questUI = GameObject.Find("QuestPanel").GetComponent<QuestUI>();
+        levelSystem = this.GetComponent<LevelSystem>();
     }
+
 
     public void SendProgressForQuest(string nameOfTarget)
     {

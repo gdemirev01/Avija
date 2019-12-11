@@ -8,15 +8,9 @@ public class Interactable : MonoBehaviour
     public enum InteractionTypes { Talk, Quest, Gather, Pick };
     public InteractionTypes type;
 
-    private QuestController questController;
+    public QuestController questController;
 
-    private InteractionUI interactionUI;
-
-    private void Start()
-    {
-        interactionUI = GameObject.Find("InteractionPanel").GetComponent<InteractionUI>();
-        questController = GameObject.Find("EventSystem").GetComponent<QuestController>();
-    }
+    public InteractionUI interactionUI;
 
     public void Interact()
     {

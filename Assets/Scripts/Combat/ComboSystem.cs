@@ -5,7 +5,7 @@ using UnityEngine;
 public class ComboSystem : MonoBehaviour
 {
 
-    private Animator animator;
+    public Animator animator;
     public string streakName;
     private int comboCounter;
     public float reactionTime;
@@ -17,7 +17,6 @@ public class ComboSystem : MonoBehaviour
     {
         comboCounter = 0;
         timeLeft = reactionTime;
-        animator = GameObject.Find("Player").GetComponent<Animator>();
     }
 
     void Update()
