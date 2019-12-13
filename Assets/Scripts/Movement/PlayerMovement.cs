@@ -77,8 +77,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(InputZ < 0) { InputX *= -1; }
 
-        Vector3 playerMovement = new Vector3(InputX, 0f, InputZ) * (speed / 2) * Time.deltaTime;
-        transform.Translate(playerMovement, Space.Self);
+        //Vector3 playerMovement = new Vector3(InputX, 0f, InputZ) * (speed / 2) * Time.deltaTime;
+        //transform.Translate(playerMovement, Space.Self);
     }
 
     private void NormalMovement()
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
             raycaster.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), 1000);
         }
 
-        transform.Translate(Vector3.forward * (speed + (Input.GetAxis("Running") * 2.5f)) * Time.deltaTime);
+        //transform.Translate(Vector3.forward * (speed + (Input.GetAxis("Running") * 2.5f)) * Time.deltaTime);
     }
 
     private void InputMagnitude()

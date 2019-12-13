@@ -22,8 +22,6 @@ public class ReceiveHit : MonoBehaviour
             Debug.Log(tag);
             gameObject.GetComponent<AnimationEvents>().EndAttack();
             gameObject.GetComponent<AnimationEvents>().DisableAttackTriggers();
-            gameObject.GetComponent<AnimationEvents>().ResetAttackTriggger();
-            comboSystem.ResetStreak();
         }
         else if(gameObject.GetComponent<EnemyController>())
         {

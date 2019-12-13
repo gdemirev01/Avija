@@ -20,14 +20,4 @@ public class AnimationEvents : MonoBehaviour
     {
         playerWeapon.GetComponent<DealDamage>().ToggleTriggers(false);
     }
-
-    public void ResetComboStreak()
-    {
-        playerWeapon.GetComponent<ComboSystem>().ResetStreak();
-    }
-
-    public void ResetAttackTriggger()
-    {
-        playerWeapon.GetComponent<DealDamage>().ResetAttackTrigger();
-    }
 }

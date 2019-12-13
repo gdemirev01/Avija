@@ -6,8 +6,6 @@ public class ComboSystem : MonoBehaviour
 {
 
     public Animator animator;
-    public string streakName;
-    private int comboCounter;
     public float reactionTime;
 
     private float timeLeft;
@@ -15,32 +13,15 @@ public class ComboSystem : MonoBehaviour
 
     void Start()
     {
-        comboCounter = 0;
         timeLeft = reactionTime;
     }
 
     void Update()
     {
-        animator.SetInteger(streakName, comboCounter);
-
         if (timerRunning)
         {
             UpdateTimer();
         }
-    }
-
-    public void IncreaseStreak()
-    {
-        comboCounter++;
-        if(comboCounter > 3)
-        {
-            comboCounter = 3;
-        }
-    }
-
-    public void ResetStreak()
-    {
-        comboCounter = 0;
     }
 
     private void UpdateTimer()
@@ -48,7 +29,7 @@ public class ComboSystem : MonoBehaviour
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
         {
-            ResetStreak();
+            animator.SetBool("attacking", false);
             timerRunning = false;
             timeLeft = reactionTime;
         }
@@ -56,6 +37,7 @@ public class ComboSystem : MonoBehaviour
 
     public void RestartTimer()
     {
+        animator.SetBool("attacking", true);
         timeLeft = reactionTime;
         timerRunning = true;
     }

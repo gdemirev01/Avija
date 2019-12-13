@@ -41,12 +41,6 @@ public class DealDamage : MonoBehaviour
     {
         if (!isAttacking)
         {
-            if (GetComponent<ComboSystem>())
-            {
-                GetComponent<ComboSystem>().IncreaseStreak();
-            }
-            animator.SetTrigger("attack");
-
             isAttacking = true;
         }
     }
@@ -60,10 +54,4 @@ public class DealDamage : MonoBehaviour
     {
         enableAttackTriggers = state;
     }
-
-    public void ResetAttackTrigger()
-    {
-        animator.ResetTrigger("attack");
-    }
-
 }
