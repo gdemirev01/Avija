@@ -47,6 +47,7 @@ public class DealDamage : MonoBehaviour
 
     public void EndAttack()
     {
+        animator.SetBool("attacking", false);
         isAttacking = false;
     }
 

@@ -14,6 +14,11 @@ public class PlayerMovement : MonoBehaviour
     public bool blockRotationOnPlayer = false;
     public float allowPlayerRotation;
     public Transform raycaster;
+    public float verticalVelocity;
+
+    private float previousHeight;
+    private float currentHeight;
+
     public bool inBattle
     {
         get; set;
@@ -29,6 +34,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         InputMagnitude();
+
+        currentHeight = transform.position.y;
+
+        var travel = System.Math.Round(currentHeight - previousHeight);
+        if (travel < 0)
+        {
+            Debug.Log("falling");
+        }
+        previousHeight = currentHeight;
     }
 
     public void EnableMoving()
@@ -74,11 +88,6 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed / 2);
         }
-
-        if(InputZ < 0) { InputX *= -1; }
-
-        //Vector3 playerMovement = new Vector3(InputX, 0f, InputZ) * (speed / 2) * Time.deltaTime;
-        //transform.Translate(playerMovement, Space.Self);
     }
 
     private void NormalMovement()
@@ -106,8 +115,6 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
             raycaster.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), 1000);
         }
-
-        //transform.Translate(Vector3.forward * (speed + (Input.GetAxis("Running") * 2.5f)) * Time.deltaTime);
     }
 
     private void InputMagnitude()
