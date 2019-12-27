@@ -10,7 +10,7 @@ public class InteractionUI : MonoBehaviour
     public QuestController questController;
 
     public TextMeshProUGUI interactionAlert;
-    public Interactable.InteractionTypes typeOfAlert;
+    public string typeOfAlert = "Fix this";
 
     public GameObject questDetails;
     public GameObject questDescription;
@@ -21,7 +21,7 @@ public class InteractionUI : MonoBehaviour
 
     public void ToggleAlert(bool state)
     {
-        interactionAlert.text = System.Enum.GetName(typeof(Interactable.InteractionTypes), typeOfAlert);
+        //interactionAlert.text = System.Enum.GetName(typeof(Interactable.InteractionTypes), typeOfAlert);
         interactionAlert.enabled = state;
     }
 

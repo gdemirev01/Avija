@@ -12,16 +12,16 @@ public class Interact : MonoBehaviour
     {
         if(interactionObject && Input.GetKeyDown(KeyCode.E))
         {
-            interactionObject.GetComponent<Interactable>().Interact();
+            interactionObject.GetComponent<NPCInteractable>().Interact();
             interactionUI.ToggleAlert(false);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.GetComponent<Interactable>())
+        if(other.GetComponent<NPCInteractable>())
         {
-            interactionUI.typeOfAlert = other.GetComponent<Interactable>().type;
+            interactionUI.typeOfAlert = "Fix this";
             interactionObject = other.gameObject;
 
             if (!alertOpened)

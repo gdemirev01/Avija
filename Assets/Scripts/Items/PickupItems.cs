@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PickupItems : Interactable
 {
-
     public Item item;
 
     public override void Interact()

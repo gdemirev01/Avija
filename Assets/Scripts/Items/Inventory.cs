@@ -19,9 +19,12 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    private int space = 20;
+    public delegate void OnItemChanged();
+    public OnItemChanged onItemChangedCallback; 
 
-    List<Item> items = new List<Item>();
+    public int space = 20;
+
+    public List<Item> items = new List<Item>();
 
     public void Add(Item item)
     {
@@ -31,10 +34,12 @@ public class Inventory : MonoBehaviour
             return;
         }
         items.Add(item);
+        onItemChangedCallback.Invoke();
     }
 
     public void Remove(Item item)
     {
         items.Remove(item);
+        onItemChangedCallback.Invoke();
     }
 }
