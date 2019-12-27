@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fd7d12870cbea644aee0d01601a87fa, type: 3}
-  m_Name: Helmet
+  m_Script: {fileID: 11500000, guid: 111da10dd8f64a649a7ab08daacca914, type: 3}
+  m_Name: New Equipment
   m_EditorClassIdentifier: 
-  name: 
-  icon: {fileID: 21300000, guid: 5e1e77662aea1fd4cb16c6d627d08e24, type: 3}
+  name: Helmet
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  equipSlot: 0
+  mesh: {fileID: 0}
+  armorModifier: 0
+  damageModifier: 0
