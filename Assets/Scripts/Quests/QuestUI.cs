@@ -41,7 +41,7 @@ public class QuestUI : MonoBehaviour
         int index = 0;
         foreach(Quest quest in quests)
         {
-            var button = Instantiate(buttonPrefab, new Vector3(300, 600 + (-100 * index), 0), Quaternion.identity);
+            var button = Instantiate(buttonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             button.transform.SetParent(this.transform.GetChild(2));
             button.transform.GetChild(0).GetComponent<Text>().text = quest.name;
             var cpyIndex = index;
