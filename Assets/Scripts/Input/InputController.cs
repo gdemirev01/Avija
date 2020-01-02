@@ -45,18 +45,16 @@ public class InputController : MonoBehaviour
             togglePointer = !togglePointer;
             TogglePointer(togglePointer);
         }
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            animator.SetTrigger("jump");
+        }
     }
 
     public void TogglePointer(bool state)
     {
         Cursor.visible = state;
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-    }
-
-    public void ToggleWeapon(string parameters)
-    {
-        string[] p = parameters.Split(' ');
-        var state = p[1] == "true";
-        GameObject.Find(p[0]).GetComponent<MeshRenderer>().enabled = state;
     }
 }

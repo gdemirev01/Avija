@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
     private float previousHeight;
     private float currentHeight;
 
+    public DealDamage dealDamage;
+
+    public GameObject weapon;
+    public GameObject weaponOnSpine;
+
     public bool inBattle
     {
         get; set;
@@ -150,7 +155,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeStance()
     {
-        canMove = false;
         inBattle = !inBattle;
         if (inBattle)
         {
@@ -160,5 +164,11 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("sheathSword");
         }
+    }
+
+    public void ToggleWeapon(string state)
+    {
+        weapon.SetActive(state == "true");
+        weaponOnSpine.SetActive(!(state == "true"));
     }
 }
