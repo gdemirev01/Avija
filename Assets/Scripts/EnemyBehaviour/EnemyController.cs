@@ -12,10 +12,22 @@ public class EnemyController : MonoBehaviour
     private Animator animator;
     public bool canMove = true;
     public DealDamage dealDamage;
+    private float attackRange = 15f;
+
+    private bool isAttacking = false;
+
+    public ComboSystem comboSystem;
+
+    private Timer timer;
+
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        timer = GetComponent<Timer>();
+
+        timer.onTimerRestart += Attack;
+        timer.onTimerEnd += EndAttack;
     }
 
     // Update is called once per frame
@@ -23,12 +35,9 @@ public class EnemyController : MonoBehaviour
     {
         Detection();
 
-        if (playerInRange && playerInAttackRange)
+        if (playerInRange && playerInAttackRange && !isAttacking)
         {
-            if (!dealDamage.isAttacking)
-            {
-                Attack();
-            }
+            Attack();
         }
 
         if (playerInRange)
@@ -43,7 +52,7 @@ public class EnemyController : MonoBehaviour
 
     private void AdvanceToPlayer()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < 1.5f)
+        if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
         {
             animator.SetBool("running", false);
             playerInAttackRange = true;
@@ -60,13 +69,26 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()
     {
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().Attack();
-        Invoke("EndAttack", 3f);
+        dealDamage.Attack();
+        isAttacking = true;
+        Invoke("EndAttack", 7f);
+    }
+
+    public void EndAttackAnimation()
+    {
+        animator.SetBool("attacking", false);
+    }
+
+    private void EndAttack()
+    {
+        isAttacking = false;
     }
 
     private void Detection()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < range)
+        var distance = Vector3.Distance(transform.position, player.transform.position);
+        Debug.Log(distance);
+        if (distance < range)
         {
             playerInRange = true;
         }
@@ -76,18 +98,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void EndAttack()
-    {
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().EndAttack();
-    }
-
     public void EnableAttack()
     {
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().enableAttackTriggers = true;
+        dealDamage.enableAttackTriggers = true;
     }
 
     public void DisableAttack()
     {
-        GameObject.Find("LeftHand").GetComponent<DealDamage>().enableAttackTriggers = false;
+        dealDamage.enableAttackTriggers = false;
     }
 }

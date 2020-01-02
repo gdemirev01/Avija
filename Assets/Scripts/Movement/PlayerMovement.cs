@@ -156,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
     public void ChangeStance()
     {
         inBattle = !inBattle;
+        animator.SetBool("inBattle", inBattle);
         if (inBattle)
         {
             animator.SetTrigger("drawSword");

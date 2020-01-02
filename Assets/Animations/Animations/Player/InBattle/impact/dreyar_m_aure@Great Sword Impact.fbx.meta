@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a7e2e1b2247937541934074c9ec37c9c
+guid: 9cfb37f4588593d4ba78692aa04b8ae4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -135,7 +135,7 @@ ModelImporter:
     400126: mixamorig:Spine
     400128: mixamorig:Spine1
     400130: mixamorig:Spine2
-    7400000: Great Sword Jump Attack(2)
+    7400000: Great Sword Impact
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -166,10 +166,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Great Sword Jump Attack(2)
+      name: Great Sword Impact
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 65
+      lastFrame: 36
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -4,41 +4,25 @@ using UnityEngine;
 
 public class ComboSystem : MonoBehaviour
 {
+    private Animator animator;
+    private Timer timer;
 
-    public Animator animator;
-    public float reactionTime;
-
-    private float timeLeft;
-    private bool timerRunning = false;
-
-    void Start()
+    private void Start()
     {
-        timeLeft = reactionTime;
+        animator = GetComponent<Animator>();
+        timer = GetComponent<Timer>();
+
+        timer.onTimerRestart += OnTimerRestart;
+        timer.onTimerEnd += OnTimerEnd;
     }
 
-    void Update()
-    {
-        if (timerRunning)
-        {
-            UpdateTimer();
-        }
-    }
-
-    private void UpdateTimer()
-    {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft < 0)
-        {
-            animator.SetBool("attacking", false);
-            timerRunning = false;
-            timeLeft = reactionTime;
-        }
-    }
-
-    public void RestartTimer()
+    public void OnTimerRestart()
     {
         animator.SetBool("attacking", true);
-        timeLeft = reactionTime;
-        timerRunning = true;
+    }
+
+    public void OnTimerEnd()
+    {
+        animator.SetBool("attacking", false);
     }
 }

@@ -6,11 +6,6 @@ public class AnimationEvents : MonoBehaviour
 {
     public DealDamage playerWeapon;
 
-    public void EndAttack()
-    {
-        playerWeapon.GetComponent<DealDamage>().EndAttack();
-    }
-
     public void EnableAttackTriggers()
     {
         playerWeapon.GetComponent<DealDamage>().ToggleTriggers(true);

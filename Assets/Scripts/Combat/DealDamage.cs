@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class DealDamage : MonoBehaviour
 {
-    public bool isAttacking = false;
     public bool enableAttackTriggers = false;
 
     private Animator animator;
-    private ComboSystem comboSystem;
-
 
     void Start()
     {
         animator = this.gameObject.transform.root.GetComponent<Animator>();
-        if (GetComponent<ComboSystem>())
-        {
-            comboSystem = GetComponent<ComboSystem>();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isAttacking && enableAttackTriggers)
+        if (enableAttackTriggers)
         {
             if ((gameObject.tag.Equals("PlayerWeapon") && other.gameObject.tag.Equals("Enemy")))
             {
@@ -39,16 +32,7 @@ public class DealDamage : MonoBehaviour
 
     public void Attack()
     {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-        }
-    }
-
-    public void EndAttack()
-    {
-        animator.SetBool("attacking", false);
-        isAttacking = false;
+        animator.SetBool("attacking", true);
     }
 
     public void ToggleTriggers(bool state)

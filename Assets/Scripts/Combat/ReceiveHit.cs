@@ -20,7 +20,6 @@ public class ReceiveHit : MonoBehaviour
         if (tag.Equals("Player"))
         {
             Debug.Log(tag);
-            gameObject.GetComponent<AnimationEvents>().EndAttack();
             gameObject.GetComponent<AnimationEvents>().DisableAttackTriggers();
         }
         else if(gameObject.GetComponent<EnemyController>())

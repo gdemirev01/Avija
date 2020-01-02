@@ -12,6 +12,7 @@ public class InputController : MonoBehaviour
     public UIController uiController;
     private bool togglePointer = false;
     public DealDamage dealDamage;
+
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -23,7 +24,7 @@ public class InputController : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && GetComponent<PlayerMovement>().inBattle)
         {
             dealDamage.Attack();
-            comboSystem.RestartTimer();
+            GetComponent<Timer>().RestartTimer();
         }
 
         if (Input.GetButtonDown("DrawSword"))
