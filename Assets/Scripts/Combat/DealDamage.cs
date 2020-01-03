@@ -6,12 +6,8 @@ public class DealDamage : MonoBehaviour
 {
     public bool enableAttackTriggers = false;
 
-    private Animator animator;
+    public Animator animator;
 
-    void Start()
-    {
-        animator = this.gameObject.transform.root.GetComponent<Animator>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +24,7 @@ public class DealDamage : MonoBehaviour
                 other.GetComponent<ReceiveHit>().receiveHit(gameObject);
             }
         }
+        Debug.Log(other.tag);
     }
 
     public void Attack()

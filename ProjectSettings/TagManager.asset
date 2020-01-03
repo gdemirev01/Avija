@@ -9,6 +9,7 @@ TagManager:
   - EnemyWeapon
   - PlayerWeapon
   - NPC
+  - Projectile
   layers:
   - Default
   - TransparentFX

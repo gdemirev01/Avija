@@ -7,26 +7,19 @@ public class ReceiveHit : MonoBehaviour
     private Animator animator;
     private CharacterProps characterProps;
     public QuestController questController;
-    public ComboSystem comboSystem;
+
+    public bool blocking = false;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        characterProps = GetComponent<CharacterProps>();
+        animator = transform.root.GetComponent<Animator>();
+        characterProps = transform.root.GetComponent<CharacterProps>();
     }
 
     public void receiveHit(GameObject attacker)
     {
-        if (tag.Equals("Player"))
-        {
-            Debug.Log(tag);
-            gameObject.GetComponent<AnimationEvents>().DisableAttackTriggers();
-        }
-        else if(gameObject.GetComponent<EnemyController>())
-        {
-            gameObject.GetComponent<EnemyController>().EnableAttack();
-        }
-
+        if(blocking) { return; }
+   
         var damage = attacker.GetComponent<WeaponStats>().damage;
         characterProps.health -= damage;
         if(characterProps.health <= 0)

@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
         get; set;
     }
 
+    public bool blocking = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -165,6 +167,16 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetTrigger("sheathSword");
         }
+    }
+
+    public void Block(bool state)
+    {
+        blocking = state;
+        animator.SetBool("blocking", state);
+
+        canMove = !state;
+
+        GameObject.Find("Collider").GetComponent<ReceiveHit>().blocking = state;
     }
 
     public void ToggleWeapon(string state)

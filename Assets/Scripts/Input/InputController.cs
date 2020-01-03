@@ -41,7 +41,7 @@ public class InputController : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        if(Input.GetButtonDown("ToggleMouse"))
         {
             togglePointer = !togglePointer;
             TogglePointer(togglePointer);
@@ -50,6 +50,20 @@ public class InputController : MonoBehaviour
         if(Input.GetButtonDown("Jump"))
         {
             animator.SetTrigger("jump");
+        }
+
+        if(Input.GetButtonDown("Block"))
+        {
+            playerMovement.Block(true);
+        }
+        if (Input.GetButtonUp("Block"))
+        {
+            playerMovement.Block(false);
+        }
+
+        if(Input.GetButtonDown("Cast"))
+        {
+            animator.SetTrigger("castSpell");
         }
     }
 

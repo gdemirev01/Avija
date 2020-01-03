@@ -18,16 +18,12 @@ public class EnemyController : MonoBehaviour
 
     public ComboSystem comboSystem;
 
-    private Timer timer;
+    public float cooldown;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        timer = GetComponent<Timer>();
-
-        timer.onTimerRestart += Attack;
-        timer.onTimerEnd += EndAttack;
     }
 
     // Update is called once per frame
@@ -71,7 +67,7 @@ public class EnemyController : MonoBehaviour
     {
         dealDamage.Attack();
         isAttacking = true;
-        Invoke("EndAttack", 7f);
+        Invoke("EndAttack", cooldown);
     }
 
     public void EndAttackAnimation()
@@ -87,7 +83,6 @@ public class EnemyController : MonoBehaviour
     private void Detection()
     {
         var distance = Vector3.Distance(transform.position, player.transform.position);
-        Debug.Log(distance);
         if (distance < range)
         {
             playerInRange = true;
