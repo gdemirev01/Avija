@@ -126,6 +126,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void InputMagnitude()
     {
+
+        if(!canMove) { return; }
+
         float InputX = Input.GetAxis("Horizontal");
         float InputZ = Input.GetAxis("Vertical");
 

@@ -71,5 +71,6 @@ public class InputController : MonoBehaviour
     {
         Cursor.visible = state;
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
+        playerMovement.canMove = !state;
     }
 }
