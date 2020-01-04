@@ -8,6 +8,18 @@ public class DealDamage : MonoBehaviour
 
     public Animator animator;
 
+    private void Start()
+    {
+        if(this.tag.Equals("PlayerWeapon"))
+        {
+            animator = GameObject.Find("Player").GetComponent<Animator>();
+        } 
+        else if(this.tag.Equals("EnemyWeapon"))
+        {
+            animator = transform.root.GetComponent<Animator>();
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

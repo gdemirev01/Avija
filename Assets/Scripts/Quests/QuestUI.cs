@@ -61,7 +61,6 @@ public class QuestUI : MonoBehaviour
 
     public void LoadQuestInfoInPanel(int index)
     {
-        Debug.Log(index);
         var quest = quests[index];
         uiController.LoadText(questDescriptionGUI, quest.text);
 
@@ -71,7 +70,6 @@ public class QuestUI : MonoBehaviour
         }
         else
         {
-            
             uiController.LoadText(questProgress, quest.GetCurrentGoal().ToString());
         }
     }

@@ -4,38 +4,32 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
-    private GameObject interactionObject;
     public InteractionUI interactionUI;
     private bool alertOpened = false;
 
+    public Transform source;
+
     private void Update()
     {
-        if(interactionObject && Input.GetKeyDown(KeyCode.E))
-        {
-            interactionObject.GetComponent<NPCInteractable>().Interact();
-            interactionUI.ToggleAlert(false);
-        }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if(other.GetComponent<NPCInteractable>())
+        RaycastHit hit;
+        if (Physics.Raycast(source.position, source.TransformDirection(Vector3.forward), out hit, 7))
         {
-            interactionUI.typeOfAlert = "Fix this";
-            interactionObject = other.gameObject;
-
-            if (!alertOpened)
+            //Debug.DrawRay(source.position, source.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            if(interactable != null)
             {
                 interactionUI.ToggleAlert(true);
-                alertOpened = true;
+                if (Input.GetButtonDown("Interact"))
+                {
+                    interactable.Interact();
+                }
             }
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        interactionObject = null;
-        interactionUI.ToggleAlert(false);
-        alertOpened = false;
-    }
+        else
+        {
+            //Debug.DrawRay(source.position, source.TransformDirection(Vector3.forward) * 1000, Color.red);
+            interactionUI.ToggleAlert(false);
+        }
+    } 
 }
