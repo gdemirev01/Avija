@@ -1,22 +1,54 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-[System.Serializable]
-public class Quest
+[CreateAssetMenu(fileName = "New Quest", menuName = "Quests/Quest")]
+public class Quest : ScriptableObject
 {
     public string name;
     public string giver;
     public string text;
-    public List<Goal> goals;
-    public int currentGoal;
     public Reward reward;
+    public int currentGoal;
+    public bool done = false;
 
-    public Goal GetCurrentGoal()
+    private static int questsNumber = 0;
+
+    [SerializeField]
+    private List<Goal> goals;
+    public List<Goal> Goals
     {
-        return this.goals[this.currentGoal];
+        get
+        {
+            if(goals == null)
+            {
+                goals = new List<Goal>();
+            }
+
+            return goals;
+        }
     }
 
+    [MenuItem("Quests/Create")]
+    public static Quest Create()
+    {
+        questsNumber++;
+
+        Quest quest = CreateInstance<Quest>();
+
+        string path = string.Format("Assets/Quests/quest{0}.asset", questsNumber);
+        AssetDatabase.CreateAsset(quest, path);
+        return quest;
+    }
+
+    public void AddGoal(Goal goal)
+    {
+        Goals.Add(goal);
+        AssetDatabase.AddObjectToAsset(goal, this);
+        AssetDatabase.SaveAssets();
+    }
+
+    // modify to show goals after evaluation of player's choices
     public string GetGoalsList()
     {
         string result = "";
@@ -26,6 +58,11 @@ public class Quest
         }
 
         return result;
+    }
+
+    public Goal GetCurrentGoal()
+    {
+        return goals[currentGoal].GetCurrentOption();
     }
 
     public override bool Equals(object obj)

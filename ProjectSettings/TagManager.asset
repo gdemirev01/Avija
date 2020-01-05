@@ -10,6 +10,7 @@ TagManager:
   - PlayerWeapon
   - NPC
   - Projectile
+  - Water
   layers:
   - Default
   - TransparentFX

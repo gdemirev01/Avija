@@ -41,7 +41,7 @@ public class QuestUI : MonoBehaviour
         int index = 0;
         foreach(Quest quest in quests)
         {
-            var button = Instantiate(buttonPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            var button = Instantiate(buttonPrefab, this.transform.GetChild(2).transform, false);
             button.transform.SetParent(this.transform.GetChild(2));
             button.transform.GetChild(0).GetComponent<Text>().text = quest.name;
             var cpyIndex = index;
@@ -64,13 +64,13 @@ public class QuestUI : MonoBehaviour
         var quest = quests[index];
         uiController.LoadText(questDescriptionGUI, quest.text);
 
-        if (quest.GetCurrentGoal().done)
+        if (quest.done)
         {
             uiController.LoadText(questProgress, "completed");
         }
         else
         {
-            uiController.LoadText(questProgress, quest.GetCurrentGoal().ToString());
+            uiController.LoadText(questProgress, quest.GetCurrentGoal().ToString() + "\n\n" + quest.reward.ToString());
         }
     }
 }

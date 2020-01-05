@@ -37,7 +37,7 @@ public class InteractionUI : MonoBehaviour
         exp.text = quest.reward.exp.ToString();
         goals.text = quest.GetGoalsList();
 
-        if (quest.GetCurrentGoal().done)
+        if (quest.done)
         {
             acceptQuestButton.GetComponentInChildren<Text>().text = "Complete";
             acceptQuestButton.onClick.AddListener(() =>

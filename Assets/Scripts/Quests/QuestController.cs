@@ -40,9 +40,9 @@ public class QuestController : MonoBehaviour
                     goal.done = true;
                     quest.currentGoal++;
 
-                    if (quest.currentGoal >= quest.goals.Count)
+                    if (quest.currentGoal >= quest.Goals.Count)
                     {
-                        quest.currentGoal = quest.goals.Count - 1;
+                        quest.currentGoal = quest.Goals.Count - 1;
                     }
                 }
             }

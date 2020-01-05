@@ -24,12 +24,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject weapon;
     public GameObject weaponOnSpine;
 
-    public bool inBattle
-    {
-        get; set;
-    }
+    public bool inBattle = false;
 
     public bool blocking = false;
+
+    public bool inWater = false;
 
     // Start is called before the first frame update
     void Start()
@@ -109,7 +108,10 @@ public class PlayerMovement : MonoBehaviour
         var forward = camera.transform.forward;
         var right = camera.transform.right;
 
-        forward.y = 0f;
+        if (!inWater)
+        {
+            forward.y = 0f;
+        }
         right.y = 0f;
 
         forward.Normalize();
@@ -134,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("InputZ", InputZ, 0.0f, Time.deltaTime * 2f);
         animator.SetFloat("InputX", InputX, 0.0f, Time.deltaTime * 2f);
+        animator.SetBool("inWater", inWater);
 
         Speed = new Vector2(InputX, InputZ).sqrMagnitude;
 
