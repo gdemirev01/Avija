@@ -15,13 +15,18 @@ public class NPCInteractable : Interactable
     {
         if(type == InteractionTypes.Quest)
         {
-            interactionUI.LoadQuestDetails(GetComponent<QuestGiver>().quest);
-            interactionUI.ToggleQuestDetails(true);
+            var quest = GetComponent<QuestGiver>().quest;
+            if (quest == null)
+            {
+                type = InteractionTypes.Talk;
+            }
+            else
+            {
+                interactionUI.LoadQuest(this, quest);
+            }
         }
         else if(type == InteractionTypes.Talk)
         {
-            Debug.Log("Hello");
-            Debug.Log(questController);
             questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
         }
     }

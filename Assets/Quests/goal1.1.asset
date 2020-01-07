@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928ac785593679c4ea45fff7509ef43d, type: 3}
   m_Name: goal1.1
   m_EditorClassIdentifier: 
+  text: Kill one zombie
   type: 0
-  quantity: 0
+  quantity: 1
   progress: 0
-  target: 
-  done: 0
+  target: zombie
+  choice: {fileID: 0}
   options: []

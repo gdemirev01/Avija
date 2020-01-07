@@ -59,6 +59,8 @@ public class QuestUI : MonoBehaviour
         uiController.TogglePanel(this.gameObject, panelOpened);
     }
 
+
+    //find why goal done becomes false after accepting quest
     public void LoadQuestInfoInPanel(int index)
     {
         var quest = quests[index];
@@ -70,7 +72,7 @@ public class QuestUI : MonoBehaviour
         }
         else
         {
-            uiController.LoadText(questProgress, quest.GetCurrentGoal().ToString() + "\n\n" + quest.reward.ToString());
+            uiController.LoadText(questProgress, quest.goal.ToString() + "\n\n" + quest.reward.ToString());
         }
     }
 }

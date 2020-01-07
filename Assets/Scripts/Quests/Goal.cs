@@ -6,12 +6,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Goal", menuName = "Quests/Goal")]
 public class Goal : ScriptableObject
 {
+    public string text;
     public GoalType type;
     public int quantity;
     public int progress;
-    //public string Zone;
     public string target;
+
     public bool done;
+
+    public Goal choice = null;
 
     [SerializeField]
     public List<Goal> options;
@@ -29,34 +32,31 @@ public class Goal : ScriptableObject
         }
     }
 
-    public static T Create<T>(string name)
-    where T : Goal
+    public Goal GetCurrentChoice()
     {
-        T node = CreateInstance<T>();
-        node.name = name;
-        return node;
-    }
-
-    public Goal GetCurrentOption()
-    {
-        Goal currentGoal = null;
-
-        foreach(Goal option in options)
-        {
-            if(option.done)
-            {
-                currentGoal = option.GetCurrentOption();
-            }
-        }
-
-        if(currentGoal == null)
+        if(this.choice == null)
         {
             return this;
-        }
+        } 
         else
         {
-            return currentGoal;
+            return choice.GetCurrentChoice();
         }
+    }
+
+    public void ChooseOption(int index)
+    {
+        this.choice = options[index];
+    }
+
+    public bool MustChoose()
+    {
+        return done && choice == null && options.Count > 0;
+    }
+
+    public bool ReachedEndOfGoal()
+    {
+        return this.options.Count == 0 && done;
     }
 
     public enum GoalType
@@ -68,6 +68,7 @@ public class Goal : ScriptableObject
 
     public override string ToString()
     {
-        return this.type + " " + this.target + this.progress + "/" + this.quantity;
+        return
+               this.type + " " + this.target + this.progress + "/" + this.quantity;
     }
 }

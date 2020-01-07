@@ -8,11 +8,14 @@ public class QuestGiver : MonoBehaviour
 {
 
     public Quest quest;
-    public InteractionUI interactionUI;
 
     public void LoadQuest(Quest quest)
     {
         this.quest = quest;
-        interactionUI.LoadQuestDetails(quest);
+    }
+
+    public void RemoveQuest()
+    {
+        quest = null;
     }
 }
