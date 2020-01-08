@@ -10,8 +10,9 @@ public class InputController : MonoBehaviour
     private PlayerMovement playerMovement;
     private Animator animator;
     public UIController uiController;
-    private bool togglePointer = false;
     public DealDamage dealDamage;
+
+    private bool togglePointer = false;
 
     void Start()
     {

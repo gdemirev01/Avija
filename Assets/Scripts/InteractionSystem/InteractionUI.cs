@@ -10,10 +10,9 @@ public class InteractionUI : MonoBehaviour
     public QuestController questController;
 
     public TextMeshProUGUI interactionAlert;
-    public string typeOfAlert = "Fix this";
+    public Interactable.InteractionTypes typeOfAlert;
 
     public GameObject questDetails;
-
     public GameObject questDescription;
     public TextMeshProUGUI goals;
     public TextMeshProUGUI coins;
@@ -21,15 +20,16 @@ public class InteractionUI : MonoBehaviour
     public Button acceptQuestButton;
     public Button cencelQuestButton;
 
-    public GameObject questChoices;
     public TextMeshProUGUI GoalText;
+    public GameObject questChoices;
     public GameObject choicesPanel;
-
     public GameObject choiceButtonPrefab;
+
+    public GameObject talkingPanel;
 
     public void ToggleAlert(bool state)
     {
-        //interactionAlert.text = System.Enum.GetName(typeof(Interactable.InteractionTypes), typeOfAlert);
+        interactionAlert.text = System.Enum.GetName(typeof(Interactable.InteractionTypes), typeOfAlert);
         interactionAlert.enabled = state;
     }
 
@@ -129,5 +129,11 @@ public class InteractionUI : MonoBehaviour
             });
             index++;
         }
+    }
+
+    public void Talk(CharacterProps npc)
+    {
+        talkingPanel.GetComponentInChildren<TextMeshProUGUI>().text = npc.lines;
+        uiController.TogglePanel(talkingPanel, true);
     }
 }

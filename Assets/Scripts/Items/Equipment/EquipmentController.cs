@@ -68,6 +68,7 @@ public class EquipmentController : MonoBehaviour
             {
                 Destroy(currentMeshes[slotIndex].gameObject);
             }
+
             Equipment oldItem = currentEquipment[slotIndex];
             inventory.Add(oldItem);
 

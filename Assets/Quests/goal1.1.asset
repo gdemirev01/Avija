@@ -17,5 +17,6 @@ MonoBehaviour:
   quantity: 1
   progress: 0
   target: zombie
+  done: 0
   choice: {fileID: 0}
   options: []

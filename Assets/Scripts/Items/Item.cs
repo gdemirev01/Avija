@@ -6,6 +6,8 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     new public string name;
+    public int cost;
+
     public Sprite icon;
 
     public virtual void Use() { }

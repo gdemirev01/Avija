@@ -17,6 +17,6 @@ MonoBehaviour:
   text: aksoddfokgdfg
   reward:
     coins: 100
-    exp: 120
-  done: 0
+    exp: 10000
+  done: 1
   goal: {fileID: 11400000, guid: 6cb49a806b437ac45bffd359aa76a8dc, type: 2}

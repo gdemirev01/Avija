@@ -9,7 +9,6 @@ public class LevelSystem : MonoBehaviour
 
     private float expRequired;
     private float expIncrease;
-    // Start is called before the first frame update
 
     private void Awake()
     {

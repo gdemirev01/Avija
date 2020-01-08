@@ -72,7 +72,7 @@ public class QuestUI : MonoBehaviour
         }
         else
         {
-            uiController.LoadText(questProgress, quest.goal.ToString() + "\n\n" + quest.reward.ToString());
+            uiController.LoadText(questProgress, quest.goal.GetCurrentChoice().ToString() + "\n\n" + quest.reward.ToString());
         }
     }
 }

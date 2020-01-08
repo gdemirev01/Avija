@@ -5,7 +5,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "New Quest", menuName = "Quests/Quest")]
 public class Quest : ScriptableObject
 {
-    public string name;
+    new public string name;
     public string giver;
     public string text;
     public Reward reward;

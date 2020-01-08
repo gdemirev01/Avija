@@ -5,28 +5,25 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public GameObject player;
-    public float range = 5;
-    public bool playerInRange = false;
-    public bool playerInAttackRange = false;
-    public float speed = 1f;
     private Animator animator;
-    public bool canMove = true;
     public DealDamage dealDamage;
-    private float attackRange = 15f;
-
-    private bool isAttacking = false;
-
     public ComboSystem comboSystem;
 
+    public float range = 5;
+    public float speed = 1f;
+    private float attackRange = 15f;
     public float cooldown;
 
-    // Start is called before the first frame update
+    private bool isAttacking = false;
+    public bool canMove = true;
+    public bool playerInRange = false;
+    public bool playerInAttackRange = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Detection();

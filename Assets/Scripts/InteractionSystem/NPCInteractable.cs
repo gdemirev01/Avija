@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class NPCInteractable : Interactable
 {
-    public enum InteractionTypes { Talk, Quest };
-    public InteractionTypes type;
-
     public QuestController questController;
 
     public InteractionUI interactionUI;
@@ -28,6 +25,7 @@ public class NPCInteractable : Interactable
         else if(type == InteractionTypes.Talk)
         {
             questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
+            interactionUI.Talk(GetComponent<CharacterProps>());
         }
     }
 }

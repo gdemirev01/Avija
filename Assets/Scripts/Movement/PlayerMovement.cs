@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    private float Speed;
-    public bool canMove = true;
-    public int acceleration = 1;
+
     private Animator animator;
-    public float rotationSpeed = 1;
-    public Vector3 moveDirection;
+    public DealDamage dealDamage;
+
+    [SerializeField]
+    private float speed;
+
+    [SerializeField]
+    private int acceleration = 1;
+
+    [SerializeField]
+    private float rotationspeed = 1;
+
+    public bool canMove = true;
     public bool blockRotationOnPlayer = false;
     public float allowPlayerRotation;
-    public Transform raycaster;
-    public float verticalVelocity;
 
-    private float previousHeight;
-    private float currentHeight;
-
-    public DealDamage dealDamage;
+    private Vector3 moveDirection;
 
     public GameObject weapon;
     public GameObject weaponOnSpine;
 
     public bool inBattle = false;
-
     public bool blocking = false;
-
     public bool inWater = false;
 
     // Start is called before the first frame update
@@ -40,15 +40,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         InputMagnitude();
-
-        currentHeight = transform.position.y;
-
-        var travel = System.Math.Round(currentHeight - previousHeight);
-        if (travel < 0)
-        {
-            Debug.Log("falling");
-        }
-        previousHeight = currentHeight;
     }
 
     public void EnableMoving()
@@ -92,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!blockRotationOnPlayer)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed / 2);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationspeed / 2);
         }
     }
 
@@ -121,8 +112,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(!blockRotationOnPlayer)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationSpeed);
-            raycaster.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), 1000);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationspeed);
         }
     }
 
@@ -138,11 +128,11 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("InputX", InputX, 0.0f, Time.deltaTime * 2f);
         animator.SetBool("inWater", inWater);
 
-        Speed = new Vector2(InputX, InputZ).sqrMagnitude;
+        speed = new Vector2(InputX, InputZ).sqrMagnitude;
 
-        if(Speed > allowPlayerRotation)
+        if(speed > allowPlayerRotation)
         {
-            animator.SetFloat("InputMagnitude", Speed, 0.0f, Time.deltaTime);
+            animator.SetFloat("InputMagnitude", speed, 0.0f, Time.deltaTime);
             animator.SetFloat("running", Input.GetAxis("Running"), 0.0f, Time.deltaTime);
 
             if (inBattle)
@@ -156,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
         } 
         else
         {
-            animator.SetFloat("InputMagnitude", Speed, 0.0f, Time.deltaTime);
+            animator.SetFloat("InputMagnitude", speed, 0.0f, Time.deltaTime);
             animator.SetFloat("running", Input.GetAxis("Running"), 0.0f, Time.deltaTime);
         }
     }

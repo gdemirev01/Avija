@@ -18,7 +18,6 @@ public class MovePanel : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging");
         dragRectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 

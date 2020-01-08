@@ -9,4 +9,6 @@ public class CharacterProps : MonoBehaviour
     public float exp;
     public int level;
     public int coins;
+
+    public string lines;
 }

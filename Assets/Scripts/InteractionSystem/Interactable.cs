@@ -5,8 +5,8 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
 
-    //public enum InteractionTypes { Talk, Quest, Gather, Pick };
-    //public InteractionTypes type;
+    public enum InteractionTypes { Talk, Quest, Gather, Pick, Shop };
+    public InteractionTypes type;
 
     //public QuestController questController;
 

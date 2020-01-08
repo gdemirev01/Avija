@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
-    public InteractionUI interactionUI;
-    private bool alertOpened = false;
-
     public Transform source;
+    public InteractionUI interactionUI;
+    private PlayerMovement playerMovement;
 
-    public PlayerMovement playerMovement;
+    private void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
 
     private void Update()
     {
-
         RaycastHit hit;
         if (Physics.Raycast(source.position, source.TransformDirection(Vector3.forward), out hit, 7))
         {
@@ -21,6 +22,7 @@ public class Interact : MonoBehaviour
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if(interactable != null)
             {
+                interactionUI.typeOfAlert = interactable.type;
                 interactionUI.ToggleAlert(true);
                 if (Input.GetButtonDown("Interact"))
                 {
@@ -41,6 +43,5 @@ public class Interact : MonoBehaviour
                 playerMovement.inWater = true;
             }
         }
-
     } 
 }
