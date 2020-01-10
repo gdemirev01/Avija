@@ -33,7 +33,7 @@ public class Interact : MonoBehaviour
         else
         {
             Debug.DrawRay(source.position, source.TransformDirection(Vector3.forward) * 1000, Color.red);
-            interactionUI.ToggleAlert(false);
+            //interactionUI.ToggleAlert(false);
         }
 
         if (Physics.Raycast(source.position, source.TransformDirection(Vector3.down), out hit, 3))

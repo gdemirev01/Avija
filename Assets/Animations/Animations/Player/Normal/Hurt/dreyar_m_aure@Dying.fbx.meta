@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c21571a19698e5541809953182668141
+guid: 54f83f2f3c6e55047a88aba9e29b2455
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -135,7 +135,7 @@ ModelImporter:
     400126: mixamorig:Spine
     400128: mixamorig:Spine1
     400130: mixamorig:Spine2
-    7400000: Standing Block Idle
+    7400000: Dying
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -166,10 +166,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Standing Block Idle
+      name: Dying
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 55
+      lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

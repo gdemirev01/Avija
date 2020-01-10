@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class ReceiveHit : MonoBehaviour
 {
-    private Animator animator;
-    private CharacterProps characterProps;
+    public Animator animator;
+    public CharacterProps characterProps;
     public QuestController questController;
+    public EnemySpawner enemySpawner;
 
     public bool blocking = false;
 
-    void Start()
-    {
-        animator = transform.root.GetComponent<Animator>();
-        characterProps = transform.root.GetComponent<CharacterProps>();
-    }
 
     public void receiveHit(GameObject attacker)
     {
@@ -33,13 +29,18 @@ public class ReceiveHit : MonoBehaviour
             }
             else if(tag.Equals("Enemy"))
             {
-                GetComponent<EnemyController>().enabled = false;
-                GetComponent<BoxCollider>().enabled = false;
-                this.enabled = false;
-                questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
+                Die();
             }
         }
 
         animator.SetTrigger("getHitted");
+    }
+
+    public void Die()
+    {
+        GetComponent<EnemyController>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        this.enabled = false;
+        questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
     }
 }

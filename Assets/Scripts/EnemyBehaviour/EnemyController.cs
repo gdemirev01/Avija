@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     private Animator animator;
     public DealDamage dealDamage;
     public ComboSystem comboSystem;
 
     public float range = 5;
     public float speed = 1f;
-    private float attackRange = 15f;
+    public float attackRange = 15f;
     public float cooldown;
 
     private bool isAttacking = false;
@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        player = GameObject.Find("Player");
     }
 
     void Update()
