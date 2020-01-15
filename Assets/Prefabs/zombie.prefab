@@ -725,6 +725,7 @@ GameObject:
   - component: {fileID: 666503483}
   - component: {fileID: 666503482}
   - component: {fileID: 666503481}
+  - component: {fileID: 4396456213884633845}
   - component: {fileID: 666503484}
   m_Layer: 0
   m_Name: zombie
@@ -782,9 +783,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &666503483
 MonoBehaviour:
@@ -801,6 +802,7 @@ MonoBehaviour:
   animator: {fileID: 30447328}
   characterProps: {fileID: 666503481}
   questController: {fileID: 0}
+  enemySpawner: {fileID: 0}
   blocking: 0
 --- !u!114 &666503482
 MonoBehaviour:
@@ -816,13 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dealDamage: {fileID: 879311724}
   comboSystem: {fileID: 0}
-  range: 50
-  speed: 10
-  attackRange: 5
-  cooldown: 3
-  canMove: 1
-  playerInRange: 0
-  playerInAttackRange: 0
+  lookRadius: 53.01
 --- !u!114 &666503481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,6 +837,28 @@ MonoBehaviour:
   level: 0
   coins: 0
   lines: 
+--- !u!195 &4396456213884633845
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666503480}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.2
+  m_Speed: 2
+  m_Acceleration: 20
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!136 &666503484
 CapsuleCollider:
   m_ObjectHideFlags: 0

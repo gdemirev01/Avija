@@ -6,6 +6,22 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+
+    #region Singleton
+    public static UIController instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("There is another instance of uiController");
+            return;
+        }
+
+        instance = this;
+    }
+    #endregion
+
     public List<GameObject> openedPanels;
 
     // Start is called before the first frame update

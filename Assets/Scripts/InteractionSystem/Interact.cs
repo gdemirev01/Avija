@@ -8,9 +8,12 @@ public class Interact : MonoBehaviour
     public InteractionUI interactionUI;
     private PlayerMovement playerMovement;
 
+    private Rigidbody rigidbody;
+
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        rigidbody = transform.root.gameObject.GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -34,14 +37,6 @@ public class Interact : MonoBehaviour
         {
             Debug.DrawRay(source.position, source.TransformDirection(Vector3.forward) * 1000, Color.red);
             //interactionUI.ToggleAlert(false);
-        }
-
-        if (Physics.Raycast(source.position, source.TransformDirection(Vector3.down), out hit, 3))
-        {
-            if (hit.collider.gameObject.transform.tag.Equals("Water"))
-            {
-                playerMovement.inWater = true;
-            }
         }
     } 
 }

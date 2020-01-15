@@ -11,6 +11,8 @@ public class InventoryUI : MonoBehaviour
 
     InventorySlot[] slots;
 
+    private bool inventoryOpened = false;
+
     void Start()
     {
         inventory = Inventory.instance;
@@ -32,5 +34,11 @@ public class InventoryUI : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+    }
+
+    public void ToggleInventoryPanel()
+    {
+        inventoryOpened = !inventoryOpened;
+        UIController.instance.TogglePanel(itemsParent, inventoryOpened);
     }
 }

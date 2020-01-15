@@ -99,10 +99,10 @@ public class PlayerMovement : MonoBehaviour
         var forward = camera.transform.forward;
         var right = camera.transform.right;
 
-        if (!inWater)
-        {
+        //if (!inWater)
+        //{
             forward.y = 0f;
-        }
+        //}
         right.y = 0f;
 
         forward.Normalize();
@@ -126,7 +126,6 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("InputZ", InputZ, 0.0f, Time.deltaTime * 2f);
         animator.SetFloat("InputX", InputX, 0.0f, Time.deltaTime * 2f);
-        animator.SetBool("inWater", inWater);
 
         speed = new Vector2(InputX, InputZ).sqrMagnitude;
 

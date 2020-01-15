@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -9,87 +10,92 @@ public class EnemyController : MonoBehaviour
     public DealDamage dealDamage;
     public ComboSystem comboSystem;
 
-    public float range = 5;
-    public float speed = 1f;
-    public float attackRange = 15f;
-    public float cooldown;
+    Transform target;
+    NavMeshAgent agent;
 
-    private bool isAttacking = false;
-    public bool canMove = true;
-    public bool playerInRange = false;
-    public bool playerInAttackRange = false;
+    public float lookRadius = 10f;
 
     void Start()
     {
+        target = PlayerManager.instance.player.transform;
+        agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        player = GameObject.Find("Player");
     }
 
     void Update()
     {
-        Detection();
+        float distance = Vector3.Distance(transform.position, target.transform.position);
 
-        if (playerInRange && playerInAttackRange && !isAttacking)
+        if(distance <= lookRadius)
         {
-            Attack();
-        }
-
-        if (playerInRange)
-        {
-            AdvanceToPlayer();
-        } 
-        else
-        {
-            animator.SetBool("running", false);
-        }
-    }
-
-    private void AdvanceToPlayer()
-    {
-        if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
-        {
-            animator.SetBool("running", false);
-            playerInAttackRange = true;
-            return;
-        }
-        else
-        {
+            agent.SetDestination(target.position);
             animator.SetBool("running", true);
+
+            if(distance <= agent.stoppingDistance)
+            {
+                animator.SetBool("running", false);
+                FaceTarget();
+                //Attack
+            }
         }
-
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        transform.LookAt(player.transform);
+        else
+        {
+            animator.SetBool("running", false);
+        }
     }
 
-    private void Attack()
+    void FaceTarget()
     {
-        dealDamage.Attack();
-        isAttacking = true;
-        Invoke("EndAttack", cooldown);
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
+
+    //private void AdvanceToPlayer()
+    //{
+    //    if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
+    //    {
+    //        animator.SetBool("running", false);
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        animator.SetBool("running", true);
+    //    }
+
+    //    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+    //    transform.LookAt(player.transform);
+    //}
+
+    //private void Attack()
+    //{
+    //    dealDamage.Attack();
+    //    isAttacking = true;
+    //    Invoke("EndAttack", cooldown);
+    //}
 
     public void EndAttackAnimation()
     {
         animator.SetBool("attacking", false);
     }
 
-    private void EndAttack()
-    {
-        isAttacking = false;
-    }
+    //private void EndAttack()
+    //{
+    //    isAttacking = false;
+    //}
 
-    private void Detection()
-    {
-        var distance = Vector3.Distance(transform.position, player.transform.position);
-        if (distance < range)
-        {
-            playerInRange = true;
-        }
-        else
-        {
-            playerInRange = false;
-        }
-    }
+    //private void Detection()
+    //{
+    //    var distance = Vector3.Distance(transform.position, player.transform.position);
+    //    if (distance < range)
+    //    {
+    //        playerInRange = true;
+    //    }
+    //    else
+    //    {
+    //        playerInRange = false;
+    //    }
+    //}
 
     public void EnableAttack()
     {
