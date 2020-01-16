@@ -27,5 +27,9 @@ public class NPCInteractable : Interactable
             questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
             interactionUI.Talk(GetComponent<CharacterProps>());
         }
+        else if(type == InteractionTypes.Shop)
+        {
+            GetComponent<Shop>().OnInteraction();
+        }
     }
 }

@@ -7,7 +7,7 @@ public class Reward
 {
     public int coins;
     public float exp;
-    // public List<Item> items;
+    public Item item;
 
     public override string ToString()
     {

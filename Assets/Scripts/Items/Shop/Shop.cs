@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shopkeeper : Interactable
+public class Shop : MonoBehaviour
 {
     public int coins;
 
@@ -37,5 +37,11 @@ public class Shopkeeper : Interactable
 
         Inventory.instance.Remove(item);
         items.Add(item);
+    }
+
+    public void OnInteraction()
+    {
+        ShopUI.instance.SetShop(this);
+        ShopUI.instance.ToggleShopPanel(true);
     }
 }

@@ -57,6 +57,8 @@ public class QuestController : MonoBehaviour
         levelSystem.AddExp(quest.reward.exp);
         playerProps.coins += quest.reward.coins;
 
+        Inventory.instance.Add(quest.reward.item);
+
         activeQuests.Remove(quest);
         questUI.UpdateQuestUI();
     }
