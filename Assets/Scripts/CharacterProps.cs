@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CharacterProps : MonoBehaviour
 {
-    public string name;
+    new public string name;
     public float health;
     public float exp;
     public int level;
     public int coins;
+
+    public int damage;
+    public int armor;
 
     public string lines;
 }

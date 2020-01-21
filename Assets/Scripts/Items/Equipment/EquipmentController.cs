@@ -15,14 +15,16 @@ public class EquipmentController : MonoBehaviour
 
     Inventory inventory;
 
-    public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
+    public delegate void OnEquipmentChanged();
     public OnEquipmentChanged onEquipmentChanged;
 
     public SkinnedMeshRenderer targetMesh;
 
-    Equipment[] currentEquipment;
+    public Equipment[] currentEquipment;
 
     SkinnedMeshRenderer[] currentMeshes;
+
+    private CharacterProps playerProps;
 
     private void Start()
     {
@@ -32,6 +34,10 @@ public class EquipmentController : MonoBehaviour
         currentEquipment = new Equipment[numSlots];
 
         currentMeshes = new SkinnedMeshRenderer[numSlots];
+
+        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
+
+        onEquipmentChanged += UpdateStats;
     }
 
     public void Equip(Equipment newItem)
@@ -46,11 +52,6 @@ public class EquipmentController : MonoBehaviour
             inventory.Add(oldItem);
         }
 
-        if(onEquipmentChanged != null)
-        {
-            onEquipmentChanged.Invoke(newItem, oldItem);
-        }
-
         currentEquipment[slotIndex] = newItem;
         SkinnedMeshRenderer newMesh = Instantiate<SkinnedMeshRenderer>(newItem.mesh);
         newMesh.transform.parent = targetMesh.transform;
@@ -58,6 +59,11 @@ public class EquipmentController : MonoBehaviour
         newMesh.bones = targetMesh.bones;
         newMesh.rootBone = targetMesh.rootBone;
         currentMeshes[slotIndex] = newMesh;
+
+        if (onEquipmentChanged != null)
+        {
+            onEquipmentChanged.Invoke();
+        }
     }
 
     public void Unequip(int slotIndex)
@@ -76,7 +82,7 @@ public class EquipmentController : MonoBehaviour
 
             if (onEquipmentChanged != null)
             {
-                onEquipmentChanged.Invoke(null, oldItem);
+                onEquipmentChanged.Invoke();
             }
         }
     }
@@ -86,6 +92,17 @@ public class EquipmentController : MonoBehaviour
         for(int i = 0; i < currentEquipment.Length; i++)
         {
             Unequip(i);
+        }
+    }
+
+    void UpdateStats()
+    {
+        foreach (Equipment item in currentEquipment)
+        {
+            if (item == null) { continue; }
+
+            playerProps.armor += item.armorModifier;
+            playerProps.damage += item.damageModifier;
         }
     }
 

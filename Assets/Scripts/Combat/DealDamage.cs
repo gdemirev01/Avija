@@ -25,23 +25,31 @@ public class DealDamage : MonoBehaviour
     {
         if (enableAttackTriggers)
         {
-            if ((gameObject.tag.Equals("PlayerWeapon") && other.gameObject.tag.Equals("Enemy")))
+            if ((gameObject.tag.Equals("Player") && other.tag.Equals("Enemy")))
             {
                 animator.ResetTrigger("getHitted");
+                Debug.Log("this is " + this.name);
+                Debug.Log("other is " + other.name);
                 other.GetComponent<ReceiveHit>().receiveHit(gameObject);
             }
-            else if ((gameObject.tag.Equals("EnemyWeapon") && other.gameObject.tag.Equals("Player")))
+            else if ((gameObject.tag.Equals("Enemy") && other.tag.Equals("Player")))
             {
                 animator.ResetTrigger("getHitted");
                 other.GetComponent<ReceiveHit>().receiveHit(gameObject);
             }
         }
-        Debug.Log(other.tag);
+        
+
     }
 
     public void Attack()
     {
         animator.SetBool("attacking", true);
+    }
+
+    public void EndAttack()
+    {
+        animator.SetBool("attacking", false);
     }
 
     public void ToggleTriggers(bool state)

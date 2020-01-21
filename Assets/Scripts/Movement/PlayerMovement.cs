@@ -12,9 +12,6 @@ public class PlayerMovement : MonoBehaviour
     private float speed;
 
     [SerializeField]
-    private int acceleration = 1;
-
-    [SerializeField]
     private float rotationspeed = 1;
 
     public bool canMove = true;

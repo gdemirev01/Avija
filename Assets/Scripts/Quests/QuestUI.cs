@@ -60,7 +60,6 @@ public class QuestUI : MonoBehaviour
     }
 
 
-    //find why goal done becomes false after accepting quest
     public void LoadQuestInfoInPanel(int index)
     {
         var quest = quests[index];

@@ -7,8 +7,7 @@ public class EnemyController : MonoBehaviour
 {
     private GameObject player;
     private Animator animator;
-    public DealDamage dealDamage;
-    public ComboSystem comboSystem;
+    private DealDamage dealDamage;
 
     Transform target;
     NavMeshAgent agent;
@@ -20,11 +19,21 @@ public class EnemyController : MonoBehaviour
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        dealDamage = GetComponent<DealDamage>();
     }
 
     void Update()
     {
         float distance = Vector3.Distance(transform.position, target.transform.position);
+
+        if(agent.isOnOffMeshLink)
+        {
+            animator.SetTrigger("jump");
+        }
+        else
+        {
+            animator.ResetTrigger("jump");
+        }
 
         if(distance <= lookRadius)
         {
@@ -35,7 +44,11 @@ public class EnemyController : MonoBehaviour
             {
                 animator.SetBool("running", false);
                 FaceTarget();
-                //Attack
+                dealDamage.Attack();
+            }
+            else
+            {
+                dealDamage.EndAttack();
             }
         }
         else
@@ -70,14 +83,13 @@ public class EnemyController : MonoBehaviour
     //private void Attack()
     //{
     //    dealDamage.Attack();
-    //    isAttacking = true;
     //    Invoke("EndAttack", cooldown);
     //}
 
-    public void EndAttackAnimation()
-    {
-        animator.SetBool("attacking", false);
-    }
+    //public void EndAttackAnimation()
+    //{
+    //    animator.SetBool("attacking", false);
+    //}
 
     //private void EndAttack()
     //{

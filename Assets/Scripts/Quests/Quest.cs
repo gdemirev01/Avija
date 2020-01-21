@@ -11,8 +11,6 @@ public class Quest : ScriptableObject
     public Reward reward;
     public bool done = false;
 
-    private static int questsNumber = 0;
-
     public Goal goal;
 
     public override bool Equals(object obj)

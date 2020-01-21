@@ -6,6 +6,7 @@ public class ReceiveHit : MonoBehaviour
 {
     public Animator animator;
     public CharacterProps characterProps;
+
     public QuestController questController;
     public EnemySpawner enemySpawner;
 
@@ -15,32 +16,28 @@ public class ReceiveHit : MonoBehaviour
     public void receiveHit(GameObject attacker)
     {
         if(blocking) { return; }
-   
-        var damage = attacker.GetComponent<WeaponStats>().damage;
-        characterProps.health -= damage;
-        if(characterProps.health <= 0)
-        {
-            animator.SetTrigger("die");
-
-            if(this.tag.Equals("Player"))
-            {
-                GetComponent<CharacterController>().enabled = false;
-                this.enabled = false;
-            }
-            else if(tag.Equals("Enemy"))
-            {
-                Die();
-            }
-        }
 
         animator.SetTrigger("getHitted");
+
+        var damage = attacker.GetComponent<CharacterProps>().damage;
+        var armor = characterProps.armor;
+        
+        characterProps.health -= (damage - armor);
+
+        if (characterProps.health <= 0)
+        {
+            Die();
+        }
     }
+
+
 
     public void Die()
     {
-        GetComponent<EnemyController>().enabled = false;
+        animator.SetTrigger("die");
         GetComponent<Collider>().enabled = false;
-        this.enabled = false;
         questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
+
+        Destroy(gameObject, 4f);
     }
 }

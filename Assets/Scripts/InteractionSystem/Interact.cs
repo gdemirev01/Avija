@@ -8,7 +8,7 @@ public class Interact : MonoBehaviour
     public InteractionUI interactionUI;
     private PlayerMovement playerMovement;
 
-    private Rigidbody rigidbody;
+    new private Rigidbody rigidbody;
 
     private void Start()
     {
@@ -36,7 +36,7 @@ public class Interact : MonoBehaviour
         else
         {
             Debug.DrawRay(source.position, source.TransformDirection(Vector3.forward) * 1000, Color.red);
-            //interactionUI.ToggleAlert(false);
+            interactionUI.ToggleAlert(false);
         }
     } 
 }

@@ -19,7 +19,6 @@ public class EnemySpawner : MonoBehaviour
     public int PlayerSafeCells = 1;
 
     PlayableGridCell[,] PlayableAreaGrid = null;
-    private bool IsSpawningFinished = false;
     private float time;
     public float timeBetweenSpawns;
 

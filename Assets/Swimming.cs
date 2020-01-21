@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Swimming : MonoBehaviour
 {
-    private Rigidbody rigidbody;
+    new private Rigidbody rigidbody;
     public Animator animator;
 
     void Start()

@@ -18,5 +18,6 @@ MonoBehaviour:
   reward:
     coins: 100
     exp: 10000
+    item: {fileID: 11400000, guid: 9bb3224fc25fc6446a1537107dc5d635, type: 2}
   done: 1
   goal: {fileID: 11400000, guid: 6cb49a806b437ac45bffd359aa76a8dc, type: 2}
