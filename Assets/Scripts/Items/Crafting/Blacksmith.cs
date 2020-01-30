@@ -7,6 +7,11 @@ public class Blacksmith : Interactable
 
     private CharacterProps playerProps;
 
+    private void Awake()
+    {
+        this.type = InteractionTypes.Blacksmith;
+    }
+
     private void Start()
     {
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();

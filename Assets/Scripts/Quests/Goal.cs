@@ -18,19 +18,6 @@ public class Goal : ScriptableObject
 
     [SerializeField]
     public List<Goal> options;
-    public List<Goal> Options
-    {
-        get
-        {
-            if (options == null)
-
-            {
-                options = new List<Goal>();
-            }
-
-            return options;
-        }
-    }
 
     public Goal GetCurrentChoice()
     {
@@ -57,6 +44,23 @@ public class Goal : ScriptableObject
     public bool ReachedEndOfGoal()
     {
         return this.options.Count == 0 && done;
+    }
+
+    public void Reset()
+    {
+        this.done = false;
+        progress = 0;
+        choice = null;
+
+        if(options.Count == 0)
+        {
+            return;
+        }
+
+        foreach(Goal option in this.options)
+        {
+            option.Reset();
+        }
     }
 
     public enum GoalType

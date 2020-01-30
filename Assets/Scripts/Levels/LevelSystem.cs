@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelSystem : MonoBehaviour
 {
-    public CharacterProps playerProps;
+    private CharacterProps playerProps;
     private LevelSystemUI levelSystemUI;
 
     private float expRequired;
@@ -18,6 +18,7 @@ public class LevelSystem : MonoBehaviour
 
     void Start()
     {
+        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
         levelSystemUI = GetComponent<LevelSystemUI>();
     }
 

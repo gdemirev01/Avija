@@ -30,12 +30,17 @@ public class ReceiveHit : MonoBehaviour
         }
     }
 
-
-
     public void Die()
     {
         animator.SetTrigger("die");
         GetComponent<Collider>().enabled = false;
+
+        if(this.tag.Equals("Player"))
+        {
+            //Load death screen
+            return;
+        }
+
         questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
 
         Destroy(gameObject, 4f);

@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        target = PlayerManager.instance.player.transform;
+        target = PlayerManager.instance.player.transform.GetChild(0);
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         dealDamage = GetComponent<DealDamage>();
@@ -63,51 +63,6 @@ public class EnemyController : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
-
-    //private void AdvanceToPlayer()
-    //{
-    //    if (Vector3.Distance(transform.position, player.transform.position) < attackRange)
-    //    {
-    //        animator.SetBool("running", false);
-    //        return;
-    //    }
-    //    else
-    //    {
-    //        animator.SetBool("running", true);
-    //    }
-
-    //    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-    //    transform.LookAt(player.transform);
-    //}
-
-    //private void Attack()
-    //{
-    //    dealDamage.Attack();
-    //    Invoke("EndAttack", cooldown);
-    //}
-
-    //public void EndAttackAnimation()
-    //{
-    //    animator.SetBool("attacking", false);
-    //}
-
-    //private void EndAttack()
-    //{
-    //    isAttacking = false;
-    //}
-
-    //private void Detection()
-    //{
-    //    var distance = Vector3.Distance(transform.position, player.transform.position);
-    //    if (distance < range)
-    //    {
-    //        playerInRange = true;
-    //    }
-    //    else
-    //    {
-    //        playerInRange = false;
-    //    }
-    //}
 
     public void EnableAttack()
     {

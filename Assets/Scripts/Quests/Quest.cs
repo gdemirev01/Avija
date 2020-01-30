@@ -13,6 +13,12 @@ public class Quest : ScriptableObject
 
     public Goal goal;
 
+    public void Reset()
+    {
+        this.done = false;
+        this.goal.Reset();
+    }
+
     public override bool Equals(object obj)
     {
         var quest = obj as Quest;

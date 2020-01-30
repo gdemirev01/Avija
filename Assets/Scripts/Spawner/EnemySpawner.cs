@@ -47,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
     {
         CreatePlayableGrid();
         MarkPlayerSafeArea();
-        SpawnNewAsteroids(counter);
+        SpawnNewEnemies(counter);
     }
 
     private void Start()
@@ -59,9 +59,9 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector2Int playerGridPos = GetCellCoordinates(player.transform.position);
 
-        //The player ship's pivot is located in grid cell (playerGridPos.x,playerGridPos.y)
+        //The player pivot is located in grid cell (playerGridPos.x,playerGridPos.y)
         //Define a square, that is with a side of PlayerSafeCells + 1;
-        //We will mark all cells in that square as Occupied, so that no asteroids can spawn there
+        //We will mark all cells in that square as Occupied, so that no enemies can spawn there
         int minX = Mathf.Max(0, playerGridPos.x - PlayerSafeCells);
         int maxX = Mathf.Min(playerGridPos.x + PlayerSafeCells, PlayableAreaGrid.GetLength(0) - 1);
         int minY = Mathf.Max(0, playerGridPos.y - PlayerSafeCells);
@@ -107,12 +107,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void SpawnNewAsteroids(uint enemyCounter)
+    private void SpawnNewEnemies(uint enemyCounter)
     {
-        List<Vector3> asteroidPositions = FindFreePositions(enemyCounter);
-        for (int i = 0; i < asteroidPositions.Count; ++i)
+        List<Vector3> enemyPositions = FindFreePositions(enemyCounter);
+        for (int i = 0; i < enemyPositions.Count; ++i)
         {
-            GameObject asteroid = Instantiate(EnemyPrefab, asteroidPositions[i], Quaternion.identity);
+            GameObject enemy = Instantiate(EnemyPrefab, enemyPositions[i], Quaternion.identity);
         }
     }
 

@@ -10,6 +10,11 @@ public class EquipmentController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
+        currentEquipment = new Equipment[numSlots];
+
+        currentMeshes = new SkinnedMeshRenderer[numSlots];
     }
     #endregion
 
@@ -29,11 +34,6 @@ public class EquipmentController : MonoBehaviour
     private void Start()
     {
         inventory = Inventory.instance;
-
-        int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        currentEquipment = new Equipment[numSlots];
-
-        currentMeshes = new SkinnedMeshRenderer[numSlots];
 
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
 
@@ -63,6 +63,14 @@ public class EquipmentController : MonoBehaviour
         if (onEquipmentChanged != null)
         {
             onEquipmentChanged.Invoke();
+        }
+    }
+
+    public void EquipListOfItems(List<Item> items)
+    {
+        foreach(Equipment item in items)
+        {
+            this.Equip(item);
         }
     }
 

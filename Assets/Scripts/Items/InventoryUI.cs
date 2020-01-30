@@ -11,14 +11,31 @@ public class InventoryUI : MonoBehaviour
 
     InventorySlot[] slots;
 
+    [SerializeField]
+    GameObject slotPrefab;
+
     private bool inventoryOpened = false;
 
     void Start()
     {
         inventory = Inventory.instance;
+
         inventory.onItemChangedCallback += UpdateUI;
 
+        InitializeSlots();
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+
+
+        // update for the loaded items from save file
+        UpdateUI();
+    }
+
+    void InitializeSlots()
+    {
+        for(int i = 0; i < inventory.space; i++)
+        {
+            GameObject slot = Instantiate(slotPrefab, itemsParent.transform, false);
+        }
     }
 
     void UpdateUI()

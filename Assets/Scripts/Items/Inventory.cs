@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
     #endregion
 
     public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCallback; 
+    public OnItemChanged onItemChangedCallback = new OnItemChanged(() => { }); 
 
     public int space = 9;
 
@@ -33,13 +33,34 @@ public class Inventory : MonoBehaviour
             Debug.Log("Inventory Full");
             return;
         }
-        items.Add(item);
+
+        if(items.Contains(item))
+        {
+            items.Find(i => i.Equals(item)).quantity++;
+        }
+        else
+        {
+            items.Add(item);
+        }
+
         onItemChangedCallback.Invoke();
+    }
+
+    public void AddListOfItems(List<Item> items)
+    {
+        foreach(Item item in items)
+        {
+            this.Add(item);
+        }
     }
 
     public void Remove(Item item)
     {
-        items.Remove(item);
-        onItemChangedCallback.Invoke();
+        item.quantity--;
+        if (item.quantity == 0)
+        {
+            items.Remove(item);
+            onItemChangedCallback.Invoke();
+        }
     }
 }

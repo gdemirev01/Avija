@@ -43,7 +43,7 @@ public class InteractionUI : MonoBehaviour
         uiController.TogglePanel(questChoices, state);
     }
 
-    public void LoadQuest(NPCInteractable giver, Quest quest)
+    public void LoadQuest(QuestGiver giver, Quest quest)
     {
         LoadQuestDetails(giver, quest);
         if (!questController.QuestAlreadyActive(quest))
@@ -70,7 +70,7 @@ public class InteractionUI : MonoBehaviour
         }
     }
 
-    public void LoadQuestDetails(NPCInteractable giver, Quest quest)
+    public void LoadQuestDetails(QuestGiver giver, Quest quest)
     {
         questDescription.GetComponent<TextMeshProUGUI>().text = quest.text;
         coins.text = quest.reward.coins.ToString();
@@ -94,7 +94,7 @@ public class InteractionUI : MonoBehaviour
             {
                 questController.CompleteQuest(quest);
                 ToggleQuestDetails(false);
-                giver.gameObject.GetComponent<QuestGiver>().RemoveQuest();
+                giver.RemoveQuest();
             });
         }
         else
@@ -103,7 +103,7 @@ public class InteractionUI : MonoBehaviour
         }
     }
 
-    public void LoadChoices(NPCInteractable giver, Quest quest)
+    public void LoadChoices(QuestGiver giver, Quest quest)
     {
         Goal goal = quest.goal;
 

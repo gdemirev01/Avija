@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shop : MonoBehaviour
+public class Shop : Interactable
 {
     public int coins;
 
     public List<Item> items;
     public CharacterProps playerProps;
+
+    private void Awake()
+    {
+        this.type = InteractionTypes.Shop;
+    }
+
+    private void Start()
+    {
+        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
+    }
 
     public void Buy(Item item)
     {
@@ -39,7 +49,7 @@ public class Shop : MonoBehaviour
         items.Add(item);
     }
 
-    public void OnInteraction()
+    public override void Interact()
     {
         ShopUI.instance.SetShop(this);
         ShopUI.instance.ToggleShopPanel(true);

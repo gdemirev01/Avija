@@ -8,7 +8,7 @@ public class InputController : MonoBehaviour
 
     public ComboSystem comboSystem;
     private PlayerMovement playerMovement;
-    private Animator animator;
+    public Animator animator;
     public UIController uiController;
     public DealDamage dealDamage;
 
@@ -16,13 +16,12 @@ public class InputController : MonoBehaviour
 
     void Start()
     {
-        playerMovement = GetComponent<PlayerMovement>();
-        animator = GetComponent<Animator>();
+        playerMovement = transform.GetChild(0).GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && GetComponent<PlayerMovement>().inBattle)
+        if(Input.GetMouseButtonDown(0) && playerMovement.inBattle)
         {
             dealDamage.Attack();
             GetComponent<Timer>().RestartTimer();

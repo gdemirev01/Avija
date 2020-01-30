@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    private Animator animator;
+    public Animator animator;
     public DealDamage dealDamage;
 
     [SerializeField]
@@ -25,33 +25,13 @@ public class PlayerMovement : MonoBehaviour
 
     public bool inBattle = false;
     public bool blocking = false;
-    public bool inWater = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = this.gameObject.GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         InputMagnitude();
     }
 
-    public void EnableMoving()
-    {
-        blockRotationOnPlayer = false;
-        canMove = true;
-    }
-
-    public void DisableMoving()
-    {
-        blockRotationOnPlayer = true;
-        canMove = false;
-    }
-
-    void BattleMovement()
+    private void NormalMovement()
     {
 
         if (!canMove) { return; }
@@ -69,45 +49,23 @@ public class PlayerMovement : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        if (InputZ != 0 && InputX != 0)
+        if(inBattle)
         {
-            moveDirection = forward + (right / 2) * InputX;
+            if (InputZ != 0 && InputX != 0)
+            {
+                moveDirection = forward + (right / 2) * InputX;
+            }
+            else
+            {
+                moveDirection = forward;
+            }
         }
-        else 
+        else
         {
-            moveDirection = forward;
+            moveDirection = forward * InputZ + right * InputX;
         }
 
         if (!blockRotationOnPlayer)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationspeed / 2);
-        }
-    }
-
-    private void NormalMovement()
-    {
-
-        if (!canMove) { return; }
-
-        float InputX = Input.GetAxis("Horizontal");
-        float InputZ = Input.GetAxis("Vertical");
-
-        var camera = Camera.main;
-        var forward = camera.transform.forward;
-        var right = camera.transform.right;
-
-        //if (!inWater)
-        //{
-            forward.y = 0f;
-        //}
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        moveDirection = forward * InputZ + right * InputX;
-
-        if(!blockRotationOnPlayer)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationspeed);
         }
@@ -118,32 +76,26 @@ public class PlayerMovement : MonoBehaviour
 
         if(!canMove) { return; }
 
-        float InputX = Input.GetAxis("Horizontal");
-        float InputZ = Input.GetAxis("Vertical");
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
+        float running = Input.GetAxis("Running");
 
-        animator.SetFloat("InputZ", InputZ, 0.0f, Time.deltaTime * 2f);
-        animator.SetFloat("InputX", InputX, 0.0f, Time.deltaTime * 2f);
+        animator.SetFloat("inputZ", inputZ);
+        animator.SetFloat("inputX", inputX);
 
-        speed = new Vector2(InputX, InputZ).sqrMagnitude;
+        speed = new Vector2(inputX, inputZ).sqrMagnitude;
 
         if(speed > allowPlayerRotation)
         {
-            animator.SetFloat("InputMagnitude", speed, 0.0f, Time.deltaTime);
-            animator.SetFloat("running", Input.GetAxis("Running"), 0.0f, Time.deltaTime);
+            animator.SetFloat("inputMagnitude", speed);
+            animator.SetFloat("running", running);
 
-            if (inBattle)
-            {
-                BattleMovement();
-            }
-            else
-            {
-                NormalMovement();
-            }
+            NormalMovement();
         } 
         else
         {
-            animator.SetFloat("InputMagnitude", speed, 0.0f, Time.deltaTime);
-            animator.SetFloat("running", Input.GetAxis("Running"), 0.0f, Time.deltaTime);
+            animator.SetFloat("inputMagnitude", speed);
+            animator.SetFloat("running", running);
         }
     }
 

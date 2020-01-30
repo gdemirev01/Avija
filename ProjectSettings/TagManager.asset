@@ -11,6 +11,7 @@ TagManager:
   - NPC
   - Projectile
   - Water
+  - PlayerCollider
   layers:
   - Default
   - TransparentFX

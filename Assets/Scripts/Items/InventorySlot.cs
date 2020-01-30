@@ -12,12 +12,14 @@ public class InventorySlot : MonoBehaviour
     {
         item = newItem;
 
-        icon.sprite = newItem.icon;
-        icon.enabled = true;
+        this.icon.sprite = newItem.icon;
+        this.icon.enabled = true;
     }
 
     public void ClearSlot()
     {
+        if(item == null) { return; }
+        
         item = null;
 
         icon.sprite = null;

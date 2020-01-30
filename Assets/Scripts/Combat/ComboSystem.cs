@@ -9,7 +9,7 @@ public class ComboSystem : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         timer = GetComponent<Timer>();
 
         timer.onTimerRestart += OnTimerRestart;

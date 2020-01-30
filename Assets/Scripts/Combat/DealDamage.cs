@@ -8,38 +8,17 @@ public class DealDamage : MonoBehaviour
 
     public Animator animator;
 
-    private void Start()
-    {
-        if(this.tag.Equals("PlayerWeapon"))
-        {
-            animator = GameObject.Find("Player").GetComponent<Animator>();
-        } 
-        else if(this.tag.Equals("EnemyWeapon"))
-        {
-            animator = transform.root.GetComponent<Animator>();
-        }
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (enableAttackTriggers)
         {
-            if ((gameObject.tag.Equals("Player") && other.tag.Equals("Enemy")))
+            if ((gameObject.tag.Equals("Player") && other.tag.Equals("Enemy")) ||
+                (gameObject.tag.Equals("Enemy") && other.tag.Equals("PlayerCollider")))
             {
                 animator.ResetTrigger("getHitted");
-                Debug.Log("this is " + this.name);
-                Debug.Log("other is " + other.name);
-                other.GetComponent<ReceiveHit>().receiveHit(gameObject);
-            }
-            else if ((gameObject.tag.Equals("Enemy") && other.tag.Equals("Player")))
-            {
-                animator.ResetTrigger("getHitted");
-                other.GetComponent<ReceiveHit>().receiveHit(gameObject);
+                other.gameObject.GetComponent<ReceiveHit>().receiveHit(gameObject);
             }
         }
-        
-
     }
 
     public void Attack()

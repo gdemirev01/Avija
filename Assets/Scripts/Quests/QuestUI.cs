@@ -16,6 +16,8 @@ public class QuestUI : MonoBehaviour
     public TextMeshProUGUI questProgress;
     public GameObject buttonPrefab;
 
+    public Quest loadedQuest;
+
     void Start()
     {
         quests = new List<Quest>();
@@ -59,10 +61,17 @@ public class QuestUI : MonoBehaviour
         uiController.TogglePanel(this.gameObject, panelOpened);
     }
 
+    public void AbortQuest()
+    {
+        questController.AbortQuest(loadedQuest);
+        ClearPanel();
+    }
+
 
     public void LoadQuestInfoInPanel(int index)
     {
         var quest = quests[index];
+        loadedQuest = quest;
         uiController.LoadText(questDescriptionGUI, quest.text);
 
         if (quest.done)
@@ -73,5 +82,11 @@ public class QuestUI : MonoBehaviour
         {
             uiController.LoadText(questProgress, quest.goal.GetCurrentChoice().ToString() + "\n\n" + quest.reward.ToString());
         }
+    }
+
+    public void ClearPanel()
+    {
+        uiController.LoadText(questDescriptionGUI, "");
+        uiController.LoadText(questProgress, "");
     }
 }

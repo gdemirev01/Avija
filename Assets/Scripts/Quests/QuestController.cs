@@ -6,22 +6,21 @@ using UnityEngine;
 
 public class QuestController : MonoBehaviour
 {
-    private List<Quest> quests;
     private List<Quest> activeQuests;
 
-    public CharacterProps playerProps;
+    private CharacterProps playerProps;
     private LevelSystem levelSystem;
 
     public QuestUI questUI;
 
     private void Awake()
     {
-        quests = new List<Quest>();
         activeQuests = new List<Quest>();
     }
 
     private void Start()
     {
+        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
         levelSystem = this.GetComponent<LevelSystem>();
     }
 
@@ -66,6 +65,9 @@ public class QuestController : MonoBehaviour
     public void AbortQuest(Quest quest)
     {
         activeQuests.Remove(quest);
+
+        quest.Reset();
+
         questUI.UpdateQuestUI();
     }
 
