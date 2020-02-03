@@ -45,10 +45,10 @@ public class InteractionUI : MonoBehaviour
 
     public void LoadQuest(QuestGiver giver, Quest quest)
     {
-        LoadQuestDetails(giver, quest);
         if (!questController.QuestAlreadyActive(quest))
         {
             ToggleQuestDetails(true);
+            LoadQuestDetails(giver, quest);
         }
         else
         {
@@ -67,6 +67,7 @@ public class InteractionUI : MonoBehaviour
             {
                 ToggleQuestDetails(true);
             }
+            LoadQuestDetails(giver, quest);
         }
     }
 

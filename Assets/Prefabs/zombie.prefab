@@ -816,9 +816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e69610373f0ff664e9104607725071f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dealDamage: {fileID: 879311724}
-  comboSystem: {fileID: 0}
-  lookRadius: 53.01
+  lookRadius: 1
+  spawner: {fileID: 0}
 --- !u!114 &666503481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,6 +835,8 @@ MonoBehaviour:
   exp: 0
   level: 0
   coins: 0
+  damage: 0
+  armor: 0
   lines: 
 --- !u!195 &4396456213884633845
 NavMeshAgent:
@@ -1269,6 +1270,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -1775,6 +1777,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -2421,6 +2424,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

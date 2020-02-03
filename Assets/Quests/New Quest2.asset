@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
   m_Name: New Quest2
   m_EditorClassIdentifier: 
+  id: 2
   name: Herbalist
   giver: Simko
   text: Get me herbs from the mountains
@@ -21,3 +22,4 @@ MonoBehaviour:
     item: {fileID: 0}
   done: 0
   goal: {fileID: 11400000, guid: 80155c9a04288204085918ff0b6a93e2, type: 2}
+  nextQuests: []

@@ -8,16 +8,13 @@ public class QuestGiver : Interactable
 {
 
     public Quest quest;
+    public int asdf = 0;
     public QuestController questController;
     public InteractionUI interactionUI;
 
     private void Awake()
     {
         this.type = InteractionTypes.Quest;
-        if(quest.done)
-        {
-            this.quest = null;
-        }
     }
 
     public void LoadQuest(Quest quest)

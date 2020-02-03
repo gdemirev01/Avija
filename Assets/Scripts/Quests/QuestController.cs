@@ -7,15 +7,21 @@ using UnityEngine;
 public class QuestController : MonoBehaviour
 {
     private List<Quest> activeQuests;
+    public List<Quest> completedQuests;
 
     private CharacterProps playerProps;
     private LevelSystem levelSystem;
 
     public QuestUI questUI;
 
+    public GameObject NPCs;
+
+    private Quest nextQuest;
+
     private void Awake()
     {
         activeQuests = new List<Quest>();
+        completedQuests = new List<Quest>();
     }
 
     private void Start()
@@ -23,7 +29,6 @@ public class QuestController : MonoBehaviour
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
         levelSystem = this.GetComponent<LevelSystem>();
     }
-
 
     public void SendProgressForQuest(string nameOfTarget)
     {
@@ -51,6 +56,22 @@ public class QuestController : MonoBehaviour
         questUI.UpdateQuestUI();
     }
 
+    public void LoadToGiver()
+    {
+        if (nextQuest.giver == null) { return; }
+
+        foreach (Transform npc in NPCs.transform)
+        {
+            CharacterProps props = npc.gameObject.GetComponent<CharacterProps>();
+
+            if (props.name.Equals(nextQuest.giver))
+            {
+                npc.gameObject.GetComponent<QuestGiver>().quest = nextQuest;
+                return;
+            }
+        }
+    }
+
     public void CompleteQuest(Quest quest)
     {
         levelSystem.AddExp(quest.reward.exp);
@@ -59,6 +80,10 @@ public class QuestController : MonoBehaviour
         Inventory.instance.Add(quest.reward.item);
 
         activeQuests.Remove(quest);
+        completedQuests.Add(quest);
+
+        nextQuest = quest.GetNextQuest();
+        LoadToGiver();
         questUI.UpdateQuestUI();
     }
 

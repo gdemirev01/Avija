@@ -14,10 +14,27 @@ public class Goal : ScriptableObject
 
     public bool done;
 
+    public int weight;
+
     public Goal choice = null;
 
     [SerializeField]
     public List<Goal> options;
+
+    public int CalculateWeight()
+    {
+        int result = 0;
+
+        if(this.ReachedEndOfGoal())
+        {
+            result = this.weight;
+            return result;
+        }
+
+        result += (this.weight + choice.CalculateWeight());
+
+        return result;
+    }
 
     public Goal GetCurrentChoice()
     {

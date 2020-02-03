@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CharacterProps : MonoBehaviour
 {
@@ -95,7 +92,7 @@ public class CharacterProps : MonoBehaviour
 
         var savedItems = FindItems(playerData.items);
         Inventory.instance.AddListOfItems(savedItems);
-
+            
         var savedEquipment = FindItems(playerData.equipment);
         EquipmentController.instance.EquipListOfItems(savedEquipment);
 
