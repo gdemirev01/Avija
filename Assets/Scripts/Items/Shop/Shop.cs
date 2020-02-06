@@ -6,8 +6,10 @@ public class Shop : Interactable
 {
     public int coins;
 
-    public List<Item> items;
-    public CharacterProps playerProps;
+    [SerializeField]
+    public Inventory inventory;
+
+    private CharacterProps playerProps;
 
     private void Awake()
     {
@@ -17,36 +19,58 @@ public class Shop : Interactable
     private void Start()
     {
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
+        inventory.onItemChangedCallback += ShopUI.instance.UpdateUI;
+    }
+
+    private void RemoveItemFromShop(Item item)
+    {
+        inventory.RemoveItem(item);
     }
 
     public void Buy(Item item)
     {
         if (playerProps.coins < item.cost)
         {
-            //not enough coins message
+            UIController.instance.SetAlertMessage("Not enough coins");
             return;
         }
 
         coins += item.cost;
         playerProps.coins -= item.cost;
 
-        Inventory.instance.Add(item);
-        items.Remove(item);
+        PlayerManager.instance.inventory.AddItem(item);
+
+        RemoveItemFromShop(item);
     }
 
     public void Sell(Item item)
     {
         if (coins < item.cost)
         {
-            //shopkeeper broke 
+            UIController.instance.SetAlertMessage("Shopkeeper can't afford that");
             return;
         }
 
         coins -= item.cost;
         playerProps.coins += item.cost;
 
-        Inventory.instance.Remove(item);
-        items.Add(item);
+        PlayerManager.instance.inventory.RemoveItem(item);
+        inventory.AddItem(item);
+    }
+
+    public Item GetItem(int index)
+    {
+        return inventory.GetItem(index);
+    }
+
+    public ItemAmount GetItemAmount(int index)
+    {
+        return inventory.GetItemAmount(index);
+    }
+
+    public int GetItemsCount()
+    {
+        return inventory.ItemsCount();
     }
 
     public override void Interact()

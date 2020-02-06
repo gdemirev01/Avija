@@ -22,14 +22,18 @@ public class UIController : MonoBehaviour
     }
     #endregion
 
-    public List<GameObject> openedPanels;
+    private List<GameObject> openedPanels;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private TextMeshProUGUI alert;
+
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         openedPanels = new List<GameObject>();
+
+        alert.faceColor = new Color32(255, 0, 0, 255);
     }
 
     public void TogglePanel(GameObject panel, bool state)
@@ -51,5 +55,17 @@ public class UIController : MonoBehaviour
     public void LoadText(TextMeshProUGUI container, string text)
     {
         container.text = text;
+    }
+
+    public void SetAlertMessage(string message)
+    {
+        this.alert.text = message;
+
+        Invoke("ClearAlert", 2f);
+    }
+
+    private void ClearAlert()
+    {
+        this.alert.text = "";
     }
 }

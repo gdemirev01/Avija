@@ -1,66 +1,103 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+[System.Serializable]
+public class Inventory : IItemContainer
 {
-    #region Singleton
-    public static Inventory instance;
-
-    private void Awake()
-    {
-        if(instance != null)
-        {
-            Debug.LogWarning("There is another instance of inventory");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
     public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCallback = new OnItemChanged(() => { }); 
+    public OnItemChanged onItemChangedCallback = () => { }; 
 
-    public int space = 9;
+    public int space;
 
-    public List<Item> items = new List<Item>();
-
-    public void Add(Item item)
-    {
-        if(items.Count >= space)
-        {
-            Debug.Log("Inventory Full");
-            return;
-        }
-
-        if(items.Contains(item))
-        {
-            items.Find(i => i.Equals(item)).quantity++;
-        }
-        else
-        {
-            items.Add(item);
-        }
-
-        onItemChangedCallback.Invoke();
-    }
+    public List<ItemAmount> items;
 
     public void AddListOfItems(List<Item> items)
     {
         foreach(Item item in items)
         {
-            this.Add(item);
+            this.AddItem(item);
         }
     }
 
-    public void Remove(Item item)
+    public int ItemCount(Item item)
     {
-        item.quantity--;
-        if (item.quantity == 0)
+        throw new System.NotImplementedException();
+    }
+
+    public bool ContainItem(Item item)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void AddItem(Item item)
+    {
+        var listOfItems = items.Select((i) => i.item).ToList();
+
+        if (IsFull())
         {
-            items.Remove(item);
-            onItemChangedCallback.Invoke();
+            UIController.instance.SetAlertMessage("Inventory is full. Clear up some space");
+            return;
         }
+
+        if (listOfItems.Contains(item))
+        {
+            var resultItem = items.Find(i => i.item.Equals(item));
+            resultItem.amount++;
+        }
+        else
+        {
+            var newItem = new ItemAmount();
+            newItem.item = item;
+            newItem.amount = 1;
+
+            items.Add(newItem);
+        }
+
+        onItemChangedCallback.Invoke();
+    }
+
+    public void RemoveItem(Item item)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].item.Equals(item))
+            {
+                var it = items[i];
+                it.amount--;
+
+                if (it.amount <= 0)
+                {
+                    items.RemoveAt(i);
+                }
+            }
+        }
+
+        onItemChangedCallback.Invoke();
+    }
+
+    public bool IsFull()
+    {
+        if(items.Count > this.space)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public Item GetItem(int index)
+    {
+        return items[index].item;
+    }
+
+    public ItemAmount GetItemAmount(int index)
+    {
+        return items[index];
+    }
+
+    public int ItemsCount()
+    {
+        return items.Count;
     }
 }
+

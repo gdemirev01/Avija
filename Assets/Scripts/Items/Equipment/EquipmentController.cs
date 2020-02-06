@@ -33,7 +33,7 @@ public class EquipmentController : MonoBehaviour
 
     private void Start()
     {
-        inventory = Inventory.instance;
+        inventory = PlayerManager.instance.inventory;
 
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
 
@@ -49,7 +49,7 @@ public class EquipmentController : MonoBehaviour
         if(currentEquipment[slotIndex] != null)
         {
             oldItem = currentEquipment[slotIndex];
-            inventory.Add(oldItem);
+            inventory.AddItem(oldItem);
         }
 
         currentEquipment[slotIndex] = newItem;
@@ -84,7 +84,7 @@ public class EquipmentController : MonoBehaviour
             }
 
             Equipment oldItem = currentEquipment[slotIndex];
-            inventory.Add(oldItem);
+            inventory.AddItem(oldItem);
 
             currentEquipment[slotIndex] = null;
 

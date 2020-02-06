@@ -25,7 +25,7 @@ public class Interact : MonoBehaviour
         }
         else
         {
-            interactionUI.ToggleAlert(false);
+            //interactionUI.ToggleAlert(false);
         }
     } 
 }

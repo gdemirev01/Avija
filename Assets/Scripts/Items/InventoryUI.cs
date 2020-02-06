@@ -18,7 +18,7 @@ public class InventoryUI : MonoBehaviour
 
     void Start()
     {
-        inventory = Inventory.instance;
+        inventory = PlayerManager.instance.inventory;
 
         inventory.onItemChangedCallback += UpdateUI;
 

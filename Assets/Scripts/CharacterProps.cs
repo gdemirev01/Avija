@@ -30,22 +30,37 @@ public class CharacterProps : MonoBehaviour
         position[1] = playerPos.y;
         position[2] = playerPos.z;
 
-        var list = Inventory.instance.items;
+        var list = PlayerManager.instance.inventory.items;
         List<int> inventoryItems = GetItemsID(list.ToArray());
-        List<int> equipment = GetItemsID(EquipmentController.instance.currentEquipment);
+        List<int> equipment = GetEquipmentID(EquipmentController.instance.currentEquipment);
 
 
         PlayerData playerData = new PlayerData(health, exp, level, coins, inventoryItems,  equipment, position, damage, armor);
         SaveSystem.SavePlayerProgress(playerData);
     }
 
-    public List<int> GetItemsID(Item[] items)
+    public List<int> GetItemsID(ItemAmount[] items)
     {
         List<int> itemsID = new List<int>();
 
         if (items.Length == 0) { return itemsID; }
 
-        foreach(Item item in items)
+        foreach(ItemAmount itemAmount in items)
+        {
+            if(itemAmount.item == null) { continue; }
+            itemsID.Add(itemAmount.item.id);
+        }
+
+        return itemsID;
+    }
+
+    public List<int> GetEquipmentID(Equipment[] equipment)
+    {
+        List<int> itemsID = new List<int>();
+
+        if(equipment.Length == 0) { return itemsID; }
+
+        foreach(Equipment item in equipment)
         {
             if(item == null) { continue; }
             itemsID.Add(item.id);
@@ -91,11 +106,10 @@ public class CharacterProps : MonoBehaviour
         this.armor = playerData.armor;
 
         var savedItems = FindItems(playerData.items);
-        Inventory.instance.AddListOfItems(savedItems);
+        PlayerManager.instance.inventory.AddListOfItems(savedItems);
             
         var savedEquipment = FindItems(playerData.equipment);
         EquipmentController.instance.EquipListOfItems(savedEquipment);
-
 
         GameObject player = PlayerManager.instance.player;
 

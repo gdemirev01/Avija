@@ -6,7 +6,6 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
 
-    public ComboSystem comboSystem;
     private PlayerMovement playerMovement;
     public Animator animator;
     public UIController uiController;

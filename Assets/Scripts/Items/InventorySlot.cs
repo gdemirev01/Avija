@@ -1,18 +1,29 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
 
     public Image icon;
+    public TextMeshProUGUI amount;
+    public ClickableObject button;
 
     Item item;
 
-    public void AddItem(Item newItem)
+    private void Start()
     {
-        item = newItem;
+        button.onLeft.AddListener(UseItem);
+        button.onRight.AddListener(SellItem);
+    }
 
-        this.icon.sprite = newItem.icon;
+    public void AddItem(ItemAmount newItem)
+    {
+        item = newItem.item;
+
+        amount.text = newItem.amount.ToString();
+
+        this.icon.sprite = item.icon;
         this.icon.enabled = true;
     }
 
@@ -21,6 +32,8 @@ public class InventorySlot : MonoBehaviour
         if(item == null) { return; }
         
         item = null;
+
+        amount.text = "";
 
         icon.sprite = null;
         icon.enabled = false;
@@ -31,6 +44,15 @@ public class InventorySlot : MonoBehaviour
         if(item != null)
         {
             item.Use();
+        }
+    }
+
+    public void SellItem()
+    {
+        var shop = ShopUI.instance.shop;
+        if(shop != null)
+        {
+            shop.Sell(this.item);
         }
     }
 }

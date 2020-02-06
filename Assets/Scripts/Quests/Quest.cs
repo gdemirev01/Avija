@@ -24,8 +24,6 @@ public class Quest : ScriptableObject
         this.id = questsCount;
     }
 
-    
-
     public Quest GetNextQuest()
     {
         if (!this.done || this.nextQuests.Count < 2) { return null; }

@@ -9,7 +9,6 @@ public class Item : ScriptableObject
     public int id;
     new public string name;
     public int cost;
-    public int quantity = 1;
 
     private static int itemsCount = 0;
 
@@ -22,10 +21,5 @@ public class Item : ScriptableObject
     }
 
     public virtual void Use() { }
-
-    public void RemoveFromInventory()
-    {
-        Inventory.instance.Remove(this);
-    }
 }
 

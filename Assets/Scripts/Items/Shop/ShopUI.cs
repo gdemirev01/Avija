@@ -23,15 +23,9 @@ public class ShopUI : MonoBehaviour
 
     public GameObject itemsParent;
 
-    InventorySlot[] slots;
-
-    private Shop shop;
+    public Shop shop;
 
     public GameObject shopItemPrefab;
-
-    void Start()
-    {
-    }
 
     public void SetShop(Shop shop)
     {
@@ -39,13 +33,17 @@ public class ShopUI : MonoBehaviour
         UpdateUI();
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
-        for (int i = 0; i < shop.items.Count; i++)
+        foreach(Transform child in itemsParent.transform) {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < shop.GetItemsCount(); i++)
         {
             var shopItem = Instantiate(shopItemPrefab, itemsParent.transform, false);
             var slotScript = shopItem.GetComponent<ShopSlot>();
-            slotScript.AddItem(shop.items[i]);
+            slotScript.AddItem(shop.GetItemAmount(i));
             slotScript.SetShop(this.shop);
         }
     }

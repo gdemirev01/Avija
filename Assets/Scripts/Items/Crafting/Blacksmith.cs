@@ -32,10 +32,10 @@ public class Blacksmith : Interactable
             if(playerProps.coins >= recipe.cost)
             {
                 playerProps.coins -= recipe.cost;
-             
+
                 //Remove the two items
 
-                Inventory.instance.Add(recipe.resultItem);
+                PlayerManager.instance.inventory.AddItem(recipe.resultItem);
             }
             else
             {

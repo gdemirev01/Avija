@@ -77,13 +77,14 @@ public class QuestController : MonoBehaviour
         levelSystem.AddExp(quest.reward.exp);
         playerProps.coins += quest.reward.coins;
 
-        Inventory.instance.Add(quest.reward.item);
+        PlayerManager.instance.inventory.AddItem(quest.reward.item);
 
         activeQuests.Remove(quest);
         completedQuests.Add(quest);
 
         nextQuest = quest.GetNextQuest();
         LoadToGiver();
+
         questUI.UpdateQuestUI();
     }
 
