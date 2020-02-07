@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent agent;
 
     public float lookRadius = 10f;
+    public float rotationSpeed = 5f;
 
     public EnemySpawner spawner;
 
@@ -46,7 +47,6 @@ public class EnemyController : MonoBehaviour
         {
             agent.SetDestination(target.position);
             animator.SetBool("walking", false);
-            animator.SetBool("running", true);
 
             if (distance <= agent.stoppingDistance)
             {
@@ -56,6 +56,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
+                animator.SetBool("running", true);
                 dealDamage.EndAttack();
             }
         }
@@ -64,7 +65,6 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("running", false);
             animator.SetBool("walking", true);
             agent.SetDestination(direction);
-
         }
     }
 
@@ -72,7 +72,7 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
 
     void RandomMovement()

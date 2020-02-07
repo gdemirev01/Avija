@@ -8,13 +8,17 @@ public class QuestGiver : Interactable
 {
 
     public Quest quest;
-    public int asdf = 0;
     public QuestController questController;
     public InteractionUI interactionUI;
 
     private void Awake()
     {
         this.type = InteractionTypes.Quest;
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void LoadQuest(Quest quest)
@@ -30,6 +34,10 @@ public class QuestGiver : Interactable
     public override void Interact()
     {
         questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
+        if (quest.done)
+        {
+            questController.CompleteQuest(quest);
+        }
         if (quest == null)
         {
             type = InteractionTypes.Talk;

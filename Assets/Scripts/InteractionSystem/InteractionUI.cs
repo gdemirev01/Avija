@@ -82,6 +82,7 @@ public class InteractionUI : MonoBehaviour
 
         if (!questController.QuestAlreadyActive(quest))
         {
+            acceptQuestButton.GetComponentInChildren<Text>().text = "Accept";
             acceptQuestButton.onClick.AddListener(() =>
             {
                 questController.AddQuest(quest);

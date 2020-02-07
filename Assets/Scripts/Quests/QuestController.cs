@@ -16,8 +16,6 @@ public class QuestController : MonoBehaviour
 
     public GameObject NPCs;
 
-    private Quest nextQuest;
-
     private void Awake()
     {
         activeQuests = new List<Quest>();
@@ -56,7 +54,7 @@ public class QuestController : MonoBehaviour
         questUI.UpdateQuestUI();
     }
 
-    public void LoadToGiver()
+    public void LoadToGiver(Quest nextQuest)
     {
         if (nextQuest.giver == null) { return; }
 
@@ -82,8 +80,7 @@ public class QuestController : MonoBehaviour
         activeQuests.Remove(quest);
         completedQuests.Add(quest);
 
-        nextQuest = quest.GetNextQuest();
-        LoadToGiver();
+        LoadToGiver(quest.GetNextQuest());
 
         questUI.UpdateQuestUI();
     }

@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     private float rotationspeed = 1;
 
     public bool canMove = true;
-    public bool blockRotationOnPlayer = false;
     public float allowPlayerRotation;
 
     private Vector3 moveDirection;
@@ -65,10 +64,7 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = forward * InputZ + right * InputX;
         }
 
-        if (!blockRotationOnPlayer)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationspeed);
-        }
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), rotationspeed);
     }
 
     private void InputMagnitude()

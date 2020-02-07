@@ -1,19 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
+    public Transform target;
+    public Transform player;
+
     float rotationSpeed = 0.5f;
-    public Transform Target, Player;
+    float zoomSpeed = 4f;
+
+    Vector3 direction;
     float mouseX, mouseY;
 
-    public Transform Obstruction;
-    float zoomSpeed = 2f;
+    public float minDistance = 5.0f;
+    public float maxDistance = 30.0f;
+    private float distance;
 
-    void Start()
+
+    public float rayDistance;
+
+    void Awake()
     {
-        Obstruction = Target;
+        direction = transform.localPosition.normalized;
+        distance = transform.localPosition.magnitude;
     }
 
     private void LateUpdate()
@@ -22,44 +31,35 @@ public class ThirdPersonCamera : MonoBehaviour
         ViewObstructed();
     }
 
-
     void CamControl()
     {
-
         if(Cursor.visible && Cursor.lockState != CursorLockMode.Locked) { return; }
 
         mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
         mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
-        var targetRotation = Quaternion.LookRotation(Target.position - transform.position);
+        var targetRotation = Quaternion.LookRotation(target.position - transform.position);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
     }
-
 
     void ViewObstructed()
     {
+
+        Vector3 desiredCameraPos = transform.parent.TransformPoint(direction * maxDistance);
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, Target.position - transform.position, out hit, 4.5f))
+        if (Physics.Linecast(transform.parent.position, desiredCameraPos, out hit))
         {
-            if (hit.collider.gameObject.tag != "Player")
-            {
-                Obstruction = hit.transform;
-                //Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
-
-                if (Vector3.Distance(Obstruction.position, transform.position) >= 3f && Vector3.Distance(transform.position, Target.position) >= 1.5f)
-                    transform.Translate(Vector3.forward * zoomSpeed * Time.deltaTime);
-            }
-            else
-            {
-                //Obstruction.gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-                if (Vector3.Distance(transform.position, Target.position) < 4.5f)
-                    transform.Translate(Vector3.back * zoomSpeed * Time.deltaTime);
-            }
+            distance = Mathf.Clamp((hit.distance * rayDistance), minDistance, maxDistance);
         }
+        else
+        {
+            distance = maxDistance;
+        }
+        transform.localPosition = Vector3.Lerp(transform.localPosition, direction * distance, Time.deltaTime * zoomSpeed);
     }
 }
