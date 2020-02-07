@@ -9,14 +9,14 @@ public class PlayerData
     public float exp;
     public int level;
     public int coins;
-    public List<int> items;
+    public Dictionary<int, int> items;
     public List<int> equipment;
     public float[] position;
 
     public int damage;
     public int armor;
 
-    public PlayerData(float health, float exp, int level, int coins, List<int> items, List<int> equipment, float[] position, int damage, int armor)
+    public PlayerData(float health, float exp, int level, int coins, Dictionary<int, int> items, List<int> equipment, float[] position, int damage, int armor)
     {
         this.health = health;
         this.exp = exp;

@@ -22,12 +22,24 @@ public class Inventory : IItemContainer
 
     public int ItemCount(Item item)
     {
-        throw new System.NotImplementedException();
+        return items.Select((i => i.item)).Count(i => i.Equals(item));
     }
 
-    public bool ContainItem(Item item)
+    public bool ContainsItem(Item item)
     {
-        throw new System.NotImplementedException();
+        return items.Select((i => i.item)).Contains(item) ? true : false;
+    }
+
+    public bool ContainsAllItems(ItemAmount[] itemsToCheck)
+    {
+        foreach (ItemAmount item in itemsToCheck)
+        {
+            if(ItemCount(item.item) != item.amount)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void AddItem(Item item)
@@ -47,10 +59,7 @@ public class Inventory : IItemContainer
         }
         else
         {
-            var newItem = new ItemAmount();
-            newItem.item = item;
-            newItem.amount = 1;
-
+            var newItem = new ItemAmount(item, 1);
             items.Add(newItem);
         }
 
@@ -72,8 +81,18 @@ public class Inventory : IItemContainer
                 }
             }
         }
-
         onItemChangedCallback.Invoke();
+    }
+
+    public void RemoveAllItems(ItemAmount[] itemsToRemove)
+    {
+        foreach (ItemAmount item in itemsToRemove)
+        {
+            for (int i = 0; i < item.amount; i++)
+            {
+                RemoveItem(item.item);
+            }
+        }
     }
 
     public bool IsFull()

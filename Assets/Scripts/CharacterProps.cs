@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CharacterProps : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class CharacterProps : MonoBehaviour
         position[2] = playerPos.z;
 
         var list = PlayerManager.instance.inventory.items;
-        List<int> inventoryItems = GetItemsID(list.ToArray());
+        Dictionary<int, int> inventoryItems = GetItemsForSave(list.ToArray());
         List<int> equipment = GetEquipmentID(EquipmentController.instance.currentEquipment);
 
 
@@ -39,19 +40,20 @@ public class CharacterProps : MonoBehaviour
         SaveSystem.SavePlayerProgress(playerData);
     }
 
-    public List<int> GetItemsID(ItemAmount[] items)
+    private Dictionary<int, int> GetItemsForSave(ItemAmount[] items)
     {
-        List<int> itemsID = new List<int>();
+        Dictionary<int, int> itemsForSave = new Dictionary<int, int>();
 
-        if (items.Length == 0) { return itemsID; }
+        if (items.Length == 0) { return itemsForSave; }
 
         foreach(ItemAmount itemAmount in items)
         {
             if(itemAmount.item == null) { continue; }
-            itemsID.Add(itemAmount.item.id);
+
+            itemsForSave.Add(itemAmount.item.id, itemAmount.amount);
         }
 
-        return itemsID;
+        return itemsForSave;
     }
 
     public List<int> GetEquipmentID(Equipment[] equipment)
@@ -95,6 +97,21 @@ public class CharacterProps : MonoBehaviour
         return result;
     }
 
+    private List<int> MultiplyItems(Dictionary<int, int> items)
+    {
+        List<int> result = new List<int>();
+
+        foreach(KeyValuePair<int, int> pair in items)
+        {
+            for(int i = 0; i < pair.Value; i++)
+            {
+                result.Add(pair.Key);
+            }
+        }
+
+        return result;
+    }
+
     public void LoadPlayer(PlayerData playerData)
     {
         health = playerData.health;
@@ -105,7 +122,7 @@ public class CharacterProps : MonoBehaviour
         this.damage = playerData.damage;
         this.armor = playerData.armor;
 
-        var savedItems = FindItems(playerData.items);
+        var savedItems = FindItems(MultiplyItems(playerData.items));
         PlayerManager.instance.inventory.AddListOfItems(savedItems);
             
         var savedEquipment = FindItems(playerData.equipment);

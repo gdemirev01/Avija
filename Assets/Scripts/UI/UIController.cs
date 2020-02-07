@@ -38,9 +38,11 @@ public class UIController : MonoBehaviour
 
     public void TogglePanel(GameObject panel, bool state)
     {
-        panel.GetComponent<CanvasGroup>().alpha = state ? 1 : 0;
-        panel.GetComponent<CanvasGroup>().blocksRaycasts = state;
-        panel.GetComponent<CanvasGroup>().interactable = state;
+        var canvasGroup = panel.GetComponent<CanvasGroup>();
+
+        canvasGroup.alpha = state ? 1 : 0;
+        canvasGroup.blocksRaycasts = state;
+        canvasGroup.interactable = state;
 
         if (state) { openedPanels.Add(panel); }
         else { openedPanels.Remove(panel); }

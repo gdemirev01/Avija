@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
   m_Name: New Quest
   m_EditorClassIdentifier: 
-  id: 1
+  id: 2
   name: asdf
   giver: Simko
   text: aksoddfokgdfg

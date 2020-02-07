@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Blacksmith : Interactable
 {
 
     private CharacterProps playerProps;
+    private Inventory playerInventory;
+
+    public List<Recipe> recipes;
+    public Recipe choosenRecipe;
 
     private void Awake()
     {
@@ -15,33 +20,38 @@ public class Blacksmith : Interactable
     private void Start()
     {
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
+        playerInventory = PlayerManager.instance.inventory;
     }
 
     public override void Interact()
     {
-        //Collect the two items and the recipe from the ui
-        // Craft the item
+        BlacksmithUI.instance.SetBlacksmith(this);
+        BlacksmithUI.instance.UpdateRecipes();
+        BlacksmithUI.instance.ToggleCraftingPanel(true);
     }
 
-    public void Craft(CraftingRecipe recipe, Item item1, Item item2)
+    public void Craft()
     {
-        if(recipe.item1.Equals(item1) &&
-            recipe.item2.Equals(item2))
+        if (playerInventory.ContainsAllItems(choosenRecipe.materials.ToArray()))
         {
+            playerInventory.RemoveAllItems(choosenRecipe.materials.ToArray());
 
-            if(playerProps.coins >= recipe.cost)
+            if (playerProps.coins >= choosenRecipe.cost)
             {
-                playerProps.coins -= recipe.cost;
+                playerProps.coins -= choosenRecipe.cost;
 
-                //Remove the two items
-
-                PlayerManager.instance.inventory.AddItem(recipe.resultItem);
+                for(int i = 0; i < choosenRecipe.resultItem.amount; i++)
+                    PlayerManager.instance.inventory.AddItem(choosenRecipe.resultItem.item);
             }
             else
             {
-                //ui alert not enough money
-                Debug.Log("not enough money");
+                UIController.instance.SetAlertMessage("not enough money");
             }
+        }
+        else
+        {
+            UIController.instance.SetAlertMessage("missing items");
+
         }
     }
 }

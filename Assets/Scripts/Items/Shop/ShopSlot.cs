@@ -1,36 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using TMPro;
 
-public class ShopSlot : MonoBehaviour
+public class ShopSlot : ItemSlot
 {
 
     private Shop shop;
 
-    Item item;
-
-    public Image icon;
-
-    public int quantity;
-
     public TextMeshProUGUI cost;
+
+    public override void AddItem(ItemAmount item)
+    {
+        base.AddItem(item);
+
+        this.cost.text = item.item.cost.ToString();
+    }
+
+    public override void UseItem()
+    {
+        BuyItem();
+    }
 
     public void SetShop(Shop shop)
     {
         this.shop = shop;
-    }
-
-    public void AddItem(ItemAmount newItem)
-    {
-        item = newItem.item;
-
-        icon.sprite = newItem.item.icon;
-
-        this.quantity = newItem.amount;
-
-        this.cost.text = newItem.item.cost.ToString();
     }
 
     public void BuyItem()

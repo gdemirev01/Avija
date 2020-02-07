@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8667585579ac644b4b70e1ca0ffd70, type: 3}
+  m_Name: New Recipe1
+  m_EditorClassIdentifier: 
+  id: 1
+  name: Recipe1
+  cost: 100
+  icon: {fileID: 21300000, guid: 4ad4ac33214e686468187e4bf1bd1621, type: 3}
+  materials:
+  - item: {fileID: 11400000, guid: 9bb3224fc25fc6446a1537107dc5d635, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 2722cc43601d57946ba8e4e3ec851448, type: 2}
+    amount: 1
+  resultItem:
+    item: {fileID: 11400000, guid: 2722cc43601d57946ba8e4e3ec851448, type: 2}
+    amount: 10

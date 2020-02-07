@@ -46,6 +46,7 @@ public class QuestUI : MonoBehaviour
             var button = Instantiate(buttonPrefab, this.transform.GetChild(2).transform, false);
             button.transform.SetParent(this.transform.GetChild(2));
             button.transform.GetChild(0).GetComponent<Text>().text = quest.name;
+
             var cpyIndex = index;
             button.GetComponent<Button>().onClick.AddListener(() => LoadQuestInfoInPanel(cpyIndex));
             index++;

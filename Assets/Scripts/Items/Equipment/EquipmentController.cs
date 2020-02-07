@@ -53,12 +53,12 @@ public class EquipmentController : MonoBehaviour
         }
 
         currentEquipment[slotIndex] = newItem;
-        SkinnedMeshRenderer newMesh = Instantiate<SkinnedMeshRenderer>(newItem.mesh);
-        newMesh.transform.parent = targetMesh.transform;
+        //SkinnedMeshRenderer newMesh = Instantiate<SkinnedMeshRenderer>(newItem.mesh);
+        //newMesh.transform.parent = targetMesh.transform;
 
-        newMesh.bones = targetMesh.bones;
-        newMesh.rootBone = targetMesh.rootBone;
-        currentMeshes[slotIndex] = newMesh;
+        //newMesh.bones = targetMesh.bones;
+        //newMesh.rootBone = targetMesh.rootBone;
+        //currentMeshes[slotIndex] = newMesh;
 
         if (onEquipmentChanged != null)
         {

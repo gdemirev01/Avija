@@ -117,7 +117,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2219342987825617974}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5721677514982596355}
+        m_MethodName: UseItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5462065467076743809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,8 +367,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 5721677515135580888}
+  text: {fileID: 2156179992692787273}
   amount: {fileID: 2156179992692787273}
   button: {fileID: 5462065467076743809}
+  item: {fileID: 0}
 --- !u!114 &5721677514982596413
 MonoBehaviour:
   m_ObjectHideFlags: 0

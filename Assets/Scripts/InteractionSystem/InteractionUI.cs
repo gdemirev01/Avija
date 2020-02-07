@@ -95,7 +95,6 @@ public class InteractionUI : MonoBehaviour
             {
                 questController.CompleteQuest(quest);
                 ToggleQuestDetails(false);
-                giver.RemoveQuest();
             });
         }
         else

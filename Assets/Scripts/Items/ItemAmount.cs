@@ -7,6 +7,13 @@ public class ItemAmount
 {
     [SerializeField]
     public Item item;
+
     [SerializeField]
     public int amount;
+
+    public ItemAmount(Item item, int amount)
+    {
+        this.item = item;
+        this.amount = amount;
+    }
 }
