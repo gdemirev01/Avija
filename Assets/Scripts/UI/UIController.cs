@@ -54,6 +54,11 @@ public class UIController : MonoBehaviour
         return openedPanels[openedPanels.Count - 1];
     }
 
+    public bool isPanelOpened(GameObject panel)
+    {
+        return panel.GetComponent<CanvasGroup>().alpha == 1;
+    }
+
     public void LoadText(TextMeshProUGUI container, string text)
     {
         container.text = text;

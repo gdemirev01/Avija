@@ -25,7 +25,17 @@ public class ShopUI : MonoBehaviour
 
     public Shop shop;
 
+    public GameObject ShopPanel;
+
     public GameObject shopItemPrefab;
+
+    private void Update()
+    {
+        if (!UIController.instance.isPanelOpened(ShopPanel))
+        {
+            shop = null;
+        }
+    }
 
     public void SetShop(Shop shop)
     {
@@ -50,6 +60,6 @@ public class ShopUI : MonoBehaviour
 
     public void ToggleShopPanel(bool state)
     {
-        UIController.instance.TogglePanel(this.gameObject, state);
+        UIController.instance.TogglePanel(ShopPanel, state);
     }
 }

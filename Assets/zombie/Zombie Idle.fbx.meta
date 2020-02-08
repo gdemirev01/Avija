@@ -444,7 +444,12 @@ ModelImporter:
   - first:
       137: 13700004
     second: Object001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100002, guid: a8997fa10c0ded6489bff920bae73793, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

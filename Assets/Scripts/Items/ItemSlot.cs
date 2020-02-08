@@ -13,7 +13,10 @@ public class ItemSlot : MonoBehaviour
 
     private void Start()
     {
-        button.onLeft.AddListener(UseItem);
+        if (button != null)
+        {
+            button.onLeft.AddListener(UseItem);
+        }
     }
 
     public virtual void AddItem(ItemAmount newItem)

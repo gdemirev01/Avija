@@ -2,7 +2,6 @@
 
 public class ShopSlot : ItemSlot
 {
-
     private Shop shop;
 
     public TextMeshProUGUI cost;
