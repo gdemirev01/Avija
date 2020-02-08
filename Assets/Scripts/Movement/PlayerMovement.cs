@@ -5,25 +5,23 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public Animator animator;
-    public DealDamage dealDamage;
+    private Animator animator;
+    private CombatController combatController;
 
     [SerializeField]
     private float speed;
-
     [SerializeField]
     private float rotationspeed = 1;
+    private Vector3 moveDirection;
 
     public bool canMove = true;
     public float allowPlayerRotation;
 
-    private Vector3 moveDirection;
-
-    public GameObject weapon;
-    public GameObject weaponOnSpine;
-
-    public bool inBattle = false;
-    public bool blocking = false;
+    private void Start()
+    {
+        combatController = CombatController.instance;
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -48,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        if(inBattle)
+        if(combatController.inBattle)
         {
             if (InputZ != 0 && InputX != 0)
             {
@@ -69,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void InputMagnitude()
     {
-
         if(!canMove) { return; }
 
         float inputX = Input.GetAxis("Horizontal");
@@ -93,35 +90,5 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("inputMagnitude", speed);
             animator.SetFloat("running", running);
         }
-    }
-
-    public void ChangeStance()
-    {
-        inBattle = !inBattle;
-        animator.SetBool("inBattle", inBattle);
-        if (inBattle)
-        {
-            animator.SetTrigger("drawSword");
-        }
-        else
-        {
-            animator.SetTrigger("sheathSword");
-        }
-    }
-
-    public void Block(bool state)
-    {
-        blocking = state;
-        animator.SetBool("blocking", state);
-
-        canMove = !state;
-
-        GameObject.Find("Collider").GetComponent<ReceiveHit>().blocking = state;
-    }
-
-    public void ToggleWeapon(string state)
-    {
-        weapon.SetActive(state == "true");
-        weaponOnSpine.SetActive(!(state == "true"));
     }
 }

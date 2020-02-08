@@ -1,28 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ReceiveHit : MonoBehaviour
 {
     public Animator animator;
     public CharacterProps characterProps;
 
-    public QuestController questController;
-    public EnemySpawner enemySpawner;
+    private QuestController questController;
+    private EnemySpawner enemySpawner;
 
-    public bool blocking = false;
+    private CombatController combatController;
 
+    private void Start()
+    {
+        questController = QuestController.instance;
+        combatController = CombatController.instance;
+
+        if(tag.Equals("Enemy"))
+        {
+            enemySpawner = GetComponent<EnemyController>().spawner;
+        }
+    }
 
     public void receiveHit(GameObject attacker)
-    {
-        if(blocking) { return; }
-
+    { 
         animator.SetTrigger("getHitted");
 
         var damage = attacker.GetComponent<CharacterProps>().damage;
         var armor = characterProps.armor;
-        
-        characterProps.health -= (damage - armor);
+
+        if (combatController.blocking) { damage /= 4; }
+
+        damage -= armor;
+        if(damage <= 0) { damage = 0; }
+
+        characterProps.health -= damage;
 
         if (characterProps.health <= 0)
         {
@@ -39,6 +50,10 @@ public class ReceiveHit : MonoBehaviour
         {
             //Load death screen
             return;
+        }
+        else if(tag.Equals("Enemy"))
+        {
+            enemySpawner.SpawnEnemy(1);
         }
 
         questController.SendProgressForQuest(GetComponent<CharacterProps>().name);

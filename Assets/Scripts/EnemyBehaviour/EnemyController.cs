@@ -5,27 +5,36 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    private GameObject player;
     private Animator animator;
     private DealDamage dealDamage;
+    private Timer timer;
 
-    Transform target;
-    NavMeshAgent agent;
+    private Transform target;
+    private NavMeshAgent agent;
 
     public float lookRadius = 10f;
     public float rotationSpeed = 5f;
 
+    [HideInInspector]
     public EnemySpawner spawner;
 
-    Vector3 direction;
+    private Vector3 direction;
 
+    private void Awake()
+    {
+        direction = Vector3.zero;
+    }
 
     void Start()
     {
         target = PlayerManager.instance.player.transform.GetChild(0);
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        dealDamage = GetComponent<DealDamage>();
+        dealDamage = GetComponentInChildren<DealDamage>();
+
+        timer = GetComponent<Timer>();
+        timer.onTimerRestart += OnTimerRestart;
+        timer.onTimerEnd += OnTimerEnd;
 
         InvokeRepeating("RandomMovement", 1f, Random.Range(10, 20));
     }
@@ -47,16 +56,21 @@ public class EnemyController : MonoBehaviour
         {
             agent.SetDestination(target.position);
             animator.SetBool("walking", false);
+            animator.SetBool("running", true);
 
             if (distance <= agent.stoppingDistance)
             {
                 animator.SetBool("running", false);
+
                 FaceTarget();
-                dealDamage.Attack();
+
+                if(!timer.timerRunning)
+                {
+                    timer.RestartTimer();
+                }
             }
             else
             {
-                animator.SetBool("running", true);
                 dealDamage.EndAttack();
             }
         }
@@ -77,16 +91,30 @@ public class EnemyController : MonoBehaviour
 
     void RandomMovement()
     {
-        direction = transform.position + new Vector3(Random.Range(-spawner.size.x / 2, spawner.size.x / 2), Random.Range(-spawner.size.y / 2, spawner.size.y / 2), Random.Range(-spawner.size.z / 2, spawner.size.z / 2));
+        if (spawner == null) { direction = transform.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)); }
+        else
+        {
+            direction = transform.position + new Vector3(Random.Range(-spawner.size.x / 2, spawner.size.x / 2), Random.Range(-spawner.size.y / 2, spawner.size.y / 2), Random.Range(-spawner.size.z / 2, spawner.size.z / 2));
+        }
     }
 
     public void EnableAttack()
     {
-        dealDamage.enableAttackTriggers = true;
+        dealDamage.ToggleTriggers(true);
     }
 
     public void DisableAttack()
     {
-        dealDamage.enableAttackTriggers = false;
+        dealDamage.ToggleTriggers(false);
+    }
+
+    public void OnTimerRestart()
+    {
+        animator.SetBool("attacking", false);
+    }
+
+    public void OnTimerEnd()
+    {
+        animator.SetBool("attacking", true);
     }
 }

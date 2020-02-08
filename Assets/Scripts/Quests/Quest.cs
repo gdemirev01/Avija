@@ -9,11 +9,10 @@ public class Quest : ScriptableObject
     new public string name;
     public string giver;
     public string text;
-    public Reward reward;
     public bool done = false;
 
     public Goal goal;
-
+    public Reward reward;
     public List<Quest> nextQuests;
 
     private static int questsCount;

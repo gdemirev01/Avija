@@ -8,7 +8,5 @@ public class Interactable : MonoBehaviour
     public enum InteractionTypes { Talk, Quest, Pick, Shop, Blacksmith };
     public InteractionTypes type;
 
-
     public virtual void Interact() {}
-
 }

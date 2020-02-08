@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
     public GameObject enemyPrefab;
 
-    void SpawnEnemy(int count)
+    public void SpawnEnemy(int count)
     {
         Vector3 position;
         for (int i = 0; i <= count; ++i)
@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnEnemy(5);
+        SpawnEnemy(1);
     }
 
     private void OnDrawGizmos()

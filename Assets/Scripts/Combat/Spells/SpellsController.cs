@@ -9,8 +9,6 @@ public class SpellsController : MonoBehaviour
 
     public Transform spawnPosition;
 
-    public Transform playerTransform;
-
     private GameObject projectile;
 
     public void Cast()

@@ -7,8 +7,10 @@ public class InputController : MonoBehaviour
 {
 
     private PlayerMovement playerMovement;
+    private CombatController combatController;
+    private UIController uiController;
+
     public Animator animator;
-    public UIController uiController;
     public DealDamage dealDamage;
 
     private bool togglePointer = false;
@@ -16,22 +18,55 @@ public class InputController : MonoBehaviour
     void Start()
     {
         playerMovement = transform.GetChild(0).GetComponent<PlayerMovement>();
+        uiController = UIController.instance;
+        combatController = CombatController.instance;
     }
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && playerMovement.inBattle)
+        UIInput();
+        CombatInput();
+        MovementInput();
+    }
+
+    private void MovementInput()
+    {
+        if (Input.GetButtonDown("Jump"))
         {
-            dealDamage.Attack();
-            GetComponent<Timer>().RestartTimer();
+            animator.SetTrigger("jump");
+        }
+    }
+
+    private void CombatInput()
+    {
+        if (Input.GetButtonDown("Attack"))
+        {
+            combatController.Attack();
         }
 
         if (Input.GetButtonDown("DrawSword"))
         {
-            playerMovement.ChangeStance();
+            combatController.ToggleCombatMode();
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetButtonDown("Block"))
+        {
+            combatController.Block(true);
+        }
+        else if (Input.GetButtonUp("Block"))
+        {
+            combatController.Block(false);
+        }
+
+        if (Input.GetButtonDown("Cast"))
+        {
+            animator.SetTrigger("castSpell");
+        }
+    }
+
+    private void UIInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             var lastPanel = uiController.GetLastPanel();
             if (lastPanel != null)
@@ -40,29 +75,10 @@ public class InputController : MonoBehaviour
             }
         }
 
-        if(Input.GetButtonDown("ToggleMouse"))
+        if (Input.GetButtonDown("ToggleMouse"))
         {
             togglePointer = !togglePointer;
             TogglePointer(togglePointer);
-        }
-
-        if(Input.GetButtonDown("Jump"))
-        {
-            animator.SetTrigger("jump");
-        }
-
-        if(Input.GetButtonDown("Block"))
-        {
-            playerMovement.Block(true);
-        }
-        if (Input.GetButtonUp("Block"))
-        {
-            playerMovement.Block(false);
-        }
-
-        if(Input.GetButtonDown("Cast"))
-        {
-            animator.SetTrigger("castSpell");
         }
     }
 

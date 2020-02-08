@@ -23,7 +23,7 @@ public class EquipmentController : MonoBehaviour
     public delegate void OnEquipmentChanged();
     public OnEquipmentChanged onEquipmentChanged;
 
-    public SkinnedMeshRenderer targetMesh;
+    //public SkinnedMeshRenderer targetMesh;
 
     public Equipment[] currentEquipment;
 

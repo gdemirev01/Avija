@@ -18,6 +18,8 @@ public class Goal : ScriptableObject
 
     public Goal choice = null;
 
+    public string nextGoalText;
+
     [SerializeField]
     public List<Goal> options;
 

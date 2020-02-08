@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DealDamage : MonoBehaviour
 {
-    public bool enableAttackTriggers = false;
+    private bool enableAttackTriggers = false;
 
     public Animator animator;
 

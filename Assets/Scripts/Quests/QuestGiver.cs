@@ -8,8 +8,8 @@ public class QuestGiver : Interactable
 {
 
     public Quest quest;
-    public QuestController questController;
-    public InteractionUI interactionUI;
+    private QuestController questController;
+    private InteractionUI interactionUI;
 
     private void Awake()
     {
@@ -18,7 +18,13 @@ public class QuestGiver : Interactable
 
     private void Start()
     {
-        
+        questController = QuestController.instance;
+        interactionUI = InteractionUI.instance;
+    }
+
+    public Quest GetQuest()
+    {
+        return this.quest;
     }
 
     public void LoadQuest(Quest quest)
@@ -41,7 +47,7 @@ public class QuestGiver : Interactable
         if (quest == null)
         {
             type = InteractionTypes.Talk;
-            interactionUI.Talk(GetComponent<CharacterProps>());
+            interactionUI.Talk(GetComponent<CharacterProps>().lines);
         }
         else
         {

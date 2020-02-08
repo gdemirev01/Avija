@@ -16,12 +16,12 @@ MonoBehaviour:
   name: asdf
   giver: Simko
   text: aksoddfokgdfg
+  done: 0
+  goal: {fileID: 11400000, guid: 6cb49a806b437ac45bffd359aa76a8dc, type: 2}
   reward:
     coins: 100
     exp: 10000
     item: {fileID: 11400000, guid: 9bb3224fc25fc6446a1537107dc5d635, type: 2}
-  done: 1
-  goal: {fileID: 11400000, guid: 6cb49a806b437ac45bffd359aa76a8dc, type: 2}
   nextQuests:
   - {fileID: 11400000, guid: c49c1effec8895541a87a1cfbbfe4c10, type: 2}
   - {fileID: 11400000, guid: f5ba6370ccf1d384d88abf8e30e84e66, type: 2}

@@ -15,9 +15,10 @@ MonoBehaviour:
   text: Talk to Go6o
   type: 1
   quantity: 1
-  progress: 1
+  progress: 0
   target: Go6o
-  done: 1
+  done: 0
   weight: 20
   choice: {fileID: 0}
+  nextGoalText: 
   options: []

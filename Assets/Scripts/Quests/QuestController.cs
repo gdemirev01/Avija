@@ -6,26 +6,39 @@ using UnityEngine;
 
 public class QuestController : MonoBehaviour
 {
-    private List<Quest> activeQuests;
-    public List<Quest> completedQuests;
 
-    private CharacterProps playerProps;
-    private LevelSystem levelSystem;
-
-    public QuestUI questUI;
-
-    public GameObject NPCs;
+    #region Singleton
+    public static QuestController instance;
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("There is another instance of uiController");
+            return;
+        }
+
+        instance = this;
+
         activeQuests = new List<Quest>();
         completedQuests = new List<Quest>();
     }
+    #endregion
+
+    private List<Quest> activeQuests;
+    private List<Quest> completedQuests;
+
+    private CharacterProps playerProps;
+    private LevelController levelController;
+    private QuestUI questUI;
+
+    public GameObject NPCs;
 
     private void Start()
     {
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
-        levelSystem = this.GetComponent<LevelSystem>();
+        levelController = this.GetComponent<LevelController>();
+        questUI = QuestUI.instance;
     }
 
     public void SendProgressForQuest(string nameOfTarget)
@@ -46,14 +59,6 @@ public class QuestController : MonoBehaviour
         }
     }
 
-    public void AddQuest(Quest quest)
-    {
-        if (activeQuests.Contains(quest)) { return; }
-
-        activeQuests.Add(quest);
-        questUI.UpdateQuestUI();
-    }
-
     public void LoadToGiver(Quest nextQuest)
     {
         if (nextQuest.giver == null) { return; }
@@ -64,15 +69,23 @@ public class QuestController : MonoBehaviour
 
             if (props.name.Equals(nextQuest.giver))
             {
-                npc.gameObject.GetComponent<QuestGiver>().quest = nextQuest;
+                npc.gameObject.GetComponent<QuestGiver>().LoadQuest(nextQuest);
                 return;
             }
         }
     }
+    
+    public void AddQuest(Quest quest)
+    {
+        if (activeQuests.Contains(quest)) { return; }
+
+        activeQuests.Add(quest);
+        questUI.UpdateQuestUI();
+    }
 
     public void CompleteQuest(Quest quest)
     {
-        levelSystem.AddExp(quest.reward.exp);
+        levelController.AddExp(quest.reward.exp);
         playerProps.coins += quest.reward.coins;
 
         PlayerManager.instance.inventory.AddItem(quest.reward.item);

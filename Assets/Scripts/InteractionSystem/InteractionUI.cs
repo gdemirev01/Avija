@@ -5,9 +5,26 @@ using TMPro;
 using UnityEngine.UI;
 
 public class InteractionUI : MonoBehaviour
-{ 
-    public UIController uiController;
-    public QuestController questController;
+{
+
+    #region Singleton
+    public static InteractionUI instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("There is another instance of interactionUI");
+            return;
+        }
+
+        instance = this;
+    }
+    #endregion
+
+
+    private UIController uiController;
+    private QuestController questController;
 
     public TextMeshProUGUI interactionAlert;
     public Interactable.InteractionTypes typeOfAlert;
@@ -18,7 +35,7 @@ public class InteractionUI : MonoBehaviour
     public TextMeshProUGUI coins;
     public TextMeshProUGUI exp;
     public Button acceptQuestButton;
-    public Button cencelQuestButton;
+    public Button cancelQuestButton;
 
     public TextMeshProUGUI GoalText;
     public GameObject questChoices;
@@ -26,6 +43,12 @@ public class InteractionUI : MonoBehaviour
     public GameObject choiceButtonPrefab;
 
     public GameObject talkingPanel;
+
+    private void Start()
+    {
+        uiController = UIController.instance;
+        questController = QuestController.instance;
+    }
 
     public void ToggleAlert(bool state)
     {
@@ -36,6 +59,8 @@ public class InteractionUI : MonoBehaviour
     public void ToggleQuestDetails(bool state)
     {
         uiController.TogglePanel(questDetails, state);
+
+        cancelQuestButton.onClick.AddListener(() => { ToggleQuestDetails(false); }) ;
     }
     
     public void ToggleQuestChoices(bool state)
@@ -108,7 +133,7 @@ public class InteractionUI : MonoBehaviour
     {
         Goal goal = quest.goal;
 
-        questChoices.GetComponentInChildren<TextMeshProUGUI>().text = goal.text;
+        questChoices.GetComponentInChildren<TextMeshProUGUI>().text = goal.nextGoalText;
 
         foreach(Transform child in choicesPanel.transform)
         {
@@ -119,7 +144,7 @@ public class InteractionUI : MonoBehaviour
         foreach (Goal option in goal.options)
         {
             var choice = Instantiate(choiceButtonPrefab, choicesPanel.transform, false).GetComponent<Button>();
-            choice.transform.GetChild(0).GetComponent<Text>().text = option.text;
+            choice.transform.GetComponentInChildren<TextMeshProUGUI>().text = option.text;
             choice.transform.SetParent(choicesPanel.transform);
 
             var cpyIndex = index;
@@ -132,9 +157,9 @@ public class InteractionUI : MonoBehaviour
         }
     }
 
-    public void Talk(CharacterProps npc)
+    public void Talk(string lines)
     {
-        talkingPanel.GetComponentInChildren<TextMeshProUGUI>().text = npc.lines;
+        talkingPanel.GetComponentInChildren<TextMeshProUGUI>().text = lines;
         uiController.TogglePanel(talkingPanel, true);
     }
 }

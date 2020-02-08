@@ -6,23 +6,41 @@ using UnityEngine.UI;
 
 public class QuestUI : MonoBehaviour
 {
+
+    #region Singleton
+    public static QuestUI instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("There is another instance of questUI");
+            return;
+        }
+
+        instance = this;
+
+        quests = new List<Quest>();
+    }
+    #endregion
+
     private List<Quest> quests;
     private bool panelOpened = false;
 
     private UIController uiController;
-    public QuestController questController;
+    private QuestController questController;
 
     public TextMeshProUGUI questDescriptionGUI;
     public TextMeshProUGUI questProgress;
     public GameObject buttonPrefab;
+    public GameObject buttons;
 
-    public Quest loadedQuest;
+    private Quest loadedQuest;
 
     void Start()
     {
-        quests = new List<Quest>();
-
-        uiController = this.transform.root.GetComponent<UIController>();
+        uiController = UIController.instance;
+        questController = QuestController.instance;
     }
 
     public void UpdateQuestUI()
@@ -43,9 +61,9 @@ public class QuestUI : MonoBehaviour
         int index = 0;
         foreach(Quest quest in quests)
         {
-            var button = Instantiate(buttonPrefab, this.transform.GetChild(2).transform, false);
-            button.transform.SetParent(this.transform.GetChild(2));
-            button.transform.GetChild(0).GetComponent<Text>().text = quest.name;
+            var button = Instantiate(buttonPrefab, buttons.transform, false);
+            button.transform.SetParent(buttons.transform);
+            button.transform.GetComponentInChildren<TextMeshProUGUI>().text = quest.name;
 
             var cpyIndex = index;
             button.GetComponent<Button>().onClick.AddListener(() => LoadQuestInfoInPanel(cpyIndex));
