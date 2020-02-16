@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestUI : MonoBehaviour
+public class QuestUI : MonoBehaviour, IStaticPanel, IDynamicPanel
 {
-
     #region Singleton
     public static QuestUI instance;
 
@@ -14,70 +12,32 @@ public class QuestUI : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("There is another instance of questUI");
+            Debug.Log("There is another instance of questUI");
             return;
         }
 
         instance = this;
-
-        quests = new List<Quest>();
     }
     #endregion
 
-    private List<Quest> quests;
-    private bool panelOpened = false;
+    private Quest loadedQuest;
 
     private UIController uiController;
     private QuestController questController;
 
+    public GameObject questPanel;
+    public GameObject questInfo;
     public TextMeshProUGUI questDescriptionGUI;
     public TextMeshProUGUI questProgress;
     public GameObject buttonPrefab;
     public GameObject buttons;
 
-    private Quest loadedQuest;
-
     void Start()
     {
         uiController = UIController.instance;
         questController = QuestController.instance;
-    }
 
-    public void UpdateQuestUI()
-    {
-        quests = questController.GetQuests();
-        UpdatePanel();
-    }
-
-    private void UpdatePanel()
-    {
-        if(this.transform.childCount >= 2) { 
-            foreach(Transform quest in this.transform.GetChild(2))
-            {
-                GameObject.Destroy(quest.gameObject);
-            }
-        }
-
-        int index = 0;
-        foreach(Quest quest in quests)
-        {
-            var button = Instantiate(buttonPrefab, buttons.transform, false);
-            button.transform.SetParent(buttons.transform);
-            button.transform.GetComponentInChildren<TextMeshProUGUI>().text = quest.name;
-
-            var cpyIndex = index;
-            button.GetComponent<Button>().onClick.AddListener(() => LoadQuestInfoInPanel(cpyIndex));
-            index++;
-        }
-    }
-
-    public void ToggleQuestPanel()
-    {
-        quests = questController.GetQuests();
-        if (quests.Count > 0) { LoadQuestInfoInPanel(0); }
-
-        panelOpened = !panelOpened;
-        uiController.TogglePanel(this.gameObject, panelOpened);
+        questController.onQuestChangeCallback += UpdatePanel;
     }
 
     public void AbortQuest()
@@ -86,13 +46,42 @@ public class QuestUI : MonoBehaviour
         ClearPanel();
     }
 
-
-    public void LoadQuestInfoInPanel(int index)
+    public void TogglePanelWithButton()
     {
-        var quest = quests[index];
-        loadedQuest = quest;
-        uiController.LoadText(questDescriptionGUI, quest.text);
+        uiController.TogglePanelAuto(questPanel);
+    }
 
+    public void ClearPanel()
+    {
+        uiController.LoadText(questDescriptionGUI, "");
+        uiController.LoadText(questProgress, "");
+        questInfo.SetActive(false);
+    }
+
+    public void TogglePanel(bool state)
+    {
+        uiController.TogglePanel(questPanel, state);
+    }
+
+    public void UpdatePanel()
+    {
+        TextSlot[] slots = uiController.CreateSlots<TextSlot>(buttons, buttonPrefab, questController.GetQuests().Count);
+
+        uiController.LoadTextToSlots(slots, questController.GetQuests().Select(q => q.name).ToArray());
+
+        for(int i = 0; i < questController.GetQuests().Count; i++)
+        {
+            var quest = questController.GetQuests()[i];
+            slots[i].button.onClick.AddListener(() => LoadInfoInPanel(quest));
+        }
+    }
+
+    public void LoadInfoInPanel(ScriptableObject info)
+    {
+        var quest = info as Quest;
+        loadedQuest = quest;
+
+        uiController.LoadText(questDescriptionGUI, quest.text);
         if (quest.done)
         {
             uiController.LoadText(questProgress, "completed");
@@ -101,11 +90,6 @@ public class QuestUI : MonoBehaviour
         {
             uiController.LoadText(questProgress, quest.goal.GetCurrentChoice().ToString() + "\n\n" + quest.reward.ToString());
         }
-    }
-
-    public void ClearPanel()
-    {
-        uiController.LoadText(questDescriptionGUI, "");
-        uiController.LoadText(questProgress, "");
+        questInfo.SetActive(true);
     }
 }

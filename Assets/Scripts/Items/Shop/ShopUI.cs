@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ShopUI : MonoBehaviour
+public class ShopUI : MonoBehaviour, IDynamicPanel
 {
-
     #region Singleton
     public static ShopUI instance;
 
@@ -20,14 +17,25 @@ public class ShopUI : MonoBehaviour
     }
     #endregion
 
+    private UIController uiController;
 
-    public GameObject itemsParent;
-
+    [HideInInspector]
     public Shop shop;
 
-    public GameObject ShopPanel;
+    [SerializeField]
+    private GameObject itemsParent;
+    
+    [SerializeField]
+    private GameObject ShopPanel;
+   
+    [SerializeField]
+    private GameObject shopItemPrefab;
 
-    public GameObject shopItemPrefab;
+
+    private void Start()
+    {
+        uiController = UIController.instance;
+    }
 
     private void Update()
     {
@@ -40,25 +48,25 @@ public class ShopUI : MonoBehaviour
     public void SetShop(Shop shop)
     {
         this.shop = shop;
-        UpdateUI();
+        UpdatePanel();
     }
 
-    public void UpdateUI()
+    public void ClearPanel()
     {
-        foreach(Transform child in itemsParent.transform) {
-            Destroy(child.gameObject);
-        }
+        throw new System.NotImplementedException();
+    }
 
-        for (int i = 0; i < shop.GetItemsCount(); i++)
+    public void UpdatePanel()
+    {
+        var slots = uiController.CreateSlots<ShopSlot>(itemsParent, shopItemPrefab, shop.GetItemsCount());
+        uiController.LoadItemsToSlots(slots, shop.GetItems());
+        foreach(ShopSlot slot in slots)
         {
-            var shopItem = Instantiate(shopItemPrefab, itemsParent.transform, false);
-            var slotScript = shopItem.GetComponent<ShopSlot>();
-            slotScript.AddItem(shop.GetItemAmount(i));
-            slotScript.SetShop(this.shop);
+            slot.SetShop(this.shop);
         }
     }
 
-    public void ToggleShopPanel(bool state)
+    public void TogglePanel(bool state)
     {
         UIController.instance.TogglePanel(ShopPanel, state);
     }

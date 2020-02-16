@@ -26,8 +26,8 @@ public class Blacksmith : Interactable
     public override void Interact()
     {
         BlacksmithUI.instance.SetBlacksmith(this);
-        BlacksmithUI.instance.UpdateRecipes();
-        BlacksmithUI.instance.ToggleCraftingPanel(true);
+        BlacksmithUI.instance.UpdatePanel();
+        BlacksmithUI.instance.TogglePanel(true);
     }
 
     public void Craft()

@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public float health;
     public float exp;
     public int level;
     public int coins;
@@ -16,9 +15,8 @@ public class PlayerData
     public int damage;
     public int armor;
 
-    public PlayerData(float health, float exp, int level, int coins, Dictionary<int, int> items, List<int> equipment, float[] position, int damage, int armor)
+    public PlayerData(float exp, int level, int coins, Dictionary<int, int> items, List<int> equipment, float[] position, int damage, int armor)
     {
-        this.health = health;
         this.exp = exp;
         this.level = level;
         this.coins = coins;

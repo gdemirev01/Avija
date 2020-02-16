@@ -6,6 +6,7 @@ public class CharacterProps : MonoBehaviour
 {
     new public string name;
     public float health;
+    public float mana;
     public float exp;
     public int level;
     public int coins;
@@ -36,7 +37,7 @@ public class CharacterProps : MonoBehaviour
         List<int> equipment = GetEquipmentID(EquipmentController.instance.currentEquipment);
 
 
-        PlayerData playerData = new PlayerData(health, exp, level, coins, inventoryItems,  equipment, position, damage, armor);
+        PlayerData playerData = new PlayerData(exp, level, coins, inventoryItems,  equipment, position, damage, armor);
         SaveSystem.SavePlayerProgress(playerData);
     }
 
@@ -114,7 +115,6 @@ public class CharacterProps : MonoBehaviour
 
     public void LoadPlayer(PlayerData playerData)
     {
-        health = playerData.health;
         exp = playerData.exp;
         level = playerData.level;
         coins = playerData.coins;

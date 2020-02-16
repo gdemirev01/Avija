@@ -1,48 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour, IDynamicPanel
 {
 
     private Inventory inventory;
-
-    public GameObject itemsParent;
-
-    InventorySlot[] slots;
+    private UIController uiController;
+    
+    [SerializeField]
+    private GameObject itemsParent;
 
     [SerializeField]
-    GameObject slotPrefab;
+    private GameObject slotPrefab;
+    
+    private List<InventorySlot> slots;
 
-    private bool inventoryOpened = false;
+    private void Awake()
+    {
+        slots = new List<InventorySlot>();
+    }
 
     void Start()
     {
         inventory = PlayerManager.instance.inventory;
+        uiController = UIController.instance;
 
-        inventory.onItemChangedCallback += UpdateUI;
+        inventory.onItemChangedCallback += UpdatePanel;
 
         InitializeSlots();
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
-
 
         // update for the loaded items from save file
-        UpdateUI();
+        UpdatePanel();
     }
 
     void InitializeSlots()
     {
         for(int i = 0; i < inventory.space; i++)
         {
-            GameObject slot = Instantiate(slotPrefab, itemsParent.transform, false);
+            slots.Add(Instantiate(slotPrefab, itemsParent.transform, false).GetComponent<InventorySlot>());
         }
     }
 
-    void UpdateUI()
+    public void UpdatePanel()
     {
-        for(int i = 0; i < inventory.space; i++)
+        for (int i = 0; i < inventory.space; i++)
         {
-            if(i < inventory.items.Count)
+            if (i < inventory.items.Count)
             {
                 slots[i].AddItem(inventory.items[i]);
             }
@@ -53,9 +56,21 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void ToggleInventoryPanel()
+    public void TogglePanelWithButton()
     {
-        inventoryOpened = !inventoryOpened;
-        UIController.instance.TogglePanel(itemsParent, inventoryOpened);
+        uiController.TogglePanelAuto(itemsParent);
+    }
+
+    public void TogglePanel(bool state)
+    {
+        uiController.TogglePanel(itemsParent, state);
+    }
+
+    public void ClearPanel()
+    {
+        foreach(InventorySlot slot in slots)
+        {
+            Destroy(slot.gameObject);
+        }
     }
 }

@@ -6,14 +6,17 @@ using UnityEngine.EventSystems;
 
 public class MovePanel : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-
     private RectTransform dragRectTransform;
     private Canvas canvas;
+
+    private UIController uIController;
 
     void Start()
     {
         dragRectTransform = this.GetComponent<RectTransform>();
         canvas = transform.root.gameObject.GetComponent<Canvas>();
+
+        uIController = UIController.instance;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -24,5 +27,6 @@ public class MovePanel : MonoBehaviour, IDragHandler, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         dragRectTransform.SetAsLastSibling();
+        uIController.SetLastPanel(this.gameObject);
     }
 }

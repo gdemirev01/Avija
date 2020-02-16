@@ -15,8 +15,10 @@ MonoBehaviour:
   text: 
   type: 2
   quantity: 1
-  progress: 0
+  progress: 1
   target: herb
-  done: 0
+  done: 1
+  weight: 10
   choice: {fileID: 0}
+  nextGoalText: 
   options: []

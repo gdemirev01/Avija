@@ -28,17 +28,30 @@ public class QuestController : MonoBehaviour
     private List<Quest> activeQuests;
     private List<Quest> completedQuests;
 
+    private QuestUI questUI;
     private CharacterProps playerProps;
     private LevelController levelController;
-    private QuestUI questUI;
 
     public GameObject NPCs;
 
+    public delegate void OnQuestChange();
+    public OnQuestChange onQuestChangeCallback;
+
     private void Start()
     {
+        questUI = QuestUI.instance;
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
         levelController = this.GetComponent<LevelController>();
-        questUI = QuestUI.instance;
+    }
+
+    public List<Quest> GetQuests()
+    {
+        return activeQuests;
+    }
+
+    public bool QuestAlreadyActive(Quest quest)
+    {
+        return activeQuests.Contains(quest);
     }
 
     public void SendProgressForQuest(string nameOfTarget)
@@ -80,7 +93,8 @@ public class QuestController : MonoBehaviour
         if (activeQuests.Contains(quest)) { return; }
 
         activeQuests.Add(quest);
-        questUI.UpdateQuestUI();
+
+        onQuestChangeCallback.Invoke();
     }
 
     public void CompleteQuest(Quest quest)
@@ -88,14 +102,24 @@ public class QuestController : MonoBehaviour
         levelController.AddExp(quest.reward.exp);
         playerProps.coins += quest.reward.coins;
 
-        PlayerManager.instance.inventory.AddItem(quest.reward.item);
+        if (quest.reward.item != null)
+        {
+            PlayerManager.instance.inventory.AddItem(quest.reward.item);
+        }
 
         activeQuests.Remove(quest);
         completedQuests.Add(quest);
 
-        LoadToGiver(quest.GetNextQuest());
+        var nextQuest = quest.GetNextQuest();
+        if(nextQuest.done)
+        {
+            CompleteQuest(nextQuest);
+            return;
+        }
 
-        questUI.UpdateQuestUI();
+        LoadToGiver(nextQuest);
+
+        onQuestChangeCallback.Invoke();
     }
 
     public void AbortQuest(Quest quest)
@@ -104,16 +128,6 @@ public class QuestController : MonoBehaviour
 
         quest.Reset();
 
-        questUI.UpdateQuestUI();
-    }
-
-    public bool QuestAlreadyActive(Quest quest)
-    {
-        return activeQuests.Contains(quest);
-    }
-
-    public List<Quest> GetQuests()
-    {
-        return activeQuests;
+        onQuestChangeCallback.Invoke();
     }
 }

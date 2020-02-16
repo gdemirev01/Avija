@@ -1,13 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-using System.IO;
-using UnityEngine;
-using System.Collections.Generic;
-
+﻿using UnityEngine;
 
 public class QuestGiver : Interactable
 {
-
+    [HideInInspector]
     public Quest quest;
+
     private QuestController questController;
     private InteractionUI interactionUI;
 
@@ -20,6 +17,11 @@ public class QuestGiver : Interactable
     {
         questController = QuestController.instance;
         interactionUI = InteractionUI.instance;
+
+        if (quest.done)
+        {
+            LoadNextQuest();
+        }
     }
 
     public Quest GetQuest()
@@ -40,10 +42,6 @@ public class QuestGiver : Interactable
     public override void Interact()
     {
         questController.SendProgressForQuest(GetComponent<CharacterProps>().name);
-        if (quest.done)
-        {
-            questController.CompleteQuest(quest);
-        }
         if (quest == null)
         {
             type = InteractionTypes.Talk;
@@ -51,7 +49,19 @@ public class QuestGiver : Interactable
         }
         else
         {
-            interactionUI.LoadQuest(this, quest);
+            interactionUI.LoadInfoInPanel(quest);
+        }
+    }
+
+    public void LoadNextQuest()
+    {
+        if (!quest.done) { return; }
+
+        this.quest = quest.GetNextQuest();
+        if (this.quest.done)
+        {
+            LoadNextQuest();
+            return;
         }
     }
 }

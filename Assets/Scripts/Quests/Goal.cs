@@ -50,9 +50,9 @@ public class Goal : ScriptableObject
         }
     }
 
-    public void ChooseOption(int index)
+    public void ChooseOption(Goal option)
     {
-        this.choice = options[index];
+        this.choice = option;
     }
 
     public bool MustChoose()

@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5347980550923468039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5347980550923468032}
+  - component: {fileID: 5347980550923468035}
+  - component: {fileID: 5347980550923468034}
+  - component: {fileID: 5347980550923468033}
+  - component: {fileID: 5347980550923468044}
+  - component: {fileID: 5347980550923468045}
+  - component: {fileID: 5347980550923468046}
+  - component: {fileID: 5347980550923468047}
+  - component: {fileID: 5347980550923468040}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &5347980550923468032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5347980550923468035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a00d3766ba65f646976ea85f0d423bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsParent: {fileID: 0}
+  slotPrefab: {fileID: 5721677514982596415, guid: 63a445d0583a3c644bf1a2d48cc5aa75,
+    type: 3}
+--- !u!114 &5347980550923468034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a5e781b3461d04e9a80d398af2221d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expSlider: {fileID: 0}
+--- !u!114 &5347980550923468033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa81070857485a45a729346aabdbe22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipes: {fileID: 0}
+  materials: {fileID: 0}
+  craftingPanel: {fileID: 0}
+  recipePrefab: {fileID: 5950495474032855626, guid: e8b81b0c2c9e1c74e8c998902f51a891,
+    type: 3}
+  craftButton: {fileID: 0}
+  resultSlot: {fileID: 0}
+--- !u!114 &5347980550923468044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b8a5bc10b0b6748b4449e0bb9b0628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questPanel: {fileID: 0}
+  questInfo: {fileID: 0}
+  questDescriptionGUI: {fileID: 0}
+  questProgress: {fileID: 0}
+  buttonPrefab: {fileID: 7053671672809149289, guid: cc2f13b07d7f2d245bc7e291a61d7206,
+    type: 3}
+  buttons: {fileID: 0}
+--- !u!114 &5347980550923468045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b71b637a1ab40429c215e01fe7d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alert: {fileID: 0}
+--- !u!114 &5347980550923468046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4ca261ea9aa9641900ab6628c0d01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionAlert: {fileID: 0}
+  typeOfAlert: 0
+  questDetails: {fileID: 0}
+  questDescription: {fileID: 0}
+  goals: {fileID: 0}
+  coins: {fileID: 0}
+  exp: {fileID: 0}
+  acceptQuestButton: {fileID: 0}
+  cancelQuestButton: {fileID: 0}
+  GoalText: {fileID: 0}
+  questChoices: {fileID: 0}
+  choicesPanel: {fileID: 0}
+  choiceButtonPrefab: {fileID: 7053671672809149289, guid: cc2f13b07d7f2d245bc7e291a61d7206,
+    type: 3}
+  talkingPanel: {fileID: 0}
+--- !u!114 &5347980550923468047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a633322c5671f4081ce59307b1f619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsParent: {fileID: 0}
+  shop: {fileID: 0}
+  ShopPanel: {fileID: 0}
+  shopItemPrefab: {fileID: 5950495474032855626, guid: 3a11919839603aa4db33c537a29e277e,
+    type: 3}
+--- !u!114 &5347980550923468040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347980550923468039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ccb8c8f6f09838468037216147a4c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 0}
+  mana: {fileID: 0}
+  level: {fileID: 0}

@@ -3,6 +3,8 @@
 public class LevelController : MonoBehaviour
 {
     private CharacterProps playerProps;
+
+    [SerializeField]
     private LevelSystemUI levelSystemUI;
 
     private float expRequired;
@@ -17,7 +19,6 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
-        levelSystemUI = GetComponent<LevelSystemUI>();
     }
 
     public void AddExp(float value)

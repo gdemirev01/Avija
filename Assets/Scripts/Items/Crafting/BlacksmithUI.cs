@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class BlacksmithUI : MonoBehaviour
+public class BlacksmithUI : MonoBehaviour, IStaticPanel, IDynamicPanel
 {
 
     #region Singleton
@@ -31,9 +32,11 @@ public class BlacksmithUI : MonoBehaviour
     private Blacksmith currentBlacksmith;
 
     public ItemSlot resultSlot;
+    private UIController uiController;
 
     private void Start()
     {
+        uiController = UIController.instance;
         recipesSlots = materials.transform.GetComponentsInChildren<ItemSlot>();
     }
 
@@ -42,31 +45,26 @@ public class BlacksmithUI : MonoBehaviour
         this.currentBlacksmith = blacksmith;
     }
 
-    public void ToggleCraftingPanel(bool state)
+    public void TogglePanel(bool state)
     {
         UIController.instance.TogglePanel(craftingPanel, state);
-
     }
 
-    public void UpdateRecipes()
+    public void ClearPanel()
     {
-        foreach (Transform child in recipes.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        for (int i = 0; i < currentBlacksmith.recipes.Count; i++)
-        {
-            var recipeSlot = Instantiate(recipePrefab, recipes.transform, false);
-            var slotScript = recipeSlot.GetComponent<ItemSlot>();
-
-            ItemAmount item = new ItemAmount(currentBlacksmith.recipes[0], 1);
-            slotScript.AddItem(item);
-        }
+        throw new System.NotImplementedException();
     }
 
-    public void LoadRecipe(Recipe recipe)
+    public void UpdatePanel()
     {
+        ItemSlot[] slots = uiController.CreateSlots<ItemSlot>(recipes, recipePrefab, currentBlacksmith.recipes.Count);
+        uiController.LoadItemsToSlots(slots, currentBlacksmith.recipes.Select(r => new ItemAmount(r, 1)).ToArray());
+    }
+
+    public void LoadInfoInPanel(ScriptableObject info)
+    {
+        Recipe recipe = info as Recipe;
+
         for (int i = 0; i < recipesSlots.Length; i++)
         {
             if (i < recipesSlots.Length)

@@ -7,7 +7,7 @@ public class Shop : Interactable
     public int coins;
 
     [SerializeField]
-    public Inventory inventory;
+    private Inventory inventory;
 
     private CharacterProps playerProps;
 
@@ -19,7 +19,7 @@ public class Shop : Interactable
     private void Start()
     {
         playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
-        inventory.onItemChangedCallback += ShopUI.instance.UpdateUI;
+        inventory.onItemChangedCallback += ShopUI.instance.UpdatePanel;
     }
 
     private void RemoveItemFromShop(Item item)
@@ -63,6 +63,11 @@ public class Shop : Interactable
         return inventory.GetItem(index);
     }
 
+    public ItemAmount[] GetItems()
+    {
+        return inventory.items.ToArray();
+    }
+
     public ItemAmount GetItemAmount(int index)
     {
         return inventory.GetItemAmount(index);
@@ -76,6 +81,6 @@ public class Shop : Interactable
     public override void Interact()
     {
         ShopUI.instance.SetShop(this);
-        ShopUI.instance.ToggleShopPanel(true);
+        ShopUI.instance.TogglePanel(true);
     }
 }
