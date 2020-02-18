@@ -6,7 +6,7 @@ public class AnimationEvents : MonoBehaviour
 
     private void Start()
     {
-        combatController = CombatController.instance;
+        combatController = CombatController.Instance;
     }
 
     public void EnableAttackTriggers()

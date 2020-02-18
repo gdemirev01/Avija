@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Singleton<PlayerMovement>
 {
-
     private Animator animator;
     private CombatController combatController;
 
@@ -19,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        combatController = CombatController.instance;
+        combatController = CombatController.Instance;
         animator = GetComponent<Animator>();
     }
 
@@ -31,7 +30,10 @@ public class PlayerMovement : MonoBehaviour
     private void NormalMovement()
     {
 
-        if (!canMove) { return; }
+        if (!canMove)
+        { 
+            return; 
+        }
 
         float InputX = Input.GetAxis("Horizontal");
         float InputZ = Input.GetAxis("Vertical");
@@ -67,7 +69,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void InputMagnitude()
     {
-        if(!canMove) { return; }
+        if(!canMove)
+        {
+            animator.SetFloat("inputMagnitude", 0);
+            animator.SetFloat("running", 0);
+            return; 
+        }
 
         float inputX = Input.GetAxis("Horizontal");
         float inputZ = Input.GetAxis("Vertical");
@@ -77,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("inputX", inputX);
 
         speed = new Vector2(inputX, inputZ).sqrMagnitude;
-
         if(speed > allowPlayerRotation)
         {
             animator.SetFloat("inputMagnitude", speed);

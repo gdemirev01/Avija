@@ -18,7 +18,7 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
+        playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
     }
 
     public void AddExp(float value)

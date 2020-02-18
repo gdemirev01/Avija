@@ -25,7 +25,10 @@ public class Quest : ScriptableObject
 
     public Quest GetNextQuest()
     {
-        if (!this.done || this.nextQuests.Count < 2) { return null; }
+        if (!this.done || this.nextQuests.Count < 2)
+        { 
+            return null;
+        }
 
         Quest nextQuest;
 

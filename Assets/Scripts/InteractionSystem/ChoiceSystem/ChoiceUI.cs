@@ -2,50 +2,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChoiceUI : MonoBehaviour, IStaticPanel
+public class ChoiceUI : Singleton<ChoiceUI>, IStaticPanel
 {
-    #region Singleton
-    public static ChoiceUI instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("There is another instance of shopkeeperUI");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
     private UIController uiController;
     private InteractionUI interactionUI;
 
-    public TextMeshProUGUI GoalText;
-    public GameObject choicePanel;
-    public GameObject choicesPanel;
-    public GameObject choiceButtonPrefab;
+    [SerializeField]
+    private GameObject choicePanel;
+    [SerializeField]
+    private GameObject choicesPanel;
+    [SerializeField]
+    private GameObject choiceButtonPrefab;
 
     private void Start()
     {
-        uiController = UIController.instance;
-        interactionUI = InteractionUI.instance;
-    }
-
-    public void ClearPanel()
-    {
-        throw new System.NotImplementedException();
+        uiController = UIController.Instance;
+        interactionUI = InteractionUI.Instance;
     }
 
     public void TogglePanel(bool state)
     {
         uiController.TogglePanel(choicePanel, state);
-    }
-
-    public void UpdatePanel()
-    {
-        throw new System.NotImplementedException();
     }
 
     public void LoadInfoInPanel(ScriptableObject info)
@@ -73,5 +50,10 @@ public class ChoiceUI : MonoBehaviour, IStaticPanel
                 uiController.TogglePanel(choicePanel, false);
             });
         }
+    }
+
+    public void ClearPanel()
+    {
+        uiController.ClearChildrenOfPanel(choicesPanel);
     }
 }

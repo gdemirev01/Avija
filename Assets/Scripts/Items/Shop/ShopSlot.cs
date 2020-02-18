@@ -27,7 +27,7 @@ public class ShopSlot : ItemSlot
     {
         if (item != null)
         {
-            shop.Buy(item);
+            shop.BuyItemsFromShop(item);
         }
     }
 
@@ -35,7 +35,7 @@ public class ShopSlot : ItemSlot
     {
         if (item != null)
         {
-            shop.Sell(item);
+            shop.SellItemsToShop(item);
         }
     }
 }

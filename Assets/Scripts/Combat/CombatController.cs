@@ -2,30 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatController : MonoBehaviour
+public class CombatController : Singleton<CombatController>
 {
-    #region Singleton
-    public static CombatController instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("There is another instance of combatController");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
-
-    public Animator animator;
-    public GameObject weapon;
-    public GameObject weaponOnSpine;
-    public PlayerMovement playerMovement;
-    public DealDamage dealDamage;
-    public SpellsController spellsController;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private GameObject weapon;
+    [SerializeField]
+    private GameObject weaponOnSpine;
+    [SerializeField]
+    private PlayerMovement playerMovement;
+    [SerializeField]
+    private DealDamage dealDamage;
+    [SerializeField]
+    private SpellsController spellsController;
     
     private Timer timer;
 
@@ -65,7 +55,10 @@ public class CombatController : MonoBehaviour
 
     public void Attack()
     {
-        if(!inBattle) { return; }
+        if(!inBattle) 
+        { 
+            return;
+        }
 
         dealDamage.Attack();
         timer.RestartTimer();

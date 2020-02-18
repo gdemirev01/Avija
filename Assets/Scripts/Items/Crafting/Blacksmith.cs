@@ -10,7 +10,7 @@ public class Blacksmith : Interactable
     private Inventory playerInventory;
 
     public List<Recipe> recipes;
-    public Recipe choosenRecipe;
+    public Recipe chosenRecipe;
 
     private void Awake()
     {
@@ -19,39 +19,39 @@ public class Blacksmith : Interactable
 
     private void Start()
     {
-        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
-        playerInventory = PlayerManager.instance.inventory;
+        playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
+        playerInventory = PlayerManager.Instance.inventory;
     }
 
     public override void Interact()
     {
-        BlacksmithUI.instance.SetBlacksmith(this);
-        BlacksmithUI.instance.UpdatePanel();
-        BlacksmithUI.instance.TogglePanel(true);
+        BlacksmithUI.Instance.SetBlacksmith(this);
+        BlacksmithUI.Instance.UpdatePanel();
+        BlacksmithUI.Instance.TogglePanel(true);
     }
 
     public void Craft()
     {
-        if (playerInventory.ContainsAllItems(choosenRecipe.materials.ToArray()))
+        if (playerProps.coins >= chosenRecipe.cost && playerInventory.ContainsAllItems(chosenRecipe.materials.ToArray()))
         {
-            playerInventory.RemoveAllItems(choosenRecipe.materials.ToArray());
+            playerInventory.RemoveAllItems(chosenRecipe.materials.ToArray());
 
-            if (playerProps.coins >= choosenRecipe.cost)
-            {
-                playerProps.coins -= choosenRecipe.cost;
+            playerProps.coins -= chosenRecipe.cost;
 
-                for(int i = 0; i < choosenRecipe.resultItem.amount; i++)
-                    PlayerManager.instance.inventory.AddItem(choosenRecipe.resultItem.item);
-            }
-            else
+            for (int i = 0; i < chosenRecipe.resultItem.amount; i++)
             {
-                UIController.instance.SetAlertMessage("not enough money");
+                PlayerManager.Instance.inventory.AddItem(chosenRecipe.resultItem.item);
             }
         }
-        else
-        {
-            UIController.instance.SetAlertMessage("missing items");
 
+        if (playerProps.coins < chosenRecipe.cost)
+        {
+            UIController.Instance.SetAlertMessage("not enough money");
+        }
+
+        if (playerInventory.ContainsAllItems(chosenRecipe.materials.ToArray()))
+        {
+            UIController.Instance.SetAlertMessage("missing items");
         }
     }
 }

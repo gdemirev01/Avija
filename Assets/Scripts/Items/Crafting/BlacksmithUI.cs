@@ -3,40 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BlacksmithUI : MonoBehaviour, IStaticPanel, IDynamicPanel
+public class BlacksmithUI : Singleton<BlacksmithUI>, IStaticPanel, IDynamicPanel
 {
+    [SerializeField]
+    private GameObject recipes;
+    [SerializeField]
+    private GameObject materials;
+    [SerializeField]
+    private GameObject craftingPanel;
+    [SerializeField]
+    private GameObject recipePrefab;
+    [SerializeField]
+    private ClickableObject craftButton;
+    [SerializeField]
+    private ItemSlot resultSlot;
 
-    #region Singleton
-    public static BlacksmithUI instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("There is another instance of blacksmithUI");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
-    public GameObject recipes;
-    public GameObject materials;
-    public GameObject craftingPanel;
-    public GameObject recipePrefab;
-    
-    public ClickableObject craftButton;
+    private Blacksmith currentBlacksmith;
+    private UIController uiController;
 
     private ItemSlot[] recipesSlots;
-    private Blacksmith currentBlacksmith;
-
-    public ItemSlot resultSlot;
-    private UIController uiController;
 
     private void Start()
     {
-        uiController = UIController.instance;
+        uiController = UIController.Instance;
         recipesSlots = materials.transform.GetComponentsInChildren<ItemSlot>();
     }
 
@@ -47,12 +36,15 @@ public class BlacksmithUI : MonoBehaviour, IStaticPanel, IDynamicPanel
 
     public void TogglePanel(bool state)
     {
-        UIController.instance.TogglePanel(craftingPanel, state);
+        UIController.Instance.TogglePanel(craftingPanel, state);
     }
 
     public void ClearPanel()
     {
-        throw new System.NotImplementedException();
+        foreach (ItemSlot slot in recipesSlots)
+        {
+            slot.ClearSlot();
+        }
     }
 
     public void UpdatePanel()
@@ -78,7 +70,7 @@ public class BlacksmithUI : MonoBehaviour, IStaticPanel, IDynamicPanel
                 resultSlot.ClearSlot();
             }
         }
-        currentBlacksmith.choosenRecipe = recipe;
+        currentBlacksmith.chosenRecipe = recipe;
         craftButton.onLeft.AddListener(currentBlacksmith.Craft);
     }
 }

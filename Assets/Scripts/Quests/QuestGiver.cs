@@ -15,8 +15,8 @@ public class QuestGiver : Interactable
 
     private void Start()
     {
-        questController = QuestController.instance;
-        interactionUI = InteractionUI.instance;
+        questController = QuestController.Instance;
+        interactionUI = InteractionUI.Instance;
 
         if (quest.done)
         {
@@ -55,10 +55,13 @@ public class QuestGiver : Interactable
 
     public void LoadNextQuest()
     {
-        if (!quest.done) { return; }
+        if (!quest.done)
+        {
+            return;
+        }
 
         this.quest = quest.GetNextQuest();
-        if (this.quest.done)
+        if (this.quest != null && this.quest.done)
         {
             LoadNextQuest();
             return;

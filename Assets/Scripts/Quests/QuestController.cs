@@ -1,30 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestController : MonoBehaviour
+public class QuestController : Singleton<QuestController>
 {
-
-    #region Singleton
-    public static QuestController instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("There is another instance of uiController");
-            return;
-        }
-
-        instance = this;
-
-        activeQuests = new List<Quest>();
-        completedQuests = new List<Quest>();
-    }
-    #endregion
-
     private List<Quest> activeQuests;
     private List<Quest> completedQuests;
 
@@ -37,10 +15,18 @@ public class QuestController : MonoBehaviour
     public delegate void OnQuestChange();
     public OnQuestChange onQuestChangeCallback;
 
+    public override void Awake()
+    {
+        base.Awake();
+
+        activeQuests = new List<Quest>();
+        completedQuests = new List<Quest>();
+    }
+
     private void Start()
     {
-        questUI = QuestUI.instance;
-        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
+        questUI = QuestUI.Instance;
+        playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
         levelController = this.GetComponent<LevelController>();
     }
 
@@ -74,7 +60,10 @@ public class QuestController : MonoBehaviour
 
     public void LoadToGiver(Quest nextQuest)
     {
-        if (nextQuest.giver == null) { return; }
+        if (nextQuest.giver == null)
+        {
+            return;
+        }
 
         foreach (Transform npc in NPCs.transform)
         {
@@ -90,7 +79,10 @@ public class QuestController : MonoBehaviour
     
     public void AddQuest(Quest quest)
     {
-        if (activeQuests.Contains(quest)) { return; }
+        if (activeQuests.Contains(quest))
+        { 
+            return;
+        }
 
         activeQuests.Add(quest);
 
@@ -104,7 +96,7 @@ public class QuestController : MonoBehaviour
 
         if (quest.reward.item != null)
         {
-            PlayerManager.instance.inventory.AddItem(quest.reward.item);
+            PlayerManager.Instance.inventory.AddItem(quest.reward.item);
         }
 
         activeQuests.Remove(quest);
@@ -119,6 +111,8 @@ public class QuestController : MonoBehaviour
 
         LoadToGiver(nextQuest);
 
+        questUI.ClearPanel();
+
         onQuestChangeCallback.Invoke();
     }
 
@@ -129,5 +123,15 @@ public class QuestController : MonoBehaviour
         quest.Reset();
 
         onQuestChangeCallback.Invoke();
+    }
+
+    public void ResetAllQuests()
+    {
+        Quest[] quests = Resources.LoadAll<Quest>("Quests");
+        
+        foreach(Quest quest in quests)
+        {
+            quest.Reset();
+        }
     }
 }

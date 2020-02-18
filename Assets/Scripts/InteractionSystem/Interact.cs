@@ -10,7 +10,7 @@ public class Interact : MonoBehaviour
 
     private void Start()
     {
-        interactionUI = InteractionUI.instance;
+        interactionUI = InteractionUI.Instance;
     }
 
     private void Update()

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class InputController : MonoBehaviour
+public class InputController : Singleton<InputController>
 {
-
     private PlayerMovement playerMovement;
     private CombatController combatController;
     private UIController uiController;
@@ -18,8 +17,8 @@ public class InputController : MonoBehaviour
     void Start()
     {
         playerMovement = transform.GetChild(0).GetComponent<PlayerMovement>();
-        uiController = UIController.instance;
-        combatController = CombatController.instance;
+        uiController = UIController.Instance;
+        combatController = CombatController.Instance;
     }
 
     void Update()
@@ -31,6 +30,11 @@ public class InputController : MonoBehaviour
 
     private void MovementInput()
     {
+        if (GetPointerState())
+        { 
+            return;
+        }
+
         if (Input.GetButtonDown("Jump"))
         {
             animator.SetTrigger("jump");
@@ -39,6 +43,11 @@ public class InputController : MonoBehaviour
 
     private void CombatInput()
     {
+        if(GetPointerState())
+        { 
+            return;
+        }
+
         if (Input.GetButtonDown("Attack"))
         {
             combatController.Attack();
@@ -66,15 +75,6 @@ public class InputController : MonoBehaviour
 
     private void UIInput()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            var lastPanel = uiController.GetLastPanel();
-            if (lastPanel != null)
-            {
-                uiController.TogglePanel(lastPanel, false);
-            }
-        }
-
         if (Input.GetButtonDown("ToggleMouse"))
         {
             togglePointer = !togglePointer;
@@ -87,5 +87,10 @@ public class InputController : MonoBehaviour
         Cursor.visible = state;
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         playerMovement.canMove = !state;
+    }
+
+    public bool GetPointerState()
+    {
+        return Cursor.visible;
     }
 }

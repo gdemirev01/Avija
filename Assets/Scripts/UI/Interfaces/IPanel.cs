@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public interface IPanel
+﻿public interface IPanel
 {
     void TogglePanel(bool state);
 

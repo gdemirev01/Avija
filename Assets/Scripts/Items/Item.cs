@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
@@ -10,7 +8,7 @@ public class Item : ScriptableObject
     new public string name;
     public int cost;
 
-    private static int itemsCount = 0;
+    public static int itemsCount = 0;
 
     public Sprite icon;
 

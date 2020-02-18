@@ -1,22 +1,7 @@
 ﻿using UnityEngine;
 
-public class ShopUI : MonoBehaviour, IDynamicPanel
+public class ShopUI : Singleton<ShopUI>, IDynamicPanel
 {
-    #region Singleton
-    public static ShopUI instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("There is another instance of shopkeeperUI");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
     private UIController uiController;
 
     [HideInInspector]
@@ -34,12 +19,12 @@ public class ShopUI : MonoBehaviour, IDynamicPanel
 
     private void Start()
     {
-        uiController = UIController.instance;
+        uiController = UIController.Instance;
     }
 
     private void Update()
     {
-        if (!UIController.instance.isPanelOpened(ShopPanel))
+        if (!UIController.Instance.IsPanelOpen(ShopPanel))
         {
             shop = null;
         }
@@ -53,7 +38,7 @@ public class ShopUI : MonoBehaviour, IDynamicPanel
 
     public void ClearPanel()
     {
-        throw new System.NotImplementedException();
+        uiController.ClearChildrenOfPanel(itemsParent);
     }
 
     public void UpdatePanel()
@@ -68,6 +53,6 @@ public class ShopUI : MonoBehaviour, IDynamicPanel
 
     public void TogglePanel(bool state)
     {
-        UIController.instance.TogglePanel(ShopPanel, state);
+        UIController.Instance.TogglePanel(ShopPanel, state);
     }
 }

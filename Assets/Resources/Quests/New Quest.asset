@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
+  m_Name: New Quest
+  m_EditorClassIdentifier: 
+  id: 2
+  name: asdf
+  giver: Simko
+  text: aksoddfokgdfg
+  done: 0
+  goal: {fileID: 11400000, guid: 6cb49a806b437ac45bffd359aa76a8dc, type: 2}
+  reward:
+    coins: 100
+    exp: 10000
+    item: {fileID: 11400000, guid: 9bb3224fc25fc6446a1537107dc5d635, type: 2}
+  nextQuests:
+  - {fileID: 11400000, guid: c49c1effec8895541a87a1cfbbfe4c10, type: 2}
+  - {fileID: 11400000, guid: c49c1effec8895541a87a1cfbbfe4c10, type: 2}

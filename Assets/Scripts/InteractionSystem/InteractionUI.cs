@@ -2,54 +2,46 @@
 using TMPro;
 using UnityEngine.UI;
 
-public class InteractionUI : MonoBehaviour, IStaticPanel
+public class InteractionUI : Singleton<InteractionUI>, IStaticPanel
 {
-
-    #region Singleton
-    public static InteractionUI instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("There is another instance of interactionUI");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
-
     private UIController uiController;
     private ChoiceUI choiceUI;
     private QuestController questController;
 
-    public TextMeshProUGUI interactionAlert;
-    public Interactable.InteractionTypes typeOfAlert;
+    [SerializeField]
+    private TextMeshProUGUI interactionAlert;
+    
+    public InteractionTypes typeOfAlert;
 
-    public GameObject questDetails;
-    public GameObject questDescription;
-    public TextMeshProUGUI goals;
-    public TextMeshProUGUI coins;
-    public TextMeshProUGUI exp;
-    public Button acceptQuestButton;
-    public Button cancelQuestButton;
+    [SerializeField]
+    private GameObject questDetails;
+    [SerializeField]
+    private GameObject questDescription;
+    [SerializeField]
+    private TextMeshProUGUI goals;
+    [SerializeField]
+    private TextMeshProUGUI coins;
+    [SerializeField]
+    private TextMeshProUGUI exp;
+    [SerializeField]
+    private Button acceptQuestButton;
+    [SerializeField]
+    private Button cancelQuestButton;
 
     public GameObject talkingPanel;
 
     private void Start()
     {
-        uiController = UIController.instance;
-        choiceUI = ChoiceUI.instance;
-        questController = QuestController.instance;
+        choiceUI = ChoiceUI.Instance;
+        uiController = UIController.Instance;
+        questController = QuestController.Instance;
         
         cancelQuestButton.onClick.AddListener(() => { TogglePanel(false); });
     }
 
     public void ToggleAlert(bool state)
     {
-        interactionAlert.text = System.Enum.GetName(typeof(Interactable.InteractionTypes), typeOfAlert);
+        interactionAlert.text = System.Enum.GetName(typeof(InteractionTypes), typeOfAlert);
         interactionAlert.enabled = state;
     }
 
@@ -99,7 +91,10 @@ public class InteractionUI : MonoBehaviour, IStaticPanel
 
     public void ClearPanel()
     {
-        throw new System.NotImplementedException();
+        questDescription.GetComponent<TextMeshProUGUI>().text = "";
+        coins.text = "";
+        exp.text = "";
+        goals.text = "";
     }
 
     public void LoadInfoInPanel(ScriptableObject info)

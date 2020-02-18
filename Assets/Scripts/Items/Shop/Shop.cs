@@ -18,8 +18,8 @@ public class Shop : Interactable
 
     private void Start()
     {
-        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
-        inventory.onItemChangedCallback += ShopUI.instance.UpdatePanel;
+        playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
+        inventory.onItemChangedCallback += ShopUI.Instance.UpdatePanel;
     }
 
     private void RemoveItemFromShop(Item item)
@@ -27,34 +27,34 @@ public class Shop : Interactable
         inventory.RemoveItem(item);
     }
 
-    public void Buy(Item item)
+    public void BuyItemsFromShop(Item item)
     {
         if (playerProps.coins < item.cost)
         {
-            UIController.instance.SetAlertMessage("Not enough coins");
+            UIController.Instance.SetAlertMessage("Not enough coins");
             return;
         }
 
         coins += item.cost;
         playerProps.coins -= item.cost;
 
-        PlayerManager.instance.inventory.AddItem(item);
+        PlayerManager.Instance.inventory.AddItem(item);
 
         RemoveItemFromShop(item);
     }
 
-    public void Sell(Item item)
+    public void SellItemsToShop(Item item)
     {
         if (coins < item.cost)
         {
-            UIController.instance.SetAlertMessage("Shopkeeper can't afford that");
+            UIController.Instance.SetAlertMessage("Shopkeeper can't afford that");
             return;
         }
 
         coins -= item.cost;
         playerProps.coins += item.cost;
 
-        PlayerManager.instance.inventory.RemoveItem(item);
+        PlayerManager.Instance.inventory.RemoveItem(item);
         inventory.AddItem(item);
     }
 
@@ -80,7 +80,7 @@ public class Shop : Interactable
 
     public override void Interact()
     {
-        ShopUI.instance.SetShop(this);
-        ShopUI.instance.TogglePanel(true);
+        ShopUI.Instance.SetShop(this);
+        ShopUI.Instance.TogglePanel(true);
     }
 }

@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   name: Helmet
-  cost: 200
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  cost: 20
+  icon: {fileID: 21300000, guid: 225776f610369a24f94a5f04905699a6, type: 3}
   equipSlot: 0
-  mesh: {fileID: 2997510680357350851, guid: 05588a3ae6170aa488fa17fca7df4a23, type: 3}
   armorModifier: 10
   damageModifier: 0

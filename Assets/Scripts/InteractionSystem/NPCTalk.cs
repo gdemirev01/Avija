@@ -14,8 +14,8 @@ public class NPCTalk : Interactable
 
     private void Start()
     {
-        interactionUI = InteractionUI.instance;
-        questController = QuestController.instance;
+        interactionUI = InteractionUI.Instance;
+        questController = QuestController.Instance;
     }
 
     public override void Interact()

@@ -2,40 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipmentController : MonoBehaviour
+public class EquipmentController : Singleton<EquipmentController>
 {
-    #region Singleton
-    public static EquipmentController instance;
-
-    private void Awake()
-    {
-        instance = this;
-
-        int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        currentEquipment = new Equipment[numSlots];
-
-        currentMeshes = new SkinnedMeshRenderer[numSlots];
-    }
-    #endregion
-
     Inventory inventory;
 
     public delegate void OnEquipmentChanged();
     public OnEquipmentChanged onEquipmentChanged;
 
-    //public SkinnedMeshRenderer targetMesh;
-
     public Equipment[] currentEquipment;
-
-    SkinnedMeshRenderer[] currentMeshes;
 
     private CharacterProps playerProps;
 
+    public override void Awake()
+    {
+        base.Awake();
+
+        currentEquipment = new Equipment[5];
+    }
+
     private void Start()
     {
-        inventory = PlayerManager.instance.inventory;
+        inventory = PlayerManager.Instance.inventory;
 
-        playerProps = PlayerManager.instance.player.GetComponent<CharacterProps>();
+        playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
 
         onEquipmentChanged += UpdateStats;
     }
@@ -53,12 +42,6 @@ public class EquipmentController : MonoBehaviour
         }
 
         currentEquipment[slotIndex] = newItem;
-        //SkinnedMeshRenderer newMesh = Instantiate<SkinnedMeshRenderer>(newItem.mesh);
-        //newMesh.transform.parent = targetMesh.transform;
-
-        //newMesh.bones = targetMesh.bones;
-        //newMesh.rootBone = targetMesh.rootBone;
-        //currentMeshes[slotIndex] = newMesh;
 
         if (onEquipmentChanged != null)
         {
@@ -78,11 +61,6 @@ public class EquipmentController : MonoBehaviour
     {
         if(currentEquipment[slotIndex] != null)
         {
-            if(currentMeshes[slotIndex] != null)
-            {
-                Destroy(currentMeshes[slotIndex].gameObject);
-            }
-
             Equipment oldItem = currentEquipment[slotIndex];
             inventory.AddItem(oldItem);
 
@@ -105,9 +83,15 @@ public class EquipmentController : MonoBehaviour
 
     void UpdateStats()
     {
+        playerProps.armor = 0;
+        playerProps.damage = 0;
+
         foreach (Equipment item in currentEquipment)
         {
-            if (item == null) { continue; }
+            if (item == null)
+            { 
+                continue;
+            }
 
             playerProps.armor += item.armorModifier;
             playerProps.damage += item.damageModifier;

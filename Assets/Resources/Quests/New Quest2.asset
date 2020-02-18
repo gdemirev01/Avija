@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
+  m_Name: New Quest2
+  m_EditorClassIdentifier: 
+  id: 3
+  name: Herbalist
+  giver: Simko
+  text: Get me herbs from the mountains
+  done: 0
+  goal: {fileID: 11400000, guid: 80155c9a04288204085918ff0b6a93e2, type: 2}
+  reward:
+    coins: 0
+    exp: 0
+    item: {fileID: 11400000, guid: 2722cc43601d57946ba8e4e3ec851448, type: 2}
+  nextQuests:
+  - {fileID: 11400000, guid: f5ba6370ccf1d384d88abf8e30e84e66, type: 2}
+  - {fileID: 11400000, guid: f5ba6370ccf1d384d88abf8e30e84e66, type: 2}

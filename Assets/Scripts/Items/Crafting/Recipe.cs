@@ -14,6 +14,6 @@ public class Recipe : Item
     public override void Use()
     {
         base.Use();
-        BlacksmithUI.instance.LoadInfoInPanel(this);
+        BlacksmithUI.Instance.LoadInfoInPanel(this);
     }
 }

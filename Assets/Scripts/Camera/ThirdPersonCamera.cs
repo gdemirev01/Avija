@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
     public Transform target;
     public Transform player;
 
-    float rotationSpeed = 0.5f;
-    float zoomSpeed = 4f;
+    private float rotationSpeed = 0.5f;
+    private float zoomSpeed = 4f;
 
-    Vector3 direction;
-    float mouseX, mouseY;
+    private Vector3 direction;
+    private float inputX;
+    private float inputY;
 
     public float minDistance = 5.0f;
     public float maxDistance = 30.0f;
@@ -31,24 +31,26 @@ public class ThirdPersonCamera : MonoBehaviour
         ViewObstructed();
     }
 
-    void CamControl()
+    private void CamControl()
     {
-        if(Cursor.visible && Cursor.lockState != CursorLockMode.Locked) { return; }
+        if (InputController.Instance.GetPointerState())
+        {
+            return;
+        }
 
-        mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
-        mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
-        mouseY = Mathf.Clamp(mouseY, -35, 60);
+        inputX += Input.GetAxis("Mouse X") * rotationSpeed;
+        inputY -= Input.GetAxis("Mouse Y") * rotationSpeed;
+        inputY = Mathf.Clamp(inputY, -35, 60);
 
         var targetRotation = Quaternion.LookRotation(target.position - transform.position);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        target.rotation = Quaternion.Euler(inputY, inputX, 0);
     }
 
-    void ViewObstructed()
+    private void ViewObstructed()
     {
-
         Vector3 desiredCameraPos = transform.parent.TransformPoint(direction * maxDistance);
         RaycastHit hit;
 

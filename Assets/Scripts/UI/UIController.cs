@@ -1,34 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
-using System;
 
-public class UIController : MonoBehaviour
+public class UIController : Singleton<UIController>
 {
-
-    #region Singleton
-    public static UIController instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogWarning("There is another instance of uiController");
-            return;
-        }
-
-        instance = this;
-
-        openedPanels = new List<GameObject>();
-    }
-    #endregion
-
     private List<GameObject> openedPanels;
 
     [SerializeField]
     private TextMeshProUGUI alert;
+
+    public override void Awake()
+    {
+        base.Awake();
+        openedPanels = new List<GameObject>();
+    }
 
     void Start()
     {
@@ -46,13 +31,29 @@ public class UIController : MonoBehaviour
         canvasGroup.blocksRaycasts = state;
         canvasGroup.interactable = state;
 
-        if (state) { openedPanels.Add(panel); }
-        else { openedPanels.Remove(panel); }
+        if (state)
+        {
+            openedPanels.Add(panel); 
+        }
+        else
+        { 
+            openedPanels.Remove(panel);
+        }
+    }
+
+    public int GetOpenedPanelsSize()
+    {
+        return openedPanels.Count;
+    }
+
+    public void ClosePanel(GameObject panel)
+    {
+        TogglePanel(panel, false);
     }
 
     public void TogglePanelAuto(GameObject panel)
     {
-        if (isPanelOpened(panel))
+        if (IsPanelOpen(panel))
         {
             TogglePanel(panel, false);
         }
@@ -64,7 +65,10 @@ public class UIController : MonoBehaviour
 
     public GameObject GetLastPanel()
     {
-        if(openedPanels.Count == 0) { return null; }
+        if(openedPanels.Count == 0)
+        {
+            return null;
+        }
         return openedPanels[openedPanels.Count - 1];
     }
 
@@ -77,7 +81,7 @@ public class UIController : MonoBehaviour
         openedPanels.Add(panel);
     }
 
-    public bool isPanelOpened(GameObject panel)
+    public bool IsPanelOpen(GameObject panel)
     {
         return openedPanels.Contains(panel);
     }
@@ -99,14 +103,19 @@ public class UIController : MonoBehaviour
         this.alert.text = "";
     }
 
-    public T[] CreateSlots<T>(GameObject panel, GameObject slotPrefab, int numberOfSlots)
+    public void ClearChildrenOfPanel(GameObject panel)
     {
-        T[] slots = new T[numberOfSlots];
-
         foreach (Transform child in panel.transform)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public T[] CreateSlots<T>(GameObject panel, GameObject slotPrefab, int numberOfSlots)
+    {
+        T[] slots = new T[numberOfSlots];
+
+        ClearChildrenOfPanel(panel);
 
         for (int i = 0; i < numberOfSlots; i++)
         {

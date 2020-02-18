@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        target = PlayerManager.instance.player.transform.GetChild(0);
+        target = PlayerManager.Instance.player.transform.GetChild(0);
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         dealDamage = GetComponentInChildren<DealDamage>();
@@ -91,7 +91,10 @@ public class EnemyController : MonoBehaviour
 
     void RandomMovement()
     {
-        if (spawner == null) { direction = transform.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)); }
+        if (spawner == null)
+        { 
+            direction = transform.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10));
+        }
         else
         {
             direction = transform.position + new Vector3(Random.Range(-spawner.size.x / 2, spawner.size.x / 2), Random.Range(-spawner.size.y / 2, spawner.size.y / 2), Random.Range(-spawner.size.z / 2, spawner.size.z / 2));

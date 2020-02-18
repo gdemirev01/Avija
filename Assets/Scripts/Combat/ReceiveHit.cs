@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ReceiveHit : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class ReceiveHit : MonoBehaviour
 
     private void Start()
     {
-        questController = QuestController.instance;
-        combatController = CombatController.instance;
+        questController = QuestController.Instance;
+        combatController = CombatController.Instance;
 
         if(tag.Equals("Enemy"))
         {
@@ -21,9 +22,9 @@ public class ReceiveHit : MonoBehaviour
         }
     }
 
-    public void receiveHit(GameObject attacker)
+    public void GetHit(GameObject attacker)
     { 
-        animator.SetTrigger("getHitted");
+        animator.SetTrigger("getHit");
 
         var damage = attacker.GetComponent<CharacterProps>().damage;
         var armor = characterProps.armor;
@@ -31,7 +32,10 @@ public class ReceiveHit : MonoBehaviour
         if (combatController.blocking) { damage /= 4; }
 
         damage -= armor;
-        if(damage <= 0) { damage = 0; }
+        if(damage <= 0) 
+        { 
+            damage = 0; 
+        }
 
         characterProps.health -= damage;
 
@@ -48,7 +52,7 @@ public class ReceiveHit : MonoBehaviour
 
         if(this.tag.Equals("Player"))
         {
-            //Load death screen
+            SceneManager.LoadScene("DeathScreen", LoadSceneMode.Single);
             return;
         }
         else if(tag.Equals("Enemy"))

@@ -1,41 +1,31 @@
 ﻿using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class QuestUI : MonoBehaviour, IStaticPanel, IDynamicPanel
+public class QuestUI : Singleton<QuestUI>, IStaticPanel, IDynamicPanel
 {
-    #region Singleton
-    public static QuestUI instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.Log("There is another instance of questUI");
-            return;
-        }
-
-        instance = this;
-    }
-    #endregion
-
     private Quest loadedQuest;
 
     private UIController uiController;
     private QuestController questController;
 
-    public GameObject questPanel;
-    public GameObject questInfo;
-    public TextMeshProUGUI questDescriptionGUI;
-    public TextMeshProUGUI questProgress;
-    public GameObject buttonPrefab;
-    public GameObject buttons;
+    [SerializeField]
+    private GameObject questPanel;
+    [SerializeField]
+    private GameObject questInfo;
+    [SerializeField]
+    private TextMeshProUGUI questDescriptionGUI;
+    [SerializeField]
+    private TextMeshProUGUI questProgress;
+    [SerializeField]
+    private GameObject buttonPrefab;
+    [SerializeField]
+    private GameObject buttons;
 
     void Start()
     {
-        uiController = UIController.instance;
-        questController = QuestController.instance;
+        uiController = UIController.Instance;
+        questController = QuestController.Instance;
 
         questController.onQuestChangeCallback += UpdatePanel;
     }
@@ -49,6 +39,10 @@ public class QuestUI : MonoBehaviour, IStaticPanel, IDynamicPanel
     public void TogglePanelWithButton()
     {
         uiController.TogglePanelAuto(questPanel);
+        if(uiController.IsPanelOpen(questPanel))
+        {
+            questInfo.SetActive(false);
+        }
     }
 
     public void ClearPanel()

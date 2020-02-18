@@ -32,7 +32,10 @@ public class ItemSlot : MonoBehaviour
 
     public void ClearSlot()
     {
-        if (item == null) { return; }
+        if (item == null) 
+        { 
+            return;
+        }
 
         item = null;
 
