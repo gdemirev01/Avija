@@ -74,6 +74,6 @@ public class Goal : ScriptableObject
     public override string ToString()
     {
         return
-               this.type + " " + this.target + this.progress + "/" + this.quantity;
+               this.type + " " + this.target + " " + this.progress + "/" + this.quantity;
     }
 }

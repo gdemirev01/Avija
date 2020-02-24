@@ -22,7 +22,6 @@ public class NPCTalk : Interactable
     {
         var characterProps = GetComponent<CharacterProps>();
 
-        base.Interact();
         interactionUI.Talk(characterProps.lines);
         questController.SendProgressForQuest(characterProps.name);
     }

@@ -1691,7 +1691,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8150218077425756906}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5c2aad61339432641ad0bfd3f0e285ab, type: 3}
+  m_Avatar: {fileID: 9000000, guid: f5fb70e92918432459a25f97b67db905, type: 3}
   m_Controller: {fileID: 9100000, guid: 650aee9f8f91ffd4fbd4bd55a0ca304e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1759,7 +1759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: zombie
-  health: 100
+  health: 30
   mana: 0
   exp: 0
   level: 0
@@ -1781,7 +1781,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 12
+  m_StoppingDistance: 6.09
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1800,9 +1800,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.03
-  m_Height: 0.16
+  m_Height: 0.28
   m_Direction: 1
-  m_Center: {x: 0, y: 0.08, z: 0.01}
+  m_Center: {x: 0, y: 0.14, z: 0.01}
 --- !u!114 &8150218076906230884
 MonoBehaviour:
   m_ObjectHideFlags: 0

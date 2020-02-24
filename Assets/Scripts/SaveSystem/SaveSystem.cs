@@ -7,12 +7,17 @@ public class SaveSystem : Singleton<SaveSystem>
 
     private GameObject player;
     private CharacterProps playerProps;
+    private PlayerManager playerManager;
 
     public override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this);
+    }
+
+    private void Start()
+    {
         player = PlayerManager.Instance.player;
+        playerManager = PlayerManager.Instance;
     }
 
     private Dictionary<int, int> GetItemsForSave(ItemAmount[] items)
@@ -104,7 +109,7 @@ public class SaveSystem : Singleton<SaveSystem>
         playerProps.armor = playerData.armor;
 
         var savedItems = FindItems(MultiplyItems(playerData.items));
-        PlayerManager.Instance.inventory.AddListOfItems(savedItems);
+        playerManager.inventory.AddListOfItems(savedItems);
 
         var savedEquipment = FindItems(playerData.equipment);
         EquipmentController.Instance.EquipListOfItems(savedEquipment);
@@ -116,13 +121,13 @@ public class SaveSystem : Singleton<SaveSystem>
     {
         playerProps = player.GetComponent<CharacterProps>();
 
-        var playerPos = PlayerManager.Instance.player.transform.GetChild(0).position;
+        var playerPos = playerManager.player.transform.GetChild(0).position;
         float[] position = new float[3];
         position[0] = playerPos.x;
         position[1] = playerPos.y;
         position[2] = playerPos.z;
 
-        var list = PlayerManager.Instance.inventory.items;
+        var list = playerManager.inventory.items;
         var inventoryItems = GetItemsForSave(list.ToArray());
         var equipment = GetEquipmentID(EquipmentController.Instance.currentEquipment);
 

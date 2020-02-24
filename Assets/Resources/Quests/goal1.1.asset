@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: Kill one zombie
   type: 0
-  quantity: 1
+  quantity: 5
   progress: 0
   target: zombie
   done: 0
   weight: -30
   choice: {fileID: 0}
+  nextGoalText: 
   options: []

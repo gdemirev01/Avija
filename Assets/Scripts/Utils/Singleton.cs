@@ -27,12 +27,11 @@ public abstract class Singleton<T>: MonoBehaviour
         if (instance == null)
         {
             instance = this as T;
-            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
+            Debug.Log(instance.GetInstanceID());
             Destroy(this);
         }
     }
-
 }

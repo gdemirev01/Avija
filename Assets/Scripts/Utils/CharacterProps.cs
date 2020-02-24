@@ -14,11 +14,14 @@ public class CharacterProps : MonoBehaviour
 
     public string lines;
 
-    private void Start()
+    private bool loadedSave = false;
+
+    private void Update()
     {
-        if(tag.Equals("Player"))
+        if(tag.Equals("Player") && !loadedSave)
         {
             SaveSystem.Instance.LoadSave();
+            loadedSave = true;
         }
     }
 }

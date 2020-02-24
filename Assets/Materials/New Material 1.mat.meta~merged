@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/Materials/New Material 1.mat.meta
+guid: f39b48a0bc99b554685e2caa38766fd5
+=======
+guid: d197380a4d08d934aad03dda2df8d81f
+>>>>>>> 50e0a16f520058c7f06c3766c3bb27361446d995:Assets/Resources/Quests/New Quest.asset.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+=======
+guid: f39b48a0bc99b554685e2caa38766fd5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+>>>>>>> 50e0a16f520058c7f06c3766c3bb27361446d995
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

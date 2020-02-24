@@ -8,6 +8,8 @@ public class Interact : MonoBehaviour
 
     private InteractionUI interactionUI;
 
+    private const int rayLength = 7;
+
     private void Start()
     {
         interactionUI = InteractionUI.Instance;
@@ -15,11 +17,16 @@ public class Interact : MonoBehaviour
 
     private void Update()
     {
+        DetectInteractable();
+    } 
+
+    private void DetectInteractable()
+    {
         RaycastHit hit;
-        if (Physics.Raycast(sourceOfRaycast.position, sourceOfRaycast.TransformDirection(Vector3.forward), out hit, 7))
+        if (Physics.Raycast(sourceOfRaycast.position, sourceOfRaycast.TransformDirection(Vector3.forward), out hit, rayLength))
         {
             Interactable interactable = hit.collider.GetComponent<Interactable>();
-            if(interactable != null)
+            if (interactable != null)
             {
                 interactionUI.typeOfAlert = interactable.type;
                 interactionUI.ToggleAlert(true);
@@ -33,5 +40,5 @@ public class Interact : MonoBehaviour
         {
             interactionUI.ToggleAlert(false);
         }
-    } 
+    }
 }

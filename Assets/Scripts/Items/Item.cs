@@ -8,16 +8,10 @@ public class Item : ScriptableObject
     new public string name;
     public int cost;
 
-    public static int itemsCount = 0;
-
     public Sprite icon;
 
-    private void Awake()
-    {
-        itemsCount++;
-        this.id = itemsCount;
-    }
-
     public virtual void Use() { }
+
+    
 }
 

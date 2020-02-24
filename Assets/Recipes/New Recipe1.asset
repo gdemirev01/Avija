@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8667585579ac644b4b70e1ca0ffd70, type: 3}
   m_Name: New Recipe1
   m_EditorClassIdentifier: 
-  id: 1
+  id: 4
   name: Recipe1
   cost: 100
   icon: {fileID: 21300000, guid: 4ad4ac33214e686468187e4bf1bd1621, type: 3}
   materials:
-  - item: {fileID: 11400000, guid: 9bb3224fc25fc6446a1537107dc5d635, type: 2}
+  - item: {fileID: 11400000, guid: fe566ef0f030e60468679ffeea1f0cd6, type: 2}
     amount: 1
   - item: {fileID: 11400000, guid: 2722cc43601d57946ba8e4e3ec851448, type: 2}
     amount: 1
   resultItem:
-    item: {fileID: 11400000, guid: 2722cc43601d57946ba8e4e3ec851448, type: 2}
+    item: {fileID: 11400000, guid: 20a6964345f32234990aafe529f8abfa, type: 2}
     amount: 10

@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1448601523261698858}
   - component: {fileID: 1448601523261698857}
-  - component: {fileID: 1448601523261698856}
   - component: {fileID: 1448601523261698859}
   m_Layer: 0
   m_Name: Main Camera
@@ -107,23 +106,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1448601523261698856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448601523261698861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf8ec85b2899d14eb44ff6f200b834d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1448601523048575213}
-  player: {fileID: 1448601524015178496}
-  minDistance: 7
-  maxDistance: 30
-  rayDistance: 0
 --- !u!81 &1448601523261698859
 AudioListener:
   m_ObjectHideFlags: 0
@@ -199,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Player
   health: 100
+  mana: 0
   exp: 0
   level: 1
   coins: 1000
@@ -231,8 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645b4bf126437c74d861bc81c8dbea15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 1448601524835945044}
-  interactionUI: {fileID: 0}
+  sourceOfRaycast: {fileID: 1448601524835945044}
 --- !u!114 &9071727378654345936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,7 +3392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 966801436454d2c48b49f16bd07400fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerWeapon: {fileID: 0}
 --- !u!1 &1448601524835945047
 GameObject:
   m_ObjectHideFlags: 0
@@ -6546,7 +6527,6 @@ GameObject:
   - component: {fileID: 1448601525096724543}
   - component: {fileID: 1448601525096724539}
   - component: {fileID: 1448601525096724538}
-  - component: {fileID: 1448601525096724536}
   - component: {fileID: 1448601525096724537}
   m_Layer: 0
   m_Name: Combat
@@ -6586,6 +6566,7 @@ MonoBehaviour:
   weaponOnSpine: {fileID: 1448601524449753983}
   playerMovement: {fileID: 1448601524606107848}
   dealDamage: {fileID: 9071727378654345936}
+  spellsController: {fileID: 0}
   blocking: 0
   inBattle: 0
 --- !u!114 &1448601525096724538
@@ -6601,21 +6582,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1448601524606107850}
---- !u!114 &1448601525096724536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448601525096724542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a5bb79de6596a3429c5b77764b4ceaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 7605348143667042169, guid: 340eab425c0596b429797cdb0870d126,
-    type: 3}
-  spawnPosition: {fileID: 7163607499918564686}
 --- !u!114 &1448601525096724537
 MonoBehaviour:
   m_ObjectHideFlags: 0

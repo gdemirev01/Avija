@@ -49,6 +49,7 @@ public class QuestGiver : Interactable
         }
         else
         {
+            interactionUI.TogglePanel(true);
             interactionUI.LoadInfoInPanel(quest);
         }
     }

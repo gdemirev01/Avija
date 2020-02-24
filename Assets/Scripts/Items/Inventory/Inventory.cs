@@ -17,6 +17,8 @@ public class Inventory : IItemContainer
         {
             this.AddItem(item);
         }
+
+        onItemChangedCallback.Invoke();
     }
 
     public int ItemCount(Item item)

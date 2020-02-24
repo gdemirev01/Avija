@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111da10dd8f64a649a7ab08daacca914, type: 3}
   m_Name: Helmet
   m_EditorClassIdentifier: 
-  id: 1
+  id: 5
   name: Helmet
   cost: 20
-  icon: {fileID: 21300000, guid: 225776f610369a24f94a5f04905699a6, type: 3}
+  icon: {fileID: 21300000, guid: fd6e4fc32c78509458fc45ea4a478ba8, type: 3}
   equipSlot: 0
   armorModifier: 10
   damageModifier: 0

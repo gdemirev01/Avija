@@ -23,7 +23,7 @@ public class EquipmentController : Singleton<EquipmentController>
     private void Start()
     {
         inventory = PlayerManager.Instance.inventory;
-
+        
         playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
 
         onEquipmentChanged += UpdateStats;

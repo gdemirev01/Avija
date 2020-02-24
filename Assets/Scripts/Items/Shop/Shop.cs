@@ -10,6 +10,7 @@ public class Shop : Interactable
     private Inventory inventory;
 
     private CharacterProps playerProps;
+    private PlayerManager playerManager;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class Shop : Interactable
     private void Start()
     {
         playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
+        playerManager = PlayerManager.Instance;
         inventory.onItemChangedCallback += ShopUI.Instance.UpdatePanel;
     }
 
@@ -38,7 +40,7 @@ public class Shop : Interactable
         coins += item.cost;
         playerProps.coins -= item.cost;
 
-        PlayerManager.Instance.inventory.AddItem(item);
+        playerManager.inventory.AddItem(item);
 
         RemoveItemFromShop(item);
     }
@@ -54,7 +56,7 @@ public class Shop : Interactable
         coins -= item.cost;
         playerProps.coins += item.cost;
 
-        PlayerManager.Instance.inventory.RemoveItem(item);
+        playerManager.inventory.RemoveItem(item);
         inventory.AddItem(item);
     }
 

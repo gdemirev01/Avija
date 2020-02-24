@@ -49,7 +49,7 @@ public class Blacksmith : Interactable
             UIController.Instance.SetAlertMessage("not enough money");
         }
 
-        if (playerInventory.ContainsAllItems(chosenRecipe.materials.ToArray()))
+        if (!playerInventory.ContainsAllItems(chosenRecipe.materials.ToArray()))
         {
             UIController.Instance.SetAlertMessage("missing items");
         }

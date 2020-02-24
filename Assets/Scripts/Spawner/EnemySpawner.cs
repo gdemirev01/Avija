@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnEnemy(1);
+        SpawnEnemy(5);
     }
 
     private void OnDrawGizmos()

@@ -48,28 +48,31 @@ public class InteractionUI : Singleton<InteractionUI>, IStaticPanel
     public void LoadQuestDetails(Quest quest)
     {
         questDescription.GetComponent<TextMeshProUGUI>().text = quest.text;
-        coins.text = quest.reward.coins.ToString();
-        exp.text = quest.reward.exp.ToString();
+        coins.text = "Coins " + quest.reward.coins.ToString();
+        exp.text = "EXP " + quest.reward.exp.ToString();
         goals.text = quest.goal.GetCurrentChoice().ToString();
 
+        string state = questController.QuestAlreadyActive(quest) ? "Completed" : "Accept";
+
         acceptQuestButton.gameObject.SetActive(true);
+        acceptQuestButton.GetComponentInChildren<Text>().text = state;
+        acceptQuestButton.onClick.AddListener(() =>
+        {
+            TogglePanel(false);
+        });
 
         if (!questController.QuestAlreadyActive(quest))
         {
-            acceptQuestButton.GetComponentInChildren<Text>().text = "Accept";
             acceptQuestButton.onClick.AddListener(() =>
             {
                 questController.AddQuest(quest);
-                TogglePanel(false);
             });
         }
         else if(quest.done)
         {
-            acceptQuestButton.GetComponentInChildren<Text>().text = "Completed";
             acceptQuestButton.onClick.AddListener(() =>
             {
                 questController.CompleteQuest(quest);
-                TogglePanel(false);
             });
         }
         else
@@ -100,10 +103,9 @@ public class InteractionUI : Singleton<InteractionUI>, IStaticPanel
     public void LoadInfoInPanel(ScriptableObject info)
     {
         var quest = info as Quest;
-
+        
         if (!questController.QuestAlreadyActive(quest))
         {
-            TogglePanel(true);
             LoadQuestDetails(quest);
         }
         else
@@ -113,15 +115,11 @@ public class InteractionUI : Singleton<InteractionUI>, IStaticPanel
                 choiceUI.LoadInfoInPanel(quest);
                 choiceUI.TogglePanel(true);
                 TogglePanel(false);
+                return;
             }
             else if (quest.goal.GetCurrentChoice().ReachedEndOfGoal())
             {
                 quest.done = true;
-                TogglePanel(true);
-            }
-            else
-            {
-                TogglePanel(true);
             }
             LoadQuestDetails(quest);
         }
