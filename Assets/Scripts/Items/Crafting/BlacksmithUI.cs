@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 public class BlacksmithUI : Singleton<BlacksmithUI>, IStaticPanel, IDynamicPanel
@@ -51,6 +49,11 @@ public class BlacksmithUI : Singleton<BlacksmithUI>, IStaticPanel, IDynamicPanel
     {
         ItemSlot[] slots = uiController.CreateSlots<ItemSlot>(recipes, recipePrefab, currentBlacksmith.recipes.Count);
         uiController.LoadItemsToSlots(slots, currentBlacksmith.recipes.Select(r => new ItemAmount(r, 1)).ToArray());
+
+        if (currentBlacksmith != null && currentBlacksmith.recipes.Count > 0)
+        {
+            LoadInfoInPanel(currentBlacksmith.recipes[0]);
+        }
     }
 
     public void LoadInfoInPanel(ScriptableObject info)

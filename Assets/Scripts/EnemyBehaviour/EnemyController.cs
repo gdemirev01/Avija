@@ -41,9 +41,14 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        DetectPlayer();
+    }
+
+    void DetectPlayer()
+    {
         float distance = Vector3.Distance(transform.position, target.transform.position);
 
-        if(agent.isOnOffMeshLink)
+        if (agent.isOnOffMeshLink)
         {
             animator.SetTrigger("jump");
         }
@@ -52,7 +57,7 @@ public class EnemyController : MonoBehaviour
             animator.ResetTrigger("jump");
         }
 
-        if(distance <= lookRadius)
+        if (distance <= lookRadius)
         {
             agent.SetDestination(target.position);
             animator.SetBool("walking", false);
@@ -64,7 +69,7 @@ public class EnemyController : MonoBehaviour
 
                 FaceTarget();
 
-                if(!timer.timerRunning)
+                if (!timer.timerRunning)
                 {
                     timer.RestartTimer();
                 }

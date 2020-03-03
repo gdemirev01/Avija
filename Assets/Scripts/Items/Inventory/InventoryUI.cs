@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InventoryUI : Singleton<InventoryUI>, IDynamicPanel
 {
-
     private Inventory inventory;
     private UIController uiController;
-    
+    private CharacterProps characterProps;
+
+    [SerializeField]
+    private GameObject inventoryPanel;
+
     [SerializeField]
     private GameObject itemsParent;
 
@@ -14,6 +18,9 @@ public class InventoryUI : Singleton<InventoryUI>, IDynamicPanel
     private GameObject slotPrefab;
     
     private List<InventorySlot> slots;
+
+    [SerializeField]
+    private TextMeshProUGUI coins;
 
     public override void Awake()
     {
@@ -25,6 +32,7 @@ public class InventoryUI : Singleton<InventoryUI>, IDynamicPanel
     void Start()
     {
         inventory = PlayerManager.Instance.inventory;
+        characterProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
         uiController = UIController.Instance;
 
         inventory.onItemChangedCallback += UpdatePanel;
@@ -55,16 +63,17 @@ public class InventoryUI : Singleton<InventoryUI>, IDynamicPanel
                 slots[i].ClearSlot();
             }
         }
+        coins.text = characterProps.coins.ToString();
     }
 
     public void TogglePanelWithButton()
     {
-        uiController.TogglePanelAuto(itemsParent);
+        uiController.TogglePanelAuto(inventoryPanel);
     }
 
     public void TogglePanel(bool state)
     {
-        uiController.TogglePanel(itemsParent, state);
+        uiController.TogglePanel(inventoryPanel, state);
     }
 
     public void ClearPanel()

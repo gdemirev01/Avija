@@ -2,9 +2,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInfoUI : MonoBehaviour
+public class InfoPanel : MonoBehaviour
 {
-    private CharacterProps playerProps;
+    [SerializeField]
+    private CharacterProps props;
 
     [SerializeField]
     private Slider health;
@@ -17,7 +18,7 @@ public class PlayerInfoUI : MonoBehaviour
 
     void Start()
     {
-        playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
+        props = PlayerManager.Instance.player.GetComponent<CharacterProps>();
         InitializeInfo();
     }
 
@@ -31,17 +32,17 @@ public class PlayerInfoUI : MonoBehaviour
         health.minValue = 0;
         mana.minValue = 0;
 
-        health.maxValue = playerProps.health;
-        mana.maxValue = playerProps.mana;
+        health.maxValue = props.health;
+        mana.maxValue = props.mana;
 
-        level.text = playerProps.level.ToString();
+        level.text = "1";
     }
 
     private void UpdateInfo()
     {
-        health.value = playerProps.health;
-        mana.value = playerProps.mana;
+        health.value = props.health;
+        mana.value = props.mana;
 
-        level.text = playerProps.level.ToString();
+        level.text = props.level.ToString();
     }
 }

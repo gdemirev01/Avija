@@ -5,13 +5,13 @@
 public class Item : ScriptableObject
 {
     public int id;
+    
     new public string name;
+    
     public int cost;
 
     public Sprite icon;
 
     public virtual void Use() { }
-
-    
 }
 
