@@ -51,9 +51,9 @@ public class ReceiveHit : MonoBehaviour
             damage = 0; 
         }
 
-        characterProps.health -= damage;
+        characterProps.currentHealth -= damage;
 
-        if (characterProps.health <= 0)
+        if (characterProps.currentHealth <= 0)
         {
             Die();
         }

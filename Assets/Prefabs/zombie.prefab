@@ -1759,10 +1759,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: zombie
-  health: 30
+  currentHealth: 50
+  maxHealth: 50
   mana: 0
   exp: 0
-  level: 0
+  level: 1
   coins: 0
   damage: 50
   armor: 0

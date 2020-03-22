@@ -3,7 +3,8 @@
 public class CharacterProps : MonoBehaviour 
 {
     new public string name;
-    public float health;
+    public float currentHealth;
+    public float maxHealth;
     public float mana;
     public float exp;
     public int level;
