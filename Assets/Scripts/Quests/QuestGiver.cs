@@ -2,7 +2,6 @@
 
 public class QuestGiver : Interactable
 {
-    [HideInInspector]
     public Quest quest;
 
     private QuestController questController;

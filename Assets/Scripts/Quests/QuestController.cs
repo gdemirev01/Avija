@@ -89,6 +89,14 @@ public class QuestController : Singleton<QuestController>
         onQuestChangeCallback.Invoke();
     }
 
+    public void AddQuests(Quest[] quests)
+    {
+        for(int i = 0; i < quests.Length; i++)
+        {
+            AddQuest(quests[i]);
+        }
+    }
+
     public void CompleteQuest(Quest quest)
     {
         levelController.AddExp(quest.reward.exp);
@@ -103,13 +111,15 @@ public class QuestController : Singleton<QuestController>
         completedQuests.Add(quest);
 
         var nextQuest = quest.GetNextQuest();
-        if(nextQuest.done)
+        if (nextQuest != null)
         {
-            CompleteQuest(nextQuest);
-            return;
+            if (nextQuest.done)
+            {
+                CompleteQuest(nextQuest);
+                return;
+            }
+            LoadToGiver(nextQuest);
         }
-
-        LoadToGiver(nextQuest);
 
         questUI.ClearPanel();
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SaveSystem : Singleton<SaveSystem>
@@ -8,16 +9,13 @@ public class SaveSystem : Singleton<SaveSystem>
     private GameObject player;
     private CharacterProps playerProps;
     private PlayerManager playerManager;
-
-    public override void Awake()
-    {
-        base.Awake();
-    }
+    private QuestController questController;
 
     private void Start()
     {
         player = PlayerManager.Instance.player;
         playerManager = PlayerManager.Instance;
+        questController = QuestController.Instance;
     }
 
     private Dictionary<int, int> GetItemsForSave(ItemAmount[] items)
@@ -42,27 +40,6 @@ public class SaveSystem : Singleton<SaveSystem>
         return itemsForSave;
     }
 
-    private List<int> GetEquipmentID(Equipment[] equipment)
-    {
-        List<int> itemsID = new List<int>();
-
-        if (equipment.Length == 0) 
-        { 
-            return itemsID;
-        }
-
-        foreach (Equipment item in equipment)
-        {
-            if (item == null)
-            { 
-                continue; 
-            }
-            itemsID.Add(item.id);
-        }
-
-        return itemsID;
-    }
-
     private List<Item> FindItems(List<int> items)
     {
         Item[] savedItems = Resources.LoadAll<Item>("Items");
@@ -76,6 +53,25 @@ public class SaveSystem : Singleton<SaveSystem>
                 if (items[i] == item.id)
                 {
                     result.Add(item);
+                }
+            }
+        }
+        return result;
+    }
+
+    private List<Quest> FindQuests(int[] quests)
+    {
+        Quest[] activeQuests = Resources.LoadAll<Quest>("Quests");
+
+        List<Quest> result = new List<Quest>();
+
+        for (int i = 0; i < quests.Length; i++)
+        {
+            foreach (Quest quest in activeQuests)
+            {
+                if (quests[i] == quest.id)
+                {
+                    result.Add(quest);
                 }
             }
         }
@@ -114,6 +110,9 @@ public class SaveSystem : Singleton<SaveSystem>
         var savedEquipment = FindItems(playerData.equipment);
         EquipmentController.Instance.EquipListOfItems(savedEquipment);
 
+        var activeQuests = FindQuests(playerData.quests);
+        QuestController.Instance.AddQuests(activeQuests.ToArray());
+
         player.transform.GetChild(0).position = new Vector3(playerData.position[0], playerData.position[1] + 1, playerData.position[2]);
     }
 
@@ -129,9 +128,14 @@ public class SaveSystem : Singleton<SaveSystem>
 
         var list = playerManager.inventory.items;
         var inventoryItems = GetItemsForSave(list.ToArray());
-        var equipment = GetEquipmentID(EquipmentController.Instance.currentEquipment);
 
-        playerData = new PlayerData(playerProps.exp, playerProps.level, playerProps.coins, inventoryItems, equipment, position, playerProps.damage, playerProps.armor);
+        var currentEquipment = EquipmentController.Instance.currentEquipment.ToList();
+        currentEquipment.RemoveAll(Item => Item == null);
+        var equipment = currentEquipment.Select(e => e.id).ToList();
+
+        var quests = questController.GetQuests().Select((q) => q.id).ToArray();
+
+        playerData = new PlayerData(playerProps.exp, playerProps.level, playerProps.coins, inventoryItems, equipment, quests, position, playerProps.damage, playerProps.armor);
         BinarySerializer.SavePlayerProgress(playerData);
     }
 
@@ -139,7 +143,7 @@ public class SaveSystem : Singleton<SaveSystem>
     {
         if (playerData == null)
         {
-            QuestController.Instance.ResetAllQuests();
+            questController.ResetAllQuests();
             return;
         }
 
