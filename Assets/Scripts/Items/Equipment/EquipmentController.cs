@@ -49,7 +49,7 @@ public class EquipmentController : Singleton<EquipmentController>
         }
     }
 
-    public void EquipListOfItems(List<Item> items)
+    public void EquipListOfItems(List<Equipment> items)
     {
         foreach(Equipment item in items)
         {

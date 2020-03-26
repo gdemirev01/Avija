@@ -2,7 +2,6 @@
 
 public class Blacksmith : Interactable
 {
-
     private CharacterProps playerProps;
     private Inventory playerInventory;
 
@@ -40,13 +39,11 @@ public class Blacksmith : Interactable
                 PlayerManager.Instance.inventory.AddItem(chosenRecipe.resultItem.item);
             }
         }
-
-        if (playerProps.coins < chosenRecipe.cost)
+        else if (playerProps.coins < chosenRecipe.cost)
         {
             UIController.Instance.SetAlertMessage("not enough money");
         }
-
-        if (!playerInventory.ContainsAllItems(chosenRecipe.materials.ToArray()))
+        else if (!playerInventory.ContainsAllItems(chosenRecipe.materials.ToArray()))
         {
             UIController.Instance.SetAlertMessage("missing items");
         }

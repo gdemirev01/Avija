@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class InfoPanel : MonoBehaviour
 {
-    [SerializeField]
     private CharacterProps props;
 
     [SerializeField]

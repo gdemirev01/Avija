@@ -58,23 +58,42 @@ public class QuestController : Singleton<QuestController>
         }
     }
 
-    public void LoadToGiver(Quest nextQuest)
+    private QuestGiver FindGiver(string name)
     {
-        if (nextQuest.giver == null)
-        {
-            return;
-        }
-
         foreach (Transform npc in NPCs.transform)
         {
             CharacterProps props = npc.gameObject.GetComponent<CharacterProps>();
 
-            if (props.name.Equals(nextQuest.giver))
+            if (props.name.Equals(name))
             {
-                npc.gameObject.GetComponent<QuestGiver>().LoadQuest(nextQuest);
-                return;
+                var questGiver = npc.gameObject.GetComponent<QuestGiver>();
+                return questGiver;
             }
         }
+
+        return null;
+    }
+
+    public void LoadToGiver(Quest quest)
+    {
+        if (quest.giver == null)
+        {
+            return;
+        }
+
+        var giver = FindGiver(quest.giver);
+        giver.LoadQuest(quest);
+    }
+
+    private void ClearGiver(Quest quest)
+    {
+        if (quest == null || quest.giver == null)
+        {
+            return;
+        }
+
+        var giver = FindGiver(quest.giver);
+        giver.LoadQuest(null);
     }
     
     public void AddQuest(Quest quest)
@@ -119,6 +138,10 @@ public class QuestController : Singleton<QuestController>
                 return;
             }
             LoadToGiver(nextQuest);
+        }
+        else
+        {
+            ClearGiver(quest);
         }
 
         questUI.ClearPanel();

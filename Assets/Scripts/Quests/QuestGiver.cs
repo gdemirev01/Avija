@@ -17,7 +17,7 @@ public class QuestGiver : Interactable
         questController = QuestController.Instance;
         interactionUI = InteractionUI.Instance;
 
-        if (quest.done)
+        if (quest != null && quest.done)
         {
             LoadNextQuest();
         }

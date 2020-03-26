@@ -15,12 +15,12 @@ MonoBehaviour:
   text: Lower their numbers
   type: 0
   quantity: 3
-  progress: 0
+  progress: 3
   target: zombie
-  done: 0
+  done: 1
   weight: 10
-  choice: {fileID: 0}
-  nextGoalText: Do you want to kill some more or talk with the General?
+  choice: {fileID: 11400000, guid: 6029cf1b421ce1045a60241dcd765756, type: 2}
+  nextGoalText: Do you want to kill some more or talk with Go6o?
   options:
-  - {fileID: 11400000, guid: fd4ace01bc64b604b98e183e0e0d79f2, type: 2}
-  - {fileID: 11400000, guid: 57383f92588958e4e9af93ac87fffbbd, type: 2}
+  - {fileID: 11400000, guid: 420502dcf1c25044f9e5f0e871a630b2, type: 2}
+  - {fileID: 11400000, guid: 6029cf1b421ce1045a60241dcd765756, type: 2}

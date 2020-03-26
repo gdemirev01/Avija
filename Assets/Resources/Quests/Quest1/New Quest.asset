@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
   m_Name: New Quest
   m_EditorClassIdentifier: 
-  id: 1
+  id: 2
   name: Initial quest
   giver: Simko
   text: Excuse me, adventurer. Would you lend me your aid.  The time to strike is
@@ -24,7 +24,7 @@ MonoBehaviour:
     what I can pay isn't less than what's fair either. Good luck hero, not that you
     need it, but a little extra won't hurt.
   done: 1
-  goal: {fileID: 11400000, guid: 6cb49a806b437ac45bffd359aa76a8dc, type: 2}
+  goal: {fileID: 11400000, guid: c227987a333f2dd458b3d4ba6073b835, type: 2}
   reward:
     coins: 100
     exp: 10000

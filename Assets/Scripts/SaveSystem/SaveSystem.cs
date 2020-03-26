@@ -40,15 +40,16 @@ public class SaveSystem : Singleton<SaveSystem>
         return itemsForSave;
     }
 
-    private List<Item> FindItems(List<int> items)
+    private List<T> FindItems<T>(List<int> items)
+        where T : Item
     {
-        Item[] savedItems = Resources.LoadAll<Item>("Items");
+        T[] savedItems = Resources.LoadAll<T>("Items");
 
-        List<Item> result = new List<Item>();
+        List<T> result = new List<T>();
 
         for (int i = 0; i < items.Count; i++)
         {
-            foreach (Item item in savedItems)
+            foreach (T item in savedItems)
             {
                 if (items[i] == item.id)
                 {
@@ -104,10 +105,10 @@ public class SaveSystem : Singleton<SaveSystem>
         playerProps.damage = playerData.damage;
         playerProps.armor = playerData.armor;
 
-        var savedItems = FindItems(MultiplyItems(playerData.items));
+        var savedItems = FindItems<Item>(MultiplyItems(playerData.items));
         playerManager.inventory.AddListOfItems(savedItems);
 
-        var savedEquipment = FindItems(playerData.equipment);
+        var savedEquipment = FindItems<Equipment>(playerData.equipment);
         EquipmentController.Instance.EquipListOfItems(savedEquipment);
 
         var activeQuests = FindQuests(playerData.quests);
