@@ -51,7 +51,7 @@ public class Goal : ScriptableObject
 
     public bool MustChoose()
     {
-        return done && choice == null && options.Count > 0;
+        return done && choice == null && options.Count > 1;
     }
 
     public bool ReachedEndOfGoal()

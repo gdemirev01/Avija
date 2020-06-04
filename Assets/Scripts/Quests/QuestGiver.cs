@@ -21,6 +21,7 @@ public class QuestGiver : Interactable
         {
             LoadNextQuest();
         }
+
     }
 
     public Quest GetQuest()
@@ -61,10 +62,13 @@ public class QuestGiver : Interactable
         }
 
         this.quest = quest.GetNextQuest();
-        if (this.quest != null && this.quest.done)
+        if (this.quest != null)
         {
-            LoadNextQuest();
-            return;
+            if (this.quest.done)
+            {
+                LoadNextQuest();
+                return;
+            }
         }
     }
 }

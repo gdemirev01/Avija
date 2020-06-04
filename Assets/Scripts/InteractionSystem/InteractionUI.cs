@@ -110,14 +110,15 @@ public class InteractionUI : Singleton<InteractionUI>, IStaticPanel
         }
         else
         {
-            if (quest.goal.GetCurrentChoice().MustChoose())
+            Goal goal = quest.goal.GetCurrentChoice();
+            if (goal.MustChoose())
             {
                 choiceUI.LoadInfoInPanel(quest);
                 choiceUI.TogglePanel(true);
                 TogglePanel(false);
                 return;
             }
-            else if (quest.goal.GetCurrentChoice().ReachedEndOfGoal())
+            else if (goal.ReachedEndOfGoal())
             {
                 quest.done = true;
             }

@@ -21,20 +21,34 @@ public class Inventory : IItemContainer
         onItemChangedCallback.Invoke();
     }
 
+    private ItemAmount FindItem(Item item)
+    {
+        foreach(ItemAmount i in items)
+        {
+            if(i.item.Equals(item))
+            {
+                return i;
+            }
+        }
+        return null;
+    }
+
     public int ItemCount(Item item)
     {
-        return items.Select((i => i.item)).Count(i => i.Equals(item));
+        var itemsCpy = items;
+        var itemInInventory = FindItem(item);
+        return itemInInventory == null ? 0 : itemInInventory.amount;
     }
 
     public bool ContainsItem(Item item)
     {
-        return items.Select((i => i.item)).Contains(item) ? true : false;
+        return FindItem(item) != null ? true : false;
     }
 
     public bool ContainsAllItems(ItemAmount[] itemsToCheck)
     {        foreach (ItemAmount item in itemsToCheck)
         {
-            if(ItemCount(item.item) != item.amount)
+            if (ItemCount(item.item) < item.amount)
             {
                 return false;
             }

@@ -4,6 +4,7 @@ public class Blacksmith : Interactable
 {
     private CharacterProps playerProps;
     private Inventory playerInventory;
+    private QuestController questController;
 
     public List<Recipe> recipes;
     public Recipe chosenRecipe;
@@ -17,6 +18,7 @@ public class Blacksmith : Interactable
     {
         playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
         playerInventory = PlayerManager.Instance.inventory;
+        questController = QuestController.Instance;
     }
 
     public override void Interact()
@@ -24,6 +26,8 @@ public class Blacksmith : Interactable
         BlacksmithUI.Instance.SetBlacksmith(this);
         BlacksmithUI.Instance.UpdatePanel();
         BlacksmithUI.Instance.TogglePanel(true);
+
+        questController.SendProgressForQuest("Blacksmith");
     }
 
     public void Craft()

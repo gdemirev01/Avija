@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
+  m_Name: Initial Quest
+  m_EditorClassIdentifier: 
+  id: 4
+  name: Initial quest
+  giver: Simko
+  text: Excuse me, adventurer. Would you lend me your aid.  The time to strike is
+    now, but we're low on manpower, so I need you to join us. If we don't strike now,
+    we'll never get rid of them. Join us and fight those terrible miscreants. If you
+    don't mind, I'd like to come along. It's your choice though. Please, take care
+    of those miscreants. Try to take down as many of them as possible, the less of
+    a threat they pose the better.  I wish I could pay you far more than I can, but
+    what I can pay isn't less than what's fair either. Good luck hero, not that you
+    need it, but a little extra won't hurt.
+  done: 0
+  goal: {fileID: 11400000, guid: 6029cf1b421ce1045a60241dcd765756, type: 2}
+  reward:
+    coins: 100
+    exp: 1000
+    item: {fileID: 0}
+  nextQuests: []

@@ -54,6 +54,11 @@ public class QuestController : Singleton<QuestController>
                     goal.progress = goal.quantity;
                     goal.done = true;
                 }
+
+                if (goal.options.Count == 1 && goal.done)
+                {
+                    goal.choice = goal.options[0];
+                }
             }
         }
     }

@@ -1765,7 +1765,7 @@ MonoBehaviour:
   exp: 0
   level: 1
   coins: 0
-  damage: 50
+  damage: 100
   armor: 0
   lines: 
 --- !u!195 &5483200212836081959
@@ -1778,8 +1778,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 5
-  m_Acceleration: 20
+  m_Speed: 2
+  m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 6.09

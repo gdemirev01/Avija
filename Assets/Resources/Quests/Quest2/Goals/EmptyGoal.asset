@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928ac785593679c4ea45fff7509ef43d, type: 3}
+  m_Name: EmptyGoal
+  m_EditorClassIdentifier: 
+  text: Hello, adventurer! I lost my staff somewhere around here. Can you find it?
+  type: 2
+  quantity: 1
+  progress: 0
+  target: Staff
+  done: 0
+  weight: 0
+  choice: {fileID: 0}
+  nextGoalText: Thanks for the help! Now, do you want to upgrade your armor or go
+    straight to the monsters in the woods?
+  options:
+  - {fileID: 11400000, guid: 0dee21a6d38932241bcb760633acf5c4, type: 2}
+  - {fileID: 11400000, guid: ff1a5b2d5faccf746adf9795a9bed374, type: 2}

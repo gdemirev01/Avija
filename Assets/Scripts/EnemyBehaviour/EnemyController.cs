@@ -63,8 +63,11 @@ public class EnemyController : MonoBehaviour
             animator.SetBool("walking", false);
             animator.SetBool("running", true);
 
+            agent.speed = 5;
+
             if (distance <= agent.stoppingDistance)
             {
+                agent.speed = 2;
                 animator.SetBool("running", false);
 
                 FaceTarget();
@@ -104,6 +107,9 @@ public class EnemyController : MonoBehaviour
         {
             direction = transform.position + new Vector3(Random.Range(-spawner.size.x / 2, spawner.size.x / 2), Random.Range(-spawner.size.y / 2, spawner.size.y / 2), Random.Range(-spawner.size.z / 2, spawner.size.z / 2));
         }
+
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
 
     public void EnableAttack()

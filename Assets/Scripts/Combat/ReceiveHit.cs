@@ -64,8 +64,10 @@ public class ReceiveHit : MonoBehaviour
         animator.SetTrigger("die");
         GetComponent<Collider>().enabled = false;
 
-        if(this.tag.Equals("Player"))
+        if(this.tag.Equals("PlayerCollider"))
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadScene("DeathScreen", LoadSceneMode.Single);
             return;
         }

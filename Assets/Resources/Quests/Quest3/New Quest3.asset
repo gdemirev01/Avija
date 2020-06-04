@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
   m_Name: New Quest3
   m_EditorClassIdentifier: 
-  id: 3
-  name: Quest 2.2
-  giver: Simko
+  id: 1
+  name: Kill the zombies
+  giver: Mage
   text: Quest 2.2 Description
   done: 0
-  goal: {fileID: 11400000, guid: 9646c9623e0d9f142992da48bbf52fa6, type: 2}
+  goal: {fileID: 11400000, guid: ff1a5b2d5faccf746adf9795a9bed374, type: 2}
   reward:
     coins: 100
-    exp: 10000
+    exp: 2000
     item: {fileID: 0}
   nextQuests: []

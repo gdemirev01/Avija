@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickupItems : Interactable
 {
     public Item item;
-    public QuestController questController;
+    private QuestController questController;
 
     private Inventory inventory;
 
@@ -17,6 +17,7 @@ public class PickupItems : Interactable
     private void Start()
     {
         inventory = PlayerManager.Instance.inventory;
+        questController = QuestController.Instance;
     }
 
     public override void Interact()
