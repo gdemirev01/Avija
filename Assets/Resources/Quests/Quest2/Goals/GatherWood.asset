@@ -15,11 +15,11 @@ MonoBehaviour:
   text: Craft armor
   type: 2
   quantity: 5
-  progress: 3
+  progress: 0
   target: Wood
-  done: 1
-  weight: 10
-  choice: {fileID: 11400000, guid: 19981512246a4854880b972b5617f957, type: 2}
+  done: 0
+  weight: -10
+  choice: {fileID: 0}
   nextGoalText: 
   options:
   - {fileID: 11400000, guid: 19981512246a4854880b972b5617f957, type: 2}

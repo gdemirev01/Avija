@@ -20,8 +20,8 @@ MonoBehaviour:
   done: 0
   weight: 0
   choice: {fileID: 0}
-  nextGoalText: Thanks for the help! Now, do you want to upgrade your armor or go
-    straight to the monsters in the woods?
+  nextGoalText: Thanks for the help. Now you must choose. Do you want to fight like
+    this, or you want to craft better equipment first?
   options:
   - {fileID: 11400000, guid: 0dee21a6d38932241bcb760633acf5c4, type: 2}
   - {fileID: 11400000, guid: ff1a5b2d5faccf746adf9795a9bed374, type: 2}

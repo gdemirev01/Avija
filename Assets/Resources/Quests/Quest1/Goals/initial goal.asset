@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928ac785593679c4ea45fff7509ef43d, type: 3}
   m_Name: initial goal
   m_EditorClassIdentifier: 
-  text: Please, can you find my book? I left it behind the house.
-  type: 2
+  text: 
+  type: 1
   quantity: 1
-  progress: 1
-  target: Book
-  done: 1
+  progress: 0
+  target: Mage
+  done: 0
   weight: 20
   choice: {fileID: 0}
   nextGoalText: 

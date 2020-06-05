@@ -18,7 +18,7 @@ MonoBehaviour:
   progress: 0
   target: Iron
   done: 0
-  weight: 10
+  weight: -10
   choice: {fileID: 0}
   nextGoalText: 
   options:

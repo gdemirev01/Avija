@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: New Quest3
   m_EditorClassIdentifier: 
   id: 1
-  name: Kill the zombies
+  name: Zombies
   giver: Mage
-  text: Quest 2.2 Description
+  text: Attack the monsters near the woods, before they reach the village.
   done: 0
   goal: {fileID: 11400000, guid: ff1a5b2d5faccf746adf9795a9bed374, type: 2}
   reward:

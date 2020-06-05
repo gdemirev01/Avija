@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
   m_Name: Gather resources quest
   m_EditorClassIdentifier: 
-  id: 5
+  id: 8
   name: Resources
   giver: Mage
-  text: Help me kill these zombies
+  text: So the knight sent you? The monsters are not far from the village. But I can't
+    find without my staff. Can you find it for me? I left it somewhere around the
+    lake.
   done: 0
   goal: {fileID: 11400000, guid: 3a1b4046253453945968d11a5f610698, type: 2}
   reward:

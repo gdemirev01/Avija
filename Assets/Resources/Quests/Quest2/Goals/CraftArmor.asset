@@ -18,7 +18,7 @@ MonoBehaviour:
   progress: 0
   target: Blacksmith
   done: 0
-  weight: 100
+  weight: -100
   choice: {fileID: 0}
   nextGoalText: 
   options: []

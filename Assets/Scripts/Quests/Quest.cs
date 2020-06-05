@@ -24,7 +24,7 @@ public class Quest : ScriptableObject
 
     public Quest GetNextQuest()
     {
-        if (!this.done || this.nextQuests.Count < 2)
+        if (!this.done || this.nextQuests.Count < 1)
         { 
             return null;
         }
@@ -37,9 +37,13 @@ public class Quest : ScriptableObject
         {
             nextQuest = this.nextQuests[0];
         }
-        else
+        else if(weight > 0 && this.nextQuests.Count == 2)
         {
             nextQuest = this.nextQuests[1];
+        }
+        else
+        {
+            nextQuest = null;
         }
 
         return nextQuest;

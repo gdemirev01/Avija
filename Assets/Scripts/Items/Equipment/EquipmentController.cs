@@ -83,8 +83,8 @@ public class EquipmentController : Singleton<EquipmentController>
 
     void UpdateStats()
     {
-        playerProps.armor = 0;
-        playerProps.damage = 0;
+        playerProps.armor = 10;
+        playerProps.damage = 10;
 
         foreach (Equipment item in currentEquipment)
         {

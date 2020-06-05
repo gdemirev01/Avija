@@ -12,17 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20ce3eb26dc4e74bb5621d70242511e, type: 3}
   m_Name: Initial Quest
   m_EditorClassIdentifier: 
-  id: 4
+  id: 18
   name: Initial quest
-  giver: Simko
-  text: Excuse me, adventurer. Would you lend me your aid.  The time to strike is
-    now, but we're low on manpower, so I need you to join us. If we don't strike now,
-    we'll never get rid of them. Join us and fight those terrible miscreants. If you
-    don't mind, I'd like to come along. It's your choice though. Please, take care
-    of those miscreants. Try to take down as many of them as possible, the less of
-    a threat they pose the better.  I wish I could pay you far more than I can, but
-    what I can pay isn't less than what's fair either. Good luck hero, not that you
-    need it, but a little extra won't hurt.
+  giver: Knight
+  text: Help us, adventurer! Our village is being attacked by monsters. Go to the
+    lake and find the Mage. He will tell you what to do next.
   done: 0
   goal: {fileID: 11400000, guid: 6029cf1b421ce1045a60241dcd765756, type: 2}
   reward:

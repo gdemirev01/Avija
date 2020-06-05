@@ -8,6 +8,7 @@ public class InputController : Singleton<InputController>
     private PlayerMovement playerMovement;
     private CombatController combatController;
     private UIController uiController;
+    private EnemyInfo enemyInfo;
 
     public Animator animator;
     public DealDamage dealDamage;
@@ -19,6 +20,7 @@ public class InputController : Singleton<InputController>
         playerMovement = transform.GetChild(0).GetComponent<PlayerMovement>();
         uiController = UIController.Instance;
         combatController = CombatController.Instance;
+        enemyInfo = EnemyInfo.Instance;
     }
 
     void Update()
@@ -56,9 +58,10 @@ public class InputController : Singleton<InputController>
         if (Input.GetButtonDown("DrawSword"))
         {
             combatController.ToggleCombatMode();
+            enemyInfo.TogglePanel(false);
         }
 
-        if(Input.GetButtonDown("Block"))
+        if (Input.GetButtonDown("Block"))
         {
             combatController.Block(true);
         }

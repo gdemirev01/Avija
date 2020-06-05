@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
@@ -86,6 +84,7 @@ public class EnemyController : MonoBehaviour
         {
             animator.SetBool("running", false);
             animator.SetBool("walking", true);
+
             agent.SetDestination(direction);
         }
     }
