@@ -144,7 +144,6 @@ public class SaveSystem : Singleton<SaveSystem>
     {
         if (playerData == null)
         {
-            questController.ResetAllQuests();
             return;
         }
 

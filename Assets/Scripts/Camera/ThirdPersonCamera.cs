@@ -25,6 +25,11 @@ public class ThirdPersonCamera : MonoBehaviour
         distance = transform.localPosition.magnitude;
     }
 
+    private void Update()
+    {
+        target.rotation = target.rotation;
+    }
+
     private void LateUpdate()
     {
         CamControl();
@@ -42,10 +47,12 @@ public class ThirdPersonCamera : MonoBehaviour
         inputY -= Input.GetAxis("Mouse Y") * rotationSpeed;
         inputY = Mathf.Clamp(inputY, -35, 60);
 
-        var targetRotation = Quaternion.LookRotation(target.position - transform.position);
 
+        // camera is always rotated in targe's direction
+        var targetRotation = Quaternion.LookRotation(target.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+        // target is rotated with the mouse coords
         target.rotation = Quaternion.Euler(inputY, inputX, 0);
     }
 

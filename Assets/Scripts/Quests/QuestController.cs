@@ -28,6 +28,11 @@ public class QuestController : Singleton<QuestController>
         questUI = QuestUI.Instance;
         playerProps = PlayerManager.Instance.player.GetComponent<CharacterProps>();
         levelController = this.GetComponent<LevelController>();
+
+        if (SaveSystem.playerData == null)
+        {
+            ResetAllQuests();
+        }
     }
 
     public List<Quest> GetQuests()
@@ -123,6 +128,11 @@ public class QuestController : Singleton<QuestController>
 
     public void CompleteQuest(Quest quest)
     {
+        if(completedQuests.Contains(quest))
+        {
+            return;
+        }
+
         levelController.AddExp(quest.reward.exp);
         playerProps.coins += quest.reward.coins;
 

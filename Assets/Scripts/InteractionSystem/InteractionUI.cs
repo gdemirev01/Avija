@@ -54,12 +54,15 @@ public class InteractionUI : Singleton<InteractionUI>, IStaticPanel
 
         string state = questController.QuestAlreadyActive(quest) ? "Completed" : "Accept";
 
+        acceptQuestButton.onClick.RemoveAllListeners();
+
         acceptQuestButton.gameObject.SetActive(true);
         acceptQuestButton.GetComponentInChildren<Text>().text = state;
         acceptQuestButton.onClick.AddListener(() =>
         {
             TogglePanel(false);
         });
+
 
         if (!questController.QuestAlreadyActive(quest))
         {

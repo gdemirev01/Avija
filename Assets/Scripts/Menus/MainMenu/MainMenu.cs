@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
+        SaveSystem.playerData = null;
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
     }
 
